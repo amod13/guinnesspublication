@@ -1,0 +1,196 @@
+/* --- Section Styling --- */
+.amd-footprints {
+    padding: 80px 0;
+    background: rgba(209, 230, 248, 0.4);
+}
+
+/* --- Map Box --- */
+.amd-map-box {
+
+    padding: 20px;
+    background-color: #fff;
+
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    margin-top: 10px;
+}
+
+/* --- Map Wrapper --- */
+.amd-map-wrapper {
+
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+/* --- SVG Map --- */
+.amd-map {
+    width: 100%;
+    height: 600px;
+}
+
+.amd-map path {
+    fill: #cfd8dc;
+    stroke: #37474f;
+    stroke-width: 1;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.amd-map path:hover {
+    fill: var(--amd-primary);
+    stroke: var(--amd-primary);
+    transform: scale(1.01);
+    z-index: 5;
+}
+
+.amd-map-provinces {
+    font-family: "Montaga-Regular";
+    font-size: 1rem;
+    text-decoration: underline;
+}
+
+/* Active district highlight */
+.amd-map path.active {
+    fill: var(--amd-primary-light);
+    stroke: var(--amd-primary);
+}
+
+/* Active districts default highlight */
+.amd-map path.amd-place-active {
+    fill: var(--amd-secondary);
+    /* Default active color */
+    stroke: var(--amd-secondary);
+}
+
+/* Hover effect for all paths */
+.amd-map path:not(.amd-place-active):hover {
+    fill: var(--amd-primary);
+    stroke: var(--amd-primary);
+}
+
+.amd-map path.amd-place-active:hover {
+    fill: var(--amd-primary);
+    /* Hover color for active districts */
+    stroke: var(--amd-primary);
+}
+
+/* --- Tooltip --- */
+.amd-map-tooltip {
+    position: absolute;
+    background: var(--amd-primary);
+    color: #fff;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 13px;
+    display: none;
+    pointer-events: none;
+    white-space: nowrap;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transform: translate(-50%, -120%);
+    transition: top 0.1s, left 0.1s;
+}
+
+/* --- Zoom Controls --- */
+.map-amd-scale-controller {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    gap: 10px;
+    z-index: 10;
+}
+
+.amd-scale-controller {
+    background-color: #fff;
+    border: 1px solid #bdc3c7;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+    font-weight: 300;
+    color: #555;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.amd-scale-controller:hover {
+    background-color: #1565c0;
+    color: #fff;
+    border-color: #1565c0;
+}
+
+/* --- Modal Styles --- */
+.amd-modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
+}
+
+.amd-modal-content {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 20px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    position: relative;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.amd-close-button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.amd-close-button:hover,
+.amd-close-button:focus {
+    color: #000;
+}
+
+/* --- Keyframes --- */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* --- District Card --- */
+#district-card {
+    margin-top: 20px;
+    background: #f5f5f5;
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+    transition: all 0.2s ease;
+}
+
+#district-card h4 {
+    margin-bottom: 8px;
+    font-size: 18px;
+    color: #1565c0;
+}
+
+#district-card p {
+    margin: 0;
+    font-size: 14px;
+    color: #333;
+}
