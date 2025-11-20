@@ -9,6 +9,8 @@ return new class extends Migration {
     {
         Schema::create('books', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('author_id')->nullable();
+            $table->foreign('author_id')->references('id')->on('authors')->onDelete('set null');
             $table->string('language')->default('en');
             $table->string('title');
             $table->string('slug')->nullable()->unique();

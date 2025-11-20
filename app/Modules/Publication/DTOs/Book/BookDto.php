@@ -19,6 +19,7 @@ class BookDto extends BaseDto
     public ?int $display_order;
     public ?string $public_pdf_pages;
     public ?string $highlights;
+    public ?int $author_id;
 
     public function getDataForTable($data): array
     {

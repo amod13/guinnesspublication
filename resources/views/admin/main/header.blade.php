@@ -5,16 +5,9 @@
         <a href="{{ url('/') }}" target="__blank" class="text-decoration-none text-dark"><span class="amd-page-title">View Site</span></a>
     </div>
 
-    <div class="search-container position-relative">
-        <input type="text" class="search-input" placeholder="Search..." id="searchInput">
-        <button class="clear-button" id="clearBtn" title="Clear">&times;</button>
-        <button class="search-button">
-            <i class="fas fa-search"></i>
-        </button>
-    </div>
 
     <div class="amd-top-icons">
-     <form action="{{ route('set.language') }}" method="POST" id="languageForm">
+        <form action="{{ route('set.language') }}" method="POST" id="languageForm">
             @csrf
             <!-- Language Switcher -->
             <select name="language" id="languageSelect" class="form-select form-select-sm" style="width: auto;"
@@ -25,82 +18,6 @@
             </select>
         </form>
 
-        <div class="notification-dropdown">
-            <!-- Bell Icon -->
-            <i class="fas fa-bell notif-bell" id="notifBell" title="Notifications"></i>
-
-            <!-- Notification Panel (Hidden by default, toggled with JS) -->
-            <div class="chat-app notification-panel" id="notificationPanel">
-                <div class="chat-header">
-                    <h2>Message</h2>
-                    <input type="text" placeholder="Search conversation" class="chat-search" />
-                </div>
-
-                <div class="chat-tabs">
-                    <button class="tab active">ACTIVE</button>
-                    <button class="tab">ARCHIVED</button>
-                </div>
-
-                <div class="chat-list">
-                    <!-- Notification Card 1 -->
-                    <div class="chat-card">
-                        <img src="https://i.pravatar.cc/100?img=1" class="avatar" />
-                        <div class="chat-info">
-                            <div class="chat-name-role">
-                                <span class="name">Susan</span>
-                                <span class="role green">NUTRITIONIST</span>
-                            </div>
-                            <p class="chat-msg">How's your diet looking today...</p>
-                        </div>
-                        <div class="chat-date">03 FEB</div>
-                    </div>
-
-                    <div class="chat-card">
-                        <img src="https://i.pravatar.cc/100?img=2" class="avatar" />
-                        <div class="chat-info">
-                            <div class="chat-name-role">
-                                <span class="name">Gunnar</span>
-                                <span class="role orange">COACH</span>
-                            </div>
-                            <p class="chat-msg">👏👏 We haven't seen you...</p>
-                        </div>
-                        <div class="chat-date">03 FEB</div>
-                    </div>
-
-                    <div class="chat-card">
-                        <img src="https://i.pravatar.cc/100?img=3" class="avatar" />
-                        <div class="chat-info">
-                            <div class="chat-name-role">
-                                <span class="name">Sophia</span>
-                                <span class="role pink">TRAINER</span>
-                            </div>
-                            <p class="chat-msg">It's been a while we've seen...</p>
-                        </div>
-                        <div class="chat-date">03 FEB</div>
-                    </div>
-
-                    <div class="chat-card">
-                        <img src="https://i.pravatar.cc/100?img=4" class="avatar" />
-                        <div class="chat-info">
-                            <div class="chat-name-role">
-                                <span class="name">Emily</span>
-                                <span class="role purple">SUPPORT</span>
-                            </div>
-                            <p class="chat-msg">Please remember to log your...</p>
-                        </div>
-                        <div class="chat-date">03 FEB</div>
-                    </div>
-                </div>
-
-                <div class="chat-nav">
-                    <i class="fas fa-inbox" title="Inbox"></i>
-                    <i class="fas fa-at" title="Mentions"></i>
-                    <i class="fas fa-pen active-icon" title="Compose"></i>
-                    <i class="fas fa-cog" title="Settings"></i>
-                </div>
-
-            </div>
-        </div>
 
         <!-- Profile -->
         <div class="amd-profile-section">

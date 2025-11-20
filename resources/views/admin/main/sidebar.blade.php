@@ -8,7 +8,6 @@
                 style="height: 40px; width: auto; object-fit: contain; ">
         </a>
     </div>
-    <hr>
 
     {{-- Sidebar Menu Appended From A Components --}}
     @php
@@ -113,6 +112,18 @@
                         'route_pattern' => 'about-us.*',
                         'permission' => ['controller' => 'AboutUsController', 'method' => 'index'],
                     ],
+                      [
+                        'title' => 'Authors',
+                        'route' => 'authors.index',
+                        'route_pattern' => 'authors.*',
+                        'permission' => ['controller' => 'AuthorsController', 'method' => 'index'],
+                    ],
+                    [
+                        'title' => 'VMGs',
+                        'route' => 'vmg.index',
+                        'route_pattern' => 'vmg.*',
+                        'permission' => ['controller' => 'VmgController', 'method' => 'index'],
+                    ],
                 ],
             ],
             [
@@ -131,6 +142,26 @@
                         'route' => 'books.index',
                         'route_pattern' => 'books.*',
                         'permission' => ['controller' => 'BookController', 'method' => 'index'],
+                    ],
+                ],
+            ],
+
+                 [
+                'title' => 'Blog Manage',
+                'icon' => 'fas fa-pen-nib amd-icon-color5',
+                'iconColor' => 'icon-color-9',
+                'submenu' => [
+                    [
+                        'title' => 'Categories',
+                        'route' => 'blog-category.index',
+                        'route_pattern' => 'blog-category.*',
+                        'permission' => ['controller' => 'BlogCategoryController', 'method' => 'index'],
+                    ],
+                    [
+                        'title' => 'Blogs',
+                        'route' => 'blog.index',
+                        'route_pattern' => 'blog.*',
+                        'permission' => ['controller' => 'BlogController', 'method' => 'index'],
                     ],
                 ],
             ],

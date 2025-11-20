@@ -1,0 +1,398 @@
+
+        @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Lato:wght@400;700&display=swap');
+
+        :root {
+            --dark-wood: #86756498;
+            --amd-book-login-primary: #e062f1e3;
+            --amd-light: #fffaec;
+            --amd-dark: #222222;
+            --amd-book-login-secondary: #008b1e8f;
+            --primary-font: 'Merriweather', serif;
+            --secondary-font: 'Lato', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--secondary-font);
+            background: var(--dark-wood);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        .amd-book-wrapper {
+            perspective: 1500px;
+        }
+
+        .amd-book {
+            position: relative;
+            width: 850px;
+            height: 630px;
+            transform-style: preserve-3d;
+            transition: transform 0.7s ease-in-out, height 0.5s ease-in-out;
+            /* Added height transition */
+        }
+
+        .amd-book__part {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            backface-visibility: hidden;
+        }
+
+        .amd-book__cover {
+            width: 50%;
+            background: linear-gradient(45deg, #382c22);
+            border-radius: 0 10px 10px 0;
+            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3), inset -2px 0 5px rgba(0, 0, 0, 0.5);
+            transform-origin: left center;
+            transition: transform 1.5s cubic-bezier(0.68, -0.55, 0.27, 1.55), box-shadow 1s;
+            z-index: 10;
+        }
+
+        .amd-book.is-open .amd-book__cover {
+            transform: rotateY(-180deg);
+            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1), inset 2px 0 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .amd-book__spine {
+            position: absolute;
+            width: 40px;
+            height: 97%;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(to right, #221a1400, #382c224d, #221a1405);
+            z-index: 20;
+        }
+
+        .amd-book__cover-content {
+            text-align: center;
+            color: var(--amd-book-login-primary);
+            padding: 2rem;
+            border: 3px double var(--amd-book-login-primary);
+            margin: 2rem;
+            opacity: 0.7;
+        }
+
+        .amd-book__cover-title {
+            font-family: var(--primary-font);
+            font-size: 3rem;
+            font-weight: 900;
+        }
+
+        .amd-book__open-button {
+            margin-top: 3rem;
+            padding: 10px 20px;
+            border: 2px solid var(--amd-book-login-primary);
+            background: transparent;
+            color: var(--amd-book-login-primary);
+            font-family: var(--secondary-font);
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .amd-book__open-button:hover {
+            background: var(--amd-book-login-primary);
+            color: var(--amd-light);
+        }
+
+        .amd-book-page {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            width: 50%;
+            height: calc(100% - 20px);
+            background: var(--amd-light);
+            transform-origin: left center;
+            transition: transform 1.2s cubic-bezier(0.65, 0, 0.35, 1);
+            transform-style: preserve-3d;
+            box-shadow: inset -1px 0 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .page__front,
+        .page__back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            padding: 3rem;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            /* background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1IiBoZWlnaHQ9IjUiPgo8cmVjdCB3aWR0aD0iNSIgaGVpZHRoPSI1IiBmaWxsPSIjZmRmNmUzIj48L3JlY3Q+CjxyZWN0IHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9ImNzYyI+PC9yZWN0Pgo8L3N2Zz4='); */
+        }
+
+        .page__back {
+            transform: rotateY(180deg);
+            background-color: #f7f1e3;
+        }
+
+        .amd-book-page-1 {
+            z-index: 5;
+        }
+
+        .amd-book-page-2 {
+            z-index: 4;
+        }
+
+        .amd-book-page-3 {
+            z-index: 3;
+        }
+
+        .amd-book-page-4 {
+            z-index: 2;
+            background: var(--amd-light);
+            left: 0;
+            width: 50%;
+        }
+
+        .amd-book::after {
+            content: '';
+            position: absolute;
+            top: 10px;
+            right: 0;
+            width: 50%;
+            height: calc(100% - 20px);
+            background: #e6dfce;
+            border-radius: 0 10px 10px 0;
+            z-index: -1;
+            box-shadow:
+                inset -1px 0 0 #f3efe2,
+                inset -2px 0 0 #fff,
+                inset -3px 0 0 #f3efe2,
+                inset -4px 0 0 #fff,
+                inset -5px 0 0 #f3efe2,
+                -5px 0 15px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transition: opacity 1s;
+        }
+
+        .amd-book.is-open::after {
+            opacity: 1;
+        }
+
+        .amd-book.flip-page-1 .amd-book-page-1,
+        .amd-book.flip-page-2 .amd-book-page-1,
+        .amd-book.flip-page-2 .amd-book-page-2,
+        .amd-book.flip-page-3 .amd-book-page-1,
+        .amd-book.flip-page-3 .amd-book-page-2,
+        .amd-book.flip-page-3 .amd-book-page-3 {
+            transform: rotateY(-180deg);
+        }
+
+        .amd-book.flip-page-1 {
+            z-index: 15;
+        }
+
+        .amd-book.flip-page-2 {
+            z-index: 16;
+        }
+
+        .amd-book.flip-page-3 {
+            z-index: 17;
+        }
+
+        .amd-book__form-title {
+            font-family: var(--primary-font);
+            font-size: 2rem;
+            font-weight: 700;
+            font-style: italic;
+            color: var(--dark-wood);
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .amd-book__form-field {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .amd-book__input {
+            width: 100%;
+            padding: 10px 30px 10px 5px;
+            font-size: 1rem;
+            font-weight: 600;
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid #ccc;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .amd-book__label {
+            position: absolute;
+            top: 10px;
+            left: 5px;
+            color: #999;
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+
+        .amd-book__password-toggle {
+            position: absolute;
+            top: 50%;
+            right: 5px;
+            transform: translateY(-50%);
+            color: #999;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .amd-book__password-toggle:hover {
+            color: var(--amd-book-login-primary);
+        }
+
+        .amd-book__input:focus+.amd-book__label,
+        .amd-book__input:not(:placeholder-shown)+.amd-book__label {
+            top: -15px;
+            font-size: 0.8rem;
+            color: var(--amd-book-login-primary);
+        }
+
+        .amd-book__input:focus {
+            border-bottom-color: var(--amd-book-login-primary);
+        }
+
+        .amd-book__input::placeholder {
+            color: transparent;
+        }
+
+        .amd-book__submit-btn {
+            width: 100%;
+            padding: 12px;
+            font-size: 1rem;
+            font-weight: 700;
+            color: #fff;
+            background-color: var(--amd-book-login-secondary);
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            margin-top: 1rem;
+        }
+
+        .amd-book__submit-btn:hover {
+            background-color: #9b2aa5b9;
+        }
+
+        .amd-book__form-links {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+
+        .amd-book__form-links a {
+            color: #665;
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin: 0 5px;
+            transition: color 0.3s;
+        }
+
+        .amd-book__form-links a:hover {
+            color: var(--amd-book-login-primary);
+        }
+
+        .amd-book__social-login {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+
+        .amd-book__social-login h3 {
+            font-size: 0.8rem;
+            color: #999;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .amd-book__social-icons a {
+            color: var(--dark-wood);
+            font-size: 1.5rem;
+            margin: 0 10px;
+            transition: color 0.3s;
+        }
+
+        .amd-book__social-icons a:hover {
+            color: var(--amd-book-login-primary);
+        }
+
+        /* --- UPDATED RESPONSIVE DESIGN --- */
+        @media (max-width: 850px) {
+            body {
+                overflow-y: auto;
+                padding: 2rem 1rem;
+            }
+
+            .amd-book-wrapper {
+                perspective: none;
+            }
+
+            .amd-book {
+                width: 100%;
+                max-width: 450px;
+                height: auto;
+                /* Height will be controlled by JS */
+                position: relative;
+                /* Changed for absolute children */
+                transform-style: flat;
+                background-color: var(--amd-light);
+                border-radius: 10px;
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            }
+
+            /* Hide all desktop-only decorative elements */
+            .amd-book__cover,
+            .amd-book-page-4,
+            .amd-book__spine,
+            .amd-book::after {
+                display: none;
+            }
+
+            .amd-book.is-open {
+                transform: none;
+            }
+
+            /* Position pages on top of each other and hide them */
+            .amd-book-page {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: auto;
+                transform: none !important;
+                box-shadow: none !important;
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.4s ease-in-out;
+            }
+
+            .page__front {
+                position: static;
+                /* Let it control its own height */
+                padding: 2.5rem;
+                background-image: none;
+                /* Cleaner look on mobile */
+            }
+
+            /* Show only the active page with a fade-in */
+            .amd-book .active-page {
+                position: relative;
+                /* Take it out of absolute flow to be measured */
+                opacity: 1;
+                pointer-events: auto;
+            }
+        }

@@ -1,0 +1,286 @@
+/* Adjust flipbook-wrapper height to 100% to fill container vertically */
+.flipbook-wrapper {
+  height: 100%;
+  /* override 100vh */
+  max-height: 800px;
+  /* or match container height */
+  flex-shrink: 0;
+  display: flex !important;
+  /* keep flex */
+  padding: 0px 0px 26px 0px;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 2rem;
+  align-items: center;
+  background: #eef7f1;
+  overflow: hidden;
+  position: relative;
+  width: 1100px;
+  /* match your #flipbook width */
+  max-width: 100%;
+}
+
+/* Left page edge */
+.flipbook-wrapper::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 15px;
+  height: 100%;
+  /* box-shadow: inset 3px 0 5px rgba(0, 0, 0, 0.15); */
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* Right page edge */
+.flipbook-wrapper::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 15px;
+  height: 100%;
+
+  /* box-shadow: inset -3px 0 5px rgba(0, 0, 0, 0.15); */
+
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* Flipbook Box */
+#flipbook {
+  width: 800px;
+  height: 600px;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.4);
+  /* background-image: url('../imgs/Cover.png'); */
+  background-repeat: no-repeat;
+  background-position: 26% 33%;
+  /* custom position */
+  background-size: cover;
+  z-index: 2;
+  margin: 0 auto;
+
+  background-color: #fff;
+  overflow: hidden;
+}
+
+
+/* Flipbook Pages */
+.flipbook .page {
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flipbook .page img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.flipbook .hard {
+  background-image: url('../imgs/GK.png');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;  /* cover use karo taaki poora container fill ho jaye */
+  height: 100%;
+  width: 100%;
+
+}
+
+/* Loader in Center */
+#loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: white;
+  z-index: 10;
+}
+
+#loader .spinner {
+  border: 8px solid #f3f3f3;
+  border-top: 8px solid #3498db;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 15px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* --- Reader Buttons --- */
+.flipbook-controls {
+  position: absolute;
+  bottom: -58px;
+  display: flex;
+  gap: 10px;
+  z-index: 20;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.flipbook-controls button {
+  background: rgba(255, 255, 255, 0.1);
+  color: #363636;
+  border: 1px solid rgba(46, 46, 46, 0.3);
+  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  font-size: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.flipbook-controls button:hover {
+  background: #9bb4c5;
+  transform: scale(1.1);
+}
+
+.flipbook-controls button:active {
+  background: #2ecc71;
+  /* green when clicked */
+}
+
+/* Responsive Flipbook */
+@media (max-width: 900px) {
+  #flipbook {
+    width: 100%;
+    height: 70vh;
+    background-image: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .flipbook-controls {
+    bottom: -54px;
+    gap: 8px;
+  }
+
+  .flipbook-controls button {
+    width: 36px;
+    height: 36px;
+    font-size: 18px;
+  }
+}
+
+/* Outer container to hold flipbook and arrows */
+.flipbook-container {
+  position: relative;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+}
+
+/* Side arrows styles */
+.side-arrow {
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid #ccc;
+
+  width: 48px;
+  height: 48px;
+  font-size: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s;
+  user-select: none;
+  flex-shrink: 0;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.side-arrow:hover {
+  background: #9bb4c5;
+}
+
+.side-arrow:active {
+  background: #2ecc71;
+}
+
+/* Left arrow on left side */
+.left-arrow {
+  /* no additional needed since flex container handles it */
+}
+
+/* Right arrow on right side */
+.right-arrow {
+  /* no additional needed since flex container handles it */
+}
+
+.amd-3d-flipbook-head{
+  margin-left: 40px;
+  
+}
+/* Responsive */
+@media (max-width: 900px) {
+  .flipbook-container {
+    height: auto;
+    padding: 0;
+    flex-direction: column;
+    gap: 15px;
+  }
+.amd-3d-flipbook-head{
+  margin-left: 0;
+  
+}
+  .side-arrow {
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+  }
+
+  .flipbook-wrapper {
+    width: auto;
+    height: auto;
+    max-height: none;
+  }
+}
+
+
+
+.flipbook-head {
+  /* margin-top: 20px; */
+  border-bottom:1px solid #bebebe;
+  padding: 10px;
+  margin-bottom: 20px;
+  text-align: center;
+  align-items: center;
+  background: #f2fff0;
+}
+
+.flipbook-head h1 {
+  font-size: 2rem !important;
+  margin-bottom: 0;
+}
+
+.flipbook-head h1 span {
+  font-size: 1.5rem;
+  font-weight: 400;
+
+}
+
+.flipbook-head p {
+  margin: 0;
+  font-size: 1rem;
+}
+

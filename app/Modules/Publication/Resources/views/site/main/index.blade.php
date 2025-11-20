@@ -1,20 +1,16 @@
 @extends('publication::site.main.app')
 @section('content')
 
-
     <!-- Hero Section -->
     <section class="amd-hero">
         <div id="amdHeroCarousel" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
-
-                <!-- Slide 1 -->
                 @foreach ($data['slider'] as $item)
                     <div class="carousel-item active">
                         <div class="amd-hero-container">
                             <div class="amd-hero-content">
                                 <h1>
-                                    {{ $item->title ?? '' }}<span class="amd-highlight" id="amd-highlight"></span><span
-                                        id="amd-dots"></span></span>
+                                    {{ $item->title ?? '' }}
                                 </h1>
                                 <p class="book-description">
                                     {!! $item->description ?? '' !!}
@@ -63,6 +59,8 @@
         </div>
     </section>
 
+
+    {{-- About Us Page --}}
     <section class="amd-about-section ">
         <div class="container">
             <header class="amd-about-section-header">
@@ -214,7 +212,7 @@
 
 
 
-    <!-- Bestselling Books Section -->
+    <!-- Classic Books Section -->
     @if ($data['bestSellingBooks']->count() > 0)
         <section class="amd-book-section">
             <div class="container">

@@ -3,46 +3,62 @@
 namespace App\Modules\Publication\Providers;
 
 use App\Modules\Publication\Repositories\Implementations\AboutUsRepository;
+use App\Modules\Publication\Repositories\Implementations\AuthorsRepository;
+use App\Modules\Publication\Repositories\Implementations\BlogCategoryRepository;
+use App\Modules\Publication\Repositories\Implementations\BlogRepository;
 use App\Modules\Publication\Repositories\Implementations\BookCategoriesRepository;
 use App\Modules\Publication\Repositories\Implementations\BookRepository;
-use App\Modules\Publication\Repositories\Implementations\PageRepository;
-use App\Modules\Publication\Repositories\Implementations\SettingRepository;
-use App\Modules\Publication\Repositories\Implementations\SliderRepository;
-use App\Modules\Publication\Repositories\Interfaces\AboutUsRepositoryInterface;
-use App\Modules\Publication\Repositories\Interfaces\BookCategoriesRepositoryInterface;
-use App\Modules\Publication\Repositories\Interfaces\BookRepositoryInterface;
-use App\Modules\Publication\Repositories\Interfaces\PageRepositoryInterface;
-use App\Modules\Publication\Repositories\Interfaces\SettingRepositoryInterface;
-use App\Modules\Publication\Repositories\Interfaces\SliderRepositoryInterface;
-use App\Modules\Publication\Services\Implementations\AboutUsService;
-use App\Modules\Publication\Services\Implementations\BookCategoriesService;
-use App\Modules\Publication\Services\Implementations\BookService;
-use App\Modules\Publication\Services\Implementations\PageService;
-use App\Modules\Publication\Services\Implementations\SettingService;
-use App\Modules\Publication\Services\Implementations\SliderService;
-use App\Modules\Publication\Services\Interfaces\AboutUsServiceInterface;
-use App\Modules\Publication\Services\Interfaces\BookCategoriesServiceInterface;
-use App\Modules\Publication\Services\Interfaces\BookServiceInterface;
-use App\Modules\Publication\Services\Interfaces\PageServiceInterface;
-use App\Modules\Publication\Services\Interfaces\SettingServiceInterface;
-use App\Modules\Publication\Services\Interfaces\SliderServiceInterface;
-use Illuminate\Support\ServiceProvider;
-use App\Modules\Publication\Services\Interfaces\MarketingsServiceInterface;
-use App\Modules\Publication\Services\Implementations\MarketingsService;
-use App\Modules\Publication\Repositories\Interfaces\MarketingsRepositoryInterface;
-use App\Modules\Publication\Repositories\Implementations\MarketingsRepository;
-use App\Modules\Publication\Services\Interfaces\DealersServiceInterface;
-use App\Modules\Publication\Services\Implementations\DealersService;
-use App\Modules\Publication\Repositories\Interfaces\DealersRepositoryInterface;
 use App\Modules\Publication\Repositories\Implementations\DealersRepository;
 use App\Modules\Publication\Repositories\Implementations\GalleryCategoryRepository;
 use App\Modules\Publication\Repositories\Implementations\GalleryRepository;
+use App\Modules\Publication\Repositories\Implementations\MarketingsRepository;
+use App\Modules\Publication\Repositories\Implementations\PageRepository;
+use App\Modules\Publication\Repositories\Implementations\SettingRepository;
+use App\Modules\Publication\Repositories\Implementations\SliderRepository;
+use App\Modules\Publication\Repositories\Implementations\VmgRepository;
+use App\Modules\Publication\Repositories\Interfaces\AboutUsRepositoryInterface;
+use App\Modules\Publication\Repositories\Interfaces\AuthorsRepositoryInterface;
+use App\Modules\Publication\Repositories\Interfaces\BlogCategoryRepositoryInterface;
+use App\Modules\Publication\Repositories\Interfaces\BlogRepositoryInterface;
+use App\Modules\Publication\Repositories\Interfaces\BookCategoriesRepositoryInterface;
+use App\Modules\Publication\Repositories\Interfaces\BookRepositoryInterface;
+use App\Modules\Publication\Repositories\Interfaces\DealersRepositoryInterface;
 use App\Modules\Publication\Repositories\Interfaces\GalleryCategoryRepositoryInterface;
 use App\Modules\Publication\Repositories\Interfaces\GalleryRepositoryInterface;
+use App\Modules\Publication\Repositories\Interfaces\MarketingsRepositoryInterface;
+use App\Modules\Publication\Repositories\Interfaces\PageRepositoryInterface;
+use App\Modules\Publication\Repositories\Interfaces\SettingRepositoryInterface;
+use App\Modules\Publication\Repositories\Interfaces\SliderRepositoryInterface;
+use App\Modules\Publication\Repositories\Interfaces\VmgRepositoryInterface;
+use App\Modules\Publication\Services\Implementations\AboutUsService;
+use App\Modules\Publication\Services\Implementations\AuthorsService;
+use App\Modules\Publication\Services\Implementations\BlogCategoryService;
+use App\Modules\Publication\Services\Implementations\BlogService;
+use App\Modules\Publication\Services\Implementations\BookCategoriesService;
+use App\Modules\Publication\Services\Implementations\BookService;
+use App\Modules\Publication\Services\Implementations\DealersService;
 use App\Modules\Publication\Services\Implementations\GalleryCategoryService;
 use App\Modules\Publication\Services\Implementations\GalleryService;
+use App\Modules\Publication\Services\Implementations\MarketingsService;
+use App\Modules\Publication\Services\Implementations\PageService;
+use App\Modules\Publication\Services\Implementations\SettingService;
+use App\Modules\Publication\Services\Implementations\SliderService;
+use App\Modules\Publication\Services\Implementations\VmgService;
+use App\Modules\Publication\Services\Interfaces\AboutUsServiceInterface;
+use App\Modules\Publication\Services\Interfaces\AuthorsServiceInterface;
+use App\Modules\Publication\Services\Interfaces\BlogCategoryServiceInterface;
+use App\Modules\Publication\Services\Interfaces\BlogServiceInterface;
+use App\Modules\Publication\Services\Interfaces\BookCategoriesServiceInterface;
+use App\Modules\Publication\Services\Interfaces\BookServiceInterface;
+use App\Modules\Publication\Services\Interfaces\DealersServiceInterface;
 use App\Modules\Publication\Services\Interfaces\GalleryCategoryServiceInterface;
 use App\Modules\Publication\Services\Interfaces\GalleryServiceInterface;
+use App\Modules\Publication\Services\Interfaces\MarketingsServiceInterface;
+use App\Modules\Publication\Services\Interfaces\PageServiceInterface;
+use App\Modules\Publication\Services\Interfaces\SettingServiceInterface;
+use App\Modules\Publication\Services\Interfaces\SliderServiceInterface;
+use App\Modules\Publication\Services\Interfaces\VmgServiceInterface;
+use Illuminate\Support\ServiceProvider;
 
 class PublicationServiceProvider extends ServiceProvider
 {
@@ -60,6 +76,10 @@ class PublicationServiceProvider extends ServiceProvider
         $this->app->bind(AboutUsServiceInterface::class, AboutUsService::class);
         $this->app->bind(GalleryCategoryServiceInterface::class, GalleryCategoryService::class);
         $this->app->bind(GalleryServiceInterface::class, GalleryService::class);
+        $this->app->bind(AuthorsServiceInterface::class, AuthorsService::class);
+        $this->app->bind(VmgServiceInterface::class, VmgService::class);
+        $this->app->bind(BlogCategoryServiceInterface::class, BlogCategoryService::class);
+        $this->app->bind(BlogServiceInterface::class, BlogService::class);
 
         // Repository Bindings
         $this->app->bind(SettingRepositoryInterface::class, SettingRepository::class);
@@ -74,6 +94,10 @@ class PublicationServiceProvider extends ServiceProvider
         $this->app->bind(DealersRepositoryInterface::class, DealersRepository::class);
         $this->app->bind(GalleryCategoryRepositoryInterface::class, GalleryCategoryRepository::class);
         $this->app->bind(GalleryRepositoryInterface::class, GalleryRepository::class);
+        $this->app->bind(AuthorsRepositoryInterface::class, AuthorsRepository::class);
+        $this->app->bind(VmgRepositoryInterface::class, VmgRepository::class);
+        $this->app->bind(BlogCategoryRepositoryInterface::class, BlogCategoryRepository::class);
+        $this->app->bind(BlogRepositoryInterface::class, BlogRepository::class);
     }
 
     public function boot()

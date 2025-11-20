@@ -48,6 +48,7 @@
                             @foreach ($permittedSubmenu as $sub)
                                 <a href="{{ route($sub['route']) }}"
                                     class="amd-submenu-link {{ request()->routeIs($sub['route'] . '*') || request()->routeIs($sub['route']) || (isset($sub['route_pattern']) && request()->routeIs($sub['route_pattern'])) ? 'active' : '' }}">
+                                    <i class="fas fa-arrow-right"></i>
                                     {{ $sub['title'] }}
                                 </a>
                             @endforeach

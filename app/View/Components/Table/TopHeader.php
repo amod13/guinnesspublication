@@ -29,8 +29,8 @@ class TopHeader extends Component
         bool $column = false,
         string $columnLabel = 'Columns',
         ?string $tableId = null,
-        bool $isSearch = true,       // 👈 default true
-        bool $isDashboard = false     // 👈 default true
+        bool $isSearch = false,       // 👈 default false
+        bool $isDashboard = false     // 👈 default false
     ) {
         $this->title = $title;
         $this->createRoute = $createRoute;

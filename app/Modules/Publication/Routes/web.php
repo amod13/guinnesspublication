@@ -1,6 +1,9 @@
 <?php
 
 use App\Modules\Publication\Controllers\Admin\AboutUsController;
+use App\Modules\Publication\Controllers\Admin\AuthorsController;
+use App\Modules\Publication\Controllers\Admin\BlogCategoryController;
+use App\Modules\Publication\Controllers\Admin\BlogController;
 use App\Modules\Publication\Controllers\Admin\BookCategoriesController;
 use App\Modules\Publication\Controllers\Admin\BookController;
 use App\Modules\Publication\Controllers\Admin\DealersController;
@@ -12,6 +15,7 @@ use App\Modules\Publication\Controllers\Admin\PageController;
 use App\Modules\Publication\Controllers\Admin\SettingController;
 use App\Modules\Publication\Controllers\Admin\SliderController;
 use App\Modules\Publication\Controllers\Admin\ThemeSettingController;
+use App\Modules\Publication\Controllers\Admin\VmgController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -140,6 +144,19 @@ Route::middleware(['web', 'auth'])->prefix('admin')->group(function () {
         Route::post('update-order', 'updateOrder')->name('order');
     });
 
+    //---------------------------Authors SECTION ROUTE-----------------------------
+    Route::prefix('authors')->as('authors.')->controller(AuthorsController::class)->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('create', 'create')->name('create');
+        Route::post('store', 'store')->name('store');
+        Route::get('edit/{id}', 'edit')->name('edit');
+        Route::get('show/{id}', 'show')->name('show');
+        Route::put('update/{id}', 'update')->name('update');
+        Route::delete('destroy/{id}', 'destroy')->name('destroy');
+        Route::delete('bulk-delete', 'bulkDelete')->name('bulk-delete');
+        Route::post('update-order', 'updateOrder')->name('order');
+    });
+
 
     //---------------------------Gallery Category-----------------------------
     Route::prefix('gallery-category')->as('gallery-category.')->controller(GalleryCategoryController::class)->group(function () {
@@ -164,6 +181,46 @@ Route::middleware(['web', 'auth'])->prefix('admin')->group(function () {
         Route::put('update/{id}', 'update')->name('update');
         Route::delete('destroy/{id}', 'delete')->name('destroy');
         Route::delete('bulk-delete', 'bulkDelete')->name('bulk.delete');
+    });
+
+
+        //---------------------------VMG-----------------------------
+    Route::prefix('vmg')->as('vmg.')->controller(VmgController::class)->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('create', 'create')->name('create');
+        Route::post('store', 'store')->name('store');
+        Route::get('edit/{id}', 'edit')->name('edit');
+        Route::get('show/{id}', 'show')->name('show');
+        Route::put('update/{id}', 'update')->name('update');
+        Route::delete('destroy/{id}', 'destroy')->name('destroy');
+        Route::get('update-order', 'updateOrder')->name('order');
+        Route::delete('bulk-delete', 'bulkDelete')->name('bulk.delete');
+    });
+
+      //---------------------------Blog Category-----------------------------
+    Route::prefix('blog-category')->as('blog-category.')->controller(BlogCategoryController::class)->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('create', 'create')->name('create');
+        Route::post('store', 'store')->name('store');
+        Route::get('edit/{id}', 'edit')->name('edit');
+        Route::get('show/{id}', 'show')->name('show');
+        Route::put('update/{id}', 'update')->name('update');
+        Route::delete('destroy/{id}', 'delete')->name('destroy');
+        Route::delete('bulk-delete', 'bulkDelete')->name('bulk.delete');
+        Route::get('/update-order', 'updateOrder')->name('order');
+    });
+
+    //---------------------------Blog-----------------------------
+    Route::prefix('blog')->as('blog.')->controller(BlogController::class)->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('create', 'create')->name('create');
+        Route::post('store', 'store')->name('store');
+        Route::get('edit/{id}', 'edit')->name('edit');
+        Route::get('show/{id}', 'show')->name('show');
+        Route::put('update/{id}', 'update')->name('update');
+        Route::delete('destroy/{id}', 'delete')->name('destroy');
+        Route::delete('bulk-delete', 'bulkDelete')->name('bulk.delete');
+        Route::get('/update-order', 'updateOrder')->name('order');
     });
 
 });

@@ -20,6 +20,16 @@
             </div>
         </div>
 
+          <!-- Category Section Section -->
+        <div class="card mb-4">
+            <div class="card-header bg-light">
+                <h5 class="card-title mb-0">Author Information</h5>
+            </div>
+            <div class="card-body">
+           <x-form.select-input :id="'author_id'" :label="'Choose Author'" :name="'author_id'" :options="$data['authors']->pluck('name', 'id')" :value="old('author_id', $data['record']->author_id ?? '')" />
+            </div>
+        </div>
+
         {{-- Title Section --}}
         <div class="card mb-4">
             <div class="card-header bg-light">

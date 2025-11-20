@@ -6,6 +6,7 @@ use App\Core\Http\BaseCrudController;
 use App\Modules\Publication\DTOs\Book\BookDto;
 use App\Modules\Publication\Enums\HighlightTypeEnum;
 use App\Modules\Publication\Requests\BookCreateUpdateRequest;
+use App\Modules\Publication\Services\Interfaces\AuthorsServiceInterface;
 use App\Modules\Publication\Services\Interfaces\BookCategoriesServiceInterface;
 use App\Modules\Publication\Services\Interfaces\BookServiceInterface;
 use Illuminate\Http\Request;
@@ -16,12 +17,13 @@ class BookController extends BaseCrudController
     protected string $routePrefix = 'books.';
     protected string $entityName = 'Book';
     protected string $dtoClass = BookDto::class;
-    protected $categoryService;
+    protected $categoryService, $authorService;
 
-    public function __construct(BookServiceInterface $service, BookCategoriesServiceInterface $categoryService)
+    public function __construct(BookServiceInterface $service, BookCategoriesServiceInterface $categoryService,AuthorsServiceInterface $authorService)
     {
         $this->service = $service;
         $this->categoryService = $categoryService;
+        $this->authorService = $authorService;
     }
 
     public function index(Request $request)
@@ -36,8 +38,9 @@ class BookController extends BaseCrudController
     {
         $highlights = HighlightTypeEnum::list();
         $bookCategories = $this->categoryService->getActiveBookCategories();
+             $authors = $this->authorService->getActiveAuthors();
 
-        return $this->dataCreate(['highlights' => $highlights, 'bookCategories' => $bookCategories]);
+        return $this->dataCreate(['highlights' => $highlights, 'bookCategories' => $bookCategories,'authors' => $authors]);
     }
 
     public function store(BookCreateUpdateRequest $request)
@@ -55,8 +58,9 @@ class BookController extends BaseCrudController
     public function edit($id)
     {
         $highlights = HighlightTypeEnum::list();
+        $authors = $this->authorService->getActiveAuthors();
         $bookCategories = $this->categoryService->getActiveBookCategories();
-        return $this->dataEdit($id, ['highlights' => $highlights, 'bookCategories' => $bookCategories]);
+        return $this->dataEdit($id, ['highlights' => $highlights, 'bookCategories' => $bookCategories,'authors' => $authors]);
     }
 
     public function update(BookCreateUpdateRequest $request, $id)

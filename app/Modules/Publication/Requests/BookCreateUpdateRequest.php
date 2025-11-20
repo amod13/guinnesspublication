@@ -20,6 +20,7 @@ class BookCreateUpdateRequest extends BaseFormRequest
             'public_pdf_pages' => ['nullable'],
             'highlights' => ['required'],
             'content' => ['nullable'],
+            'author_id' => ['nullable', 'exists:authors,id'],
         ];
     }
 
@@ -37,6 +38,7 @@ class BookCreateUpdateRequest extends BaseFormRequest
             'public_pdf_pages' => ['nullable'],
             'highlights' => ['required'],
             'content' => ['nullable'],
+            'author_id' => ['nullable', 'exists:authors,id'],
         ];
     }
 

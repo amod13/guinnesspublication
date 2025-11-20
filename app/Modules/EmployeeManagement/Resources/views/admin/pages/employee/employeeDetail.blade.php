@@ -14,9 +14,6 @@
                                     Employee Data
                                 </h5>
                             </div>
-
-
-
                             <div class="amd-employee-detail-avatar-container">
                                 <img src="{{ $data['officialDocument']['photo'] }}" alt="Stephan Peralt"
                                     class="amd-employee-detail-avatar">
@@ -278,7 +275,7 @@
                                                                             <i class=" fas fa-eye text-purple  "></i>
                                                                         </button></div>
                                                                     <div class="fw-medium">
-                                                                       
+
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -330,7 +327,7 @@
                                                                             <i class=" fas fa-eye text-purple "></i>
                                                                         </button></div>
                                                                     <div class="fw-medium">
-                                                                       
+
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -375,7 +372,7 @@
                                                                     </button></div>
                                                             <div class="d-flex align-items-center justify-content-between">
                                                                 @if ($fileUrl)
-                                                                    
+
                                                                 @endif
                                                             </div>
                                                         </div>
