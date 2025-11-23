@@ -11,6 +11,7 @@ use App\Modules\Publication\Services\Interfaces\BookCategoriesServiceInterface;
 use App\Modules\Publication\Services\Interfaces\BookServiceInterface;
 use App\Modules\Publication\Services\Interfaces\PageServiceInterface;
 use App\Modules\Publication\Services\Interfaces\SliderServiceInterface;
+use App\Modules\Publication\Services\Interfaces\VmgServiceInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -18,7 +19,7 @@ use Illuminate\Support\Facades\Log;
 class HomeController extends Controller
 {
     protected string $viewPrefix = 'publication::site.';
-    protected $PageService, $AboutUsService,$BookCategoriesService,$SliderService,$BookService,$bookCategoryService,$authorService;
+    protected $PageService, $AboutUsService,$BookCategoriesService,$SliderService,$BookService,$bookCategoryService,$authorService,$vmgService;
     public function __construct(
         PageServiceInterface $PageService,
         AboutUsServiceInterface $AboutUsService,
@@ -27,6 +28,7 @@ class HomeController extends Controller
         BookServiceInterface $BookService,
         BookCategoriesServiceInterface $bookCategoryService,
         AuthorsServiceInterface $authorService,
+        VmgServiceInterface $vmgService,
         )
     {
         $this->PageService = $PageService;
@@ -36,6 +38,7 @@ class HomeController extends Controller
         $this->BookService = $BookService;
         $this->bookCategoryService = $bookCategoryService;
         $this->authorService = $authorService;
+        $this->vmgService = $vmgService;
     }
 
     public function index()
@@ -49,7 +52,8 @@ class HomeController extends Controller
         $data['flashSaleBooks'] = $this->BookService->getPublishBooksByHighLightType($bestSelling)->take(4);
         $data['activeBookCategories'] = $this->bookCategoryService->getActiveBookCategories()->take(7);
         $data['activeAuthors'] = $this->authorService->getAuthors()->take(6);
-        // dd($data['activeAuthors']);
+        $data['vmgs'] = $this->vmgService->getActiveVmg();
+        // dd($data['vmgs']);
 
         return view($this->viewPrefix . 'main.index', ['data' => $data]);
     }
