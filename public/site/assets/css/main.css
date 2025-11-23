@@ -2061,9 +2061,9 @@ a {
     transform-style: preserve-3d;
 }
 
-.amd-book-section-item:hover .amd-book-section-flip-inner {
+/* .amd-book-section-item:hover .amd-book-section-flip-inner {
     transform: rotateY(180deg);
-}
+} */
 
 .amd-book-section-front,
 .amd-book-section-back {
@@ -2087,9 +2087,9 @@ a {
 }
 
 /* The back of the card now just needs the transform */
-.amd-book-section-back {
+/* .amd-book-section-back {
     transform: rotateY(180deg);
-}
+} */
 
 .amd-book-section-info {
     text-align: center;

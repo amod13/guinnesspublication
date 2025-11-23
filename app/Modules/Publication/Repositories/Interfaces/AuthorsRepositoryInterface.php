@@ -7,4 +7,5 @@ use App\Core\Repositories\Interface\BaseRepositoryInterface;
 interface AuthorsRepositoryInterface extends BaseRepositoryInterface
 {
     public function getActiveAuthors($language);
+    public function getAuthors();
 }

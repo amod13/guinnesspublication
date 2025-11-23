@@ -15,10 +15,22 @@ class AuthorsRepository extends BaseRepository implements AuthorsRepositoryInter
     public function getActiveAuthors($language)
     {
         return $this->model
-            ->select('authors.name', 'authors.id', 'authors.image','authors.slug')
+            ->select('authors.name', 'authors.id', 'authors.image', 'authors.slug')
             ->where('status', 'active')
             ->where('language', $language)
             ->orderBy('display_order', 'asc')
             ->get();
+    }
+
+    public function getAuthors()
+    {
+        $authors = $this->model::withCount(['books as total_books' => function ($query) {
+            $query->where('status', 'active'); // optional filter
+        }])
+            ->where('status', 'active')
+            ->orderBy('display_order', 'asc')
+            ->paginate(10);
+
+        return $authors;
     }
 }

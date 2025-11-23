@@ -36,6 +36,7 @@
     <link rel="stylesheet" href="{{ asset('site/assets/css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('site/assets/css/map.css') }}">
     <link rel="stylesheet" href="{{ asset('site/assets/css/editor.css') }}">
+    <link rel="stylesheet" href="{{ asset('site/assets/css/3dflipbook.css') }}">
 
     {{-- Favicon --}}
         <link rel="shortcut icon" href="{{ asset('uploads/images/site/' . $data['setting']->favicon) }}"

@@ -98,8 +98,11 @@
 
   <!-- Custom Scripts (Always Last) -->
   <script src="{{ asset('site/assets/js/main.js') }}"></script>
-  <script src="{{ asset('site/assets/js/animation.js') }}"></script> <!-- typo fix from aniamtion.js -->
-  <script src="{{ asset('site/assets/js/editor.js') }}"></script> <!-- typo fix from aniamtion.js -->
+  <script src="{{ asset('site/assets/js/animation.js') }}"></script>
+  <script src="{{ asset('site/assets/js/editor.js') }}"></script>
+  <script src="{{ asset('site/assets/js/pdf.min.js') }}"></script>
+  <script src="{{ asset('site/assets/js/3dflipbook.js') }}"></script>
+  <script src="{{ asset('site/assets/js/page-flip.browser.min.js') }}"></script>
   <script>
       $(document).ready(function() {
           // Initialize editor with advanced options

@@ -2,21 +2,22 @@
 
 namespace App\Modules\Publication\Services\Implementations;
 
+use App\Core\Helpers\ContentFormatter;
 use App\Core\Services\Implementation\BaseService;
-use App\Core\Traits\HasPaginatedSearch;
 use App\Core\Utils\SlugGeneratorService;
 use App\Modules\Publication\DTOs\Book\BookDto;
 use App\Modules\Publication\Helpers\GeneratePdf;
 use App\Modules\Publication\Repositories\Interfaces\BookRepositoryInterface;
+use App\Modules\Publication\Services\Interfaces\BookCategoriesServiceInterface;
 use App\Modules\Publication\Services\Interfaces\BookServiceInterface;
 
 class BookService extends BaseService implements BookServiceInterface
 {
-    use HasPaginatedSearch;
-
-    public function __construct(BookRepositoryInterface $repository)
+    protected $bookCategoryService;
+    public function __construct(BookRepositoryInterface $repository, BookCategoriesServiceInterface $bookCategoryService)
     {
         parent::__construct($repository);
+        $this->bookCategoryService = $bookCategoryService;
     }
 
     public function createRecord($data)
@@ -73,13 +74,15 @@ class BookService extends BaseService implements BookServiceInterface
     public function getRecordById($id)
     {
         $record = $this->repository->getRecordById($id);
+
         if (auth()->check()) {
             $publicAllowedPdfPages = $this->repository->getPublicAllowedPages($id);
             $record->public_allowed_pdf_pages = $publicAllowedPdfPages;
             $record->generated_pdf = GeneratePdf::generateAllowedPagesPdf($id, $publicAllowedPdfPages);
         } else {
-            $record->public_allowed_pdf_pages = [];
-            $record->generated_pdf = null;
+            $publicAllowedPdfPages = $this->repository->getPublicAllowedPages($id);
+            $record->public_allowed_pdf_pages = $publicAllowedPdfPages;
+            $record->generated_pdf = GeneratePdf::generateAllowedPagesPdf($id, $publicAllowedPdfPages);
         }
 
         return $record;
@@ -90,8 +93,64 @@ class BookService extends BaseService implements BookServiceInterface
         return $this->repository->getPublishBooksByHighLightType($highlightType);
     }
 
+
     public function getSingleBookBySlug($slug)
     {
-        return $this->repository->getSingleBookBySlug($slug);
+        $bookDate = $this->repository->getBookIdBySlug($slug);
+        $isLoginUser = auth()->check();
+
+        // yo book sanga related book nikaleko catgory id bata
+        $relatedBook = $this->repository->getRelatedBookByCategoryId($bookDate->category_id, $bookDate->id);
+
+        // Fetch author details and limit content
+        $bookAuthorDetails = $this->repository->getAuthorsByBookId($bookDate->id, session('language', 'en'));
+        if ($bookAuthorDetails) {
+            $bookAuthorDetails->content = ContentFormatter::limitWords($bookAuthorDetails->content, 20);
+        }
+
+        if ($isLoginUser) {
+            $record = $this->repository->getRecordById($bookDate->id);
+        } else {
+            // Guest User
+            $record = $this->repository->getRecordById($bookDate->id);
+            $publicAllowedPdfPages = $this->repository->getPublicAllowedPages($bookDate->id);
+            $record->public_allowed_pdf_pages = $publicAllowedPdfPages;
+            $record->generated_pdf = GeneratePdf::generateAllowedPagesPdf($bookDate->id, $publicAllowedPdfPages);
+        }
+
+        return [
+            'record' => $record,
+            'isLoginUser' => $isLoginUser,
+            'bookAuthorDetails' => $bookAuthorDetails,
+            'relatedBook' => $relatedBook
+        ];
+    }
+
+    public function giveMeBookByCategorySlug($slug)
+    {
+        // get gareko category id slug bata
+        $bookDate = $this->bookCategoryService->getCategoryIdBySlug($slug);
+
+        // tyo catgeory ko sanga related books taneko
+        $data['booksByCategories'] = $this->repository->getBooksByCategoryId($bookDate->id);
+
+        // active categories taneko
+        $data['activeCategories'] = $this->bookCategoryService->getActiveBookCategories();
+
+        return [
+            'data' => $data
+        ];
+    }
+      public function searchBookByKeyword($keyword)
+    {
+        // tyo catgeory ko sanga related books taneko
+        $data['booksByCategories'] = $this->repository->searchBooksByKeyWord($keyword);
+
+        // active categories taneko
+        $data['activeCategories'] = $this->bookCategoryService->getActiveBookCategories();
+
+        return [
+            'data' => $data
+        ];
     }
 }

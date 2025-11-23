@@ -46,7 +46,7 @@ class AuthorsService extends BaseService implements AuthorsServiceInterface
 
     public function createRecord($data)
     {
-        if (isset($data['image_media_id']) && $data['image_media_id']) {
+        if (!empty($data['image_media_id'])) {
             $data['image'] = $data['image_media_id'];
         }
         $data['slug'] = SlugGeneratorService::generateSlug('authors', $data['name']);
@@ -57,9 +57,10 @@ class AuthorsService extends BaseService implements AuthorsServiceInterface
 
     public function updateRecord($data, $id)
     {
-        if (isset($data['image_media_id']) && $data['image_media_id']) {
+        if (!empty($data['image_media_id'])) {
             $data['image'] = $data['image_media_id'];
         }
+
         $data['slug'] = $data['slug'] ?? SlugGeneratorService::generateSlug('authors', $data['name']);
         $data['language'] = session('language', 'en');
 
@@ -70,4 +71,10 @@ class AuthorsService extends BaseService implements AuthorsServiceInterface
     {
         return $this->repository->getActiveAuthors(session('language', 'en'));
     }
+
+    public function getAuthors()
+    {
+        return $this->repository->getAuthors();
+    }
+
 }

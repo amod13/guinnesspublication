@@ -57,7 +57,7 @@ class AboutUsService extends BaseService implements AboutUsServiceInterface
         $data['language'] = session('language', 'en');
         $data['slug'] = SlugGeneratorService::generateSlug('about_us', $data['title']);
 
-           if (!empty($data['image_media_id_media_id'])) {
+        if (!empty($data['image_media_id_media_id'])) {
             $data['image_media_id'] = $data['image_media_id_media_id'];
         }
 

@@ -249,16 +249,11 @@
                                             <img src="{{ $item->getMediaUrl('thumbnail_image') }}"
                                                 alt="Book Cover: City of Ashes">
                                         </div>
-                                        <div class="amd-book-section-back">
-                                            <!-- UPDATED: Image of open book -->
-                                            <img src="{{ $item->getMediaUrl('thumbnail_image') }}" alt="Open book pages">
-                                        </div>
                                     </div>
                                 </div>
                                 <div class="amd-book-section-info">
                                     <h3>{{ $item->title }}</h3>
                                     <p>by: Friedrich Wilhelm</p>
-
                                 </div>
                             </a>
                         @endforeach
@@ -266,6 +261,95 @@
 
                     <button class="amd-book-section-nav amd-book-section-nav-next" aria-label="Next"><i
                             class="fa-solid fa-chevron-right"></i></button>
+                </div>
+            </div>
+        </section>
+    @endif
+
+
+    <!-- category section -->
+    @if ($data['activeBookCategories']->count() > 0)
+        <section class="amd-category-section">
+            <div class="container">
+                <h2 class="amd-global-title-highlight">Explore Book Category</h2>
+                <div class="row row-cols-2 row-cols-md-4 g-3">
+                    @foreach ($data['activeBookCategories'] as $item)
+                        <div class="col">
+                            <a href="{{ route('book.list.by.category', ['locale' => app()->getLocale(), 'slug' => $item->slug]) }}"
+                                class="amd-category-card">
+                                <div class="d-flex align-items-center">
+                                    <div class="amd-category-icon me-3">
+                                        <img src="{{ $item->getMediaUrl('thumbnail_image') }}" alt="{{ $item->name }}"
+                                            class="img-fluid">
+                                    </div>
+                                    <div class="amd-category-text">
+                                        <p class="mb-0">{{ $item->name }}</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    @endforeach
+                    <div class="col">
+                        <a href="{{ route('book.category.list', ['locale' => app()->getLocale()]) }}"
+                            class="amd-category-card amd-category-see-all">
+                            <div class="d-flex align-items-center">
+                                <div class="amd-category-icon me-3">
+                                    <img src="{{ asset('site/assets/imgs/arrow.gif') }}" alt="See All Categories"
+                                        class="img-fluid">
+                                </div>
+                                <div class="amd-category-text">
+                                    <strong class="mb-0">See all Categories</strong>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    @endif
+
+
+    {{-- Our Authors --}}
+    @if ($data['activeAuthors']->count() > 0)
+        <section class="amd-book-authors-section">
+            <div class="container">
+                <div class="amd-book-section-header amd-book-section-header-flex">
+                    <div>
+                        <h2 class="amd-global-title-highlight">Ours Authors </h2>
+                    </div>
+                    <a href="{{ route('site.author.list', ['locale' => app()->getLocale()]) }}"
+                        class="amd-book-view-all">
+                        <!-- From Uiverse.io by Li-Deheng -->
+                        <button class="button">
+                            <span>View All</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 66 43">
+                                <polygon points="39.58,4.46 44.11,0 66,21.5 44.11,43 39.58,38.54 56.94,21.5"></polygon>
+                                <polygon points="19.79,4.46 24.32,0 46.21,21.5 24.32,43 19.79,38.54 37.15,21.5"></polygon>
+                                <polygon points="0,4.46 4.53,0 26.42,21.5 4.53,43 0,38.54 17.36,21.5"></polygon>
+                            </svg>
+                        </button>
+                    </a>
+                </div>
+                <!-- Swiper Container -->
+                <div class="swiper amd-book-authors-slider">
+                    <div class="swiper-wrapper">
+                        @foreach ($data['activeAuthors'] as $author)
+                            <div class="swiper-slide amd-book-author-card">
+                                <img src="{{ $author->getMediaUrl('image') }}" alt="{{ $author->name }}"
+                                    class="amd-book-author-image">
+                                <h3 class="amd-book-author-name">{{ $author->name }}</h3>
+                                @if ($author->total_books > 0)
+                                    <p class="amd-book-author-books">
+                                        {{ $author->total_books ?? '' }}
+                                        Published Books</p>
+                                @endif
+                            </div>
+                        @endforeach
+                    </div>
+                    <!-- Swiper Controls -->
+                    <div class="swiper-pagination"></div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
                 </div>
             </div>
         </section>

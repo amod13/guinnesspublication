@@ -8,4 +8,5 @@ interface AuthorsServiceInterface extends BaseServiceInterface
 {
     public function getPaginatedSearchResults(int $perPage, $searchTerm = []);
     public function getActiveAuthors();
+    public function getAuthors();
 }

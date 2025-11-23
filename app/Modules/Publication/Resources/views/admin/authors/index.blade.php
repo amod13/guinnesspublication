@@ -100,5 +100,5 @@
     </div>
 
     <x-table.manage-columns-modal />
-    
+
 @endsection

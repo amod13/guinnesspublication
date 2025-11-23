@@ -27,7 +27,8 @@ class BookDto extends BaseDto
             'id' => $this->id,
             'title' => $this->title,
             'status' => $this->status,
-            'display_order' => $this->display_order
+            'display_order' => $this->display_order,
+            'slug' => $this->slug,
         ];
     }
 

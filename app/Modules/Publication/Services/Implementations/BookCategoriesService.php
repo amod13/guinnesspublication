@@ -66,4 +66,21 @@ class BookCategoriesService extends BaseService implements BookCategoriesService
     {
         return $this->repository->getActiveBookCategories();
     }
+    public function getCategoryIdBySlug($slug)
+    {
+        return $this->repository->getCategoryIdBySlug($slug);
+    }
+
+    public function getBookCategories()
+    {
+        return $this->repository->getBookCategories();
+    }
+
+    public function searchCategories($data)
+    {
+        $data['activeBookCategories'] = $this->repository->searchCategories($data);
+        return [
+            'data' => $data
+        ];
+    }
 }

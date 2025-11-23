@@ -6,6 +6,7 @@ use App\Core\Helpers\FilePathHelper;
 use App\Http\Controllers\Controller;
 use App\Modules\Publication\Enums\HighlightTypeEnum;
 use App\Modules\Publication\Services\Interfaces\AboutUsServiceInterface;
+use App\Modules\Publication\Services\Interfaces\AuthorsServiceInterface;
 use App\Modules\Publication\Services\Interfaces\BookCategoriesServiceInterface;
 use App\Modules\Publication\Services\Interfaces\BookServiceInterface;
 use App\Modules\Publication\Services\Interfaces\PageServiceInterface;
@@ -17,13 +18,15 @@ use Illuminate\Support\Facades\Log;
 class HomeController extends Controller
 {
     protected string $viewPrefix = 'publication::site.';
-    protected $PageService, $AboutUsService,$BookCategoriesService,$SliderService,$BookService;
+    protected $PageService, $AboutUsService,$BookCategoriesService,$SliderService,$BookService,$bookCategoryService,$authorService;
     public function __construct(
         PageServiceInterface $PageService,
         AboutUsServiceInterface $AboutUsService,
         BookCategoriesServiceInterface $BookCategoriesService,
         SliderServiceInterface $SliderService,
-        BookServiceInterface $BookService
+        BookServiceInterface $BookService,
+        BookCategoriesServiceInterface $bookCategoryService,
+        AuthorsServiceInterface $authorService,
         )
     {
         $this->PageService = $PageService;
@@ -31,6 +34,8 @@ class HomeController extends Controller
         $this->BookCategoriesService = $BookCategoriesService;
         $this->SliderService = $SliderService;
         $this->BookService = $BookService;
+        $this->bookCategoryService = $bookCategoryService;
+        $this->authorService = $authorService;
     }
 
     public function index()
@@ -42,7 +47,9 @@ class HomeController extends Controller
         $data['bestSellingBooks'] = $this->BookService->getPublishBooksByHighLightType($bestSelling)->take(5);
         $bestSelling = HighlightTypeEnum::FlashSale->value;
         $data['flashSaleBooks'] = $this->BookService->getPublishBooksByHighLightType($bestSelling)->take(4);
-
+        $data['activeBookCategories'] = $this->bookCategoryService->getActiveBookCategories()->take(7);
+        $data['activeAuthors'] = $this->authorService->getAuthors()->take(6);
+        // dd($data['activeAuthors']);
 
         return view($this->viewPrefix . 'main.index', ['data' => $data]);
     }
@@ -50,13 +57,7 @@ class HomeController extends Controller
     public function getBookDetailBySlug($language,$slug)
     {
         $data['header_title'] = $slug;
-
         $data['book'] = $this->BookService->getSingleBookBySlug($slug);
-        // dd($data['book']);
-
-        if (!$data['book']) {
-            abort(404);
-        }
 
         return view($this->viewPrefix . 'page.book.single', ['data' => $data]);
     }
@@ -66,12 +67,51 @@ class HomeController extends Controller
         $data['page'] = $this->PageService->getSinglePageBySlug($slug);
         $data['header_title'] = $data['page']->title ?? '';
 
-        if (!$data['page']) {
-            abort(404);
-        }
 
         return view($this->viewPrefix . 'page.page.single', ['data' => $data]);
     }
 
+    public function giveMeBookByCategory($language,$slug)
+    {
+        $response = $this->BookService->giveMeBookByCategorySlug($slug);
+
+        return view($this->viewPrefix . 'page.book.bookListByCategory', [
+             'data' => $response['data']
+        ]);
+    }
+
+    public function globalSearch($language,Request $request)
+    {
+        $keyword = $request->input('keyword');
+        $response = $this->BookService->searchBookByKeyword($keyword);
+
+         return view($this->viewPrefix . 'page.book.bookListByCategory', [
+             'data' => $response['data']
+        ]);
+    }
+
+    public function giveMeAllBookCategory()
+    {
+        $data['activeBookCategories'] = $this->bookCategoryService->getBookCategories();
+
+        return view($this->viewPrefix . 'page.category.list', ['data' => $data]);
+    }
+
+
+    public function searchCategories($language,Request $request)
+    {
+        $response = $this->bookCategoryService->searchCategories($request->all());
+
+         return view($this->viewPrefix . 'page.category.list', [
+             'data' => $response['data']
+        ]);
+    }
+
+     public function giveMeAllAuthors()
+    {
+        $data['activeAuthors'] = $this->authorService->getAuthors();
+
+        return view($this->viewPrefix . 'page.authors.list', ['data' => $data]);
+    }
 
 }

@@ -5,6 +5,7 @@ namespace App\Modules\Publication\Repositories\Implementations;
 use App\Core\Repositories\Implementation\BaseRepository;
 use App\Modules\Publication\Models\Book;
 use App\Modules\Publication\Repositories\Interfaces\BookRepositoryInterface;
+use Illuminate\Support\Facades\DB;
 
 class BookRepository extends BaseRepository implements BookRepositoryInterface
 {
@@ -15,7 +16,8 @@ class BookRepository extends BaseRepository implements BookRepositoryInterface
 
     public function getRecordById($id)
     {
-        return $this->model->findOrFail($id);
+        // 'category' relationship लाई Eager Load गर्ने
+        return $this->model->with('category')->findOrFail($id);
     }
 
     public function getPublicAllowedPages($id)
@@ -40,24 +42,76 @@ class BookRepository extends BaseRepository implements BookRepositoryInterface
     public function getPublishBooksByHighLightType($highlightType)
     {
         return $this->model
-        ->select('id', 'title', 'slug', 'thumbnail_image','language', 'highlights', 'status','content')
-        ->where('language', session('language', 'en'))
-        ->where('status', 'active')
-        ->where('highlights', $highlightType)
-        ->get();
+            ->select('id', 'title', 'slug', 'thumbnail_image', 'language', 'highlights', 'status', 'content')
+            ->where('language', session('language', 'en'))
+            ->where('status', 'active')
+            ->where('highlights', $highlightType)
+            ->get();
     }
 
-    public function getSingleBookBySlug($slug)
+    public function getBookIdBySlug($slug)
     {
-        $record  = $this->model->where('slug', $slug)->first();
-        $bookId = $record->id;
-        // dd($bookId);
-        return $this->model
-        ->select('id', 'title', 'slug', 'thumbnail_image', 'language', 'highlights', 'status', 'content')
-        ->where('language', session('language', 'en'))
-        ->where('status', 'active')
-        ->where('slug', $slug)
-        ->first();
+        $record  = $this->model->where('slug', $slug)->select('id', 'category_id')->first();
+        return $record;
     }
 
+
+
+    public function getAuthorsByBookId($bookId, $language)
+    {
+        return $this->model
+            ->join('authors', 'authors.id', '=', $this->model->getTable() . '.author_id')
+            ->select('authors.name', 'authors.id', 'authors.image', 'authors.slug', 'authors.content')
+            ->where($this->model->getTable() . '.id', $bookId)
+            ->where('authors.status', 'active')
+            ->where('authors.language', $language)
+            ->first();
+    }
+
+
+    public function getRelatedBookByCategoryId($categoryId, $excludeBookId = null)
+    {
+        $query = $this->model
+            ->with(['category:id,name,slug'])
+            ->with(['author:id,name,slug'])
+            ->select('id', 'title', 'slug', 'thumbnail_image', 'language', 'highlights', 'status', 'content', 'category_id', 'author_id')
+            ->where('language', session('language', 'en'))
+            ->where('status', 'active')
+            ->where('category_id', $categoryId);
+
+        if ($excludeBookId) {
+            $query->where('id', '!=', $excludeBookId); // exclude current book
+        }
+
+        return $query->get();
+    }
+
+    public function getBooksByCategoryId($categoryId)
+    {
+        return $this->model
+            ->with(['category:id,name,slug'])
+            ->with(['author:id,name,slug'])
+            ->select('id', 'title', 'slug', 'thumbnail_image', 'language', 'highlights', 'status', 'content', 'category_id', 'author_id')
+            ->where('language', session('language', 'en'))
+            ->where('status', 'active')
+            ->where('category_id', $categoryId)
+            ->paginate(12);
+    }
+
+    public function searchBooksByKeyWord($keyword)
+    {
+        return $this->model
+            ->with('category:id,name,slug') // category load
+            ->with('author:id,name,slug')
+            ->select('id', 'title', 'slug', 'thumbnail_image', 'language', 'highlights', 'status', 'content', 'category_id', 'author_id')
+            ->where('language', session('language', 'en'))
+            ->where('status', 'active')
+            ->where(function ($query) use ($keyword) {
+                $query->where('title', 'LIKE', "%{$keyword}%")
+                    ->orWhere('highlights', 'LIKE', "%{$keyword}%")
+                    ->orWhere('content', 'LIKE', "%{$keyword}%")
+                    ->orWhere('slug', 'LIKE', "%{$keyword}%");
+            })
+            ->paginate(12);
+    }
 }

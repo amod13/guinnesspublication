@@ -8,8 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Authors extends BaseModel
 {
-    use HasFactory;
-
     protected $fillable = [
         'name',
         'email',
@@ -25,4 +23,9 @@ class Authors extends BaseModel
     protected $casts = [
         'status' => 'string',
     ];
+
+      public function books()
+    {
+        return $this->hasMany(Book::class, 'author_id');
+    }
 }

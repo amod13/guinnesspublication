@@ -20,7 +20,7 @@
                 <div class="col-md-6 mb-3">
                     <x-form.text-input name="address" label="Address" :value="old('address', $data['record']->address ?? '')" />
                 </div>
-
+               
                 <div class="col-md-12 mb-3">
                     <x-form.file-upload :id="'image'" :label="''" :name="'image'" :value="isset($data['record']) ? $data['record']->getMediaUrl('image') : null" />
                     @isset($data['record']->id)

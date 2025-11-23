@@ -7,4 +7,7 @@ interface BookCategoriesServiceInterface extends BaseServiceInterface
 {
     public function getPaginatedSearchResults(int $perPage, ?string $search = null);
     public function getActiveBookCategories();
+    public function getCategoryIdBySlug($slug);
+    public function searchCategories($data);
+    public function getBookCategories();
 }

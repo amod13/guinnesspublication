@@ -16,8 +16,41 @@ class BookCategoriesRepository extends BaseRepository implements BookCategoriesR
     public function getActiveBookCategories()
     {
         return $this->model->where('status', 'active')
-        ->where('language', session('language', 'en'))
-        ->select('id', 'name','thumbnail_image','slug')->orderBy('name', 'asc')
-        ->get();
+            ->where('language', session('language', 'en'))
+            ->select('id', 'name', 'thumbnail_image', 'slug')->orderBy('name', 'asc')
+            ->get();
+    }
+
+    public function getCategoryIdBySlug($slug)
+    {
+        $record  = $this->model->where('slug', $slug)->select('id')->first();
+        return $record;
+    }
+
+    public function searchCategories($data)
+    {
+        $keyword = $data['keyword'] ?? null;
+        $categoryId = $data['category_id'] ?? null;
+
+        return $this->model
+            ->when($keyword, function ($query) use ($keyword) {
+                $query->where('name', 'LIKE', "%{$keyword}%");
+            })
+            ->where('status', 'active')
+            ->where('language', session('language', 'en'))
+            ->when($categoryId, function ($query) use ($categoryId) {
+                $query->where('id', '!=', $categoryId);
+            })
+            ->select('id', 'name', 'slug', 'thumbnail_image')
+            ->orderBy('name', 'asc')
+            ->paginate(10);
+    }
+
+    public function getBookCategories()
+    {
+        return $this->model->where('status', 'active')
+            ->where('language', session('language', 'en'))
+            ->select('id', 'name', 'thumbnail_image', 'slug')->orderBy('display_order', 'asc')
+            ->paginate(10);
     }
 }

@@ -11,4 +11,6 @@ interface BlogServiceInterface extends BaseServiceInterface
     public function getPaginatedSearchResults(int $perPage, ?string $search = null);
     public function getBlogBySlug($slug);
     public function getBlogByCategorySlug($slug);
+    public function giveMeBookByCategorySlug($slug);
+    public function searchBookByKeyword($keyword);
 }

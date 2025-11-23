@@ -8,5 +8,5 @@ interface BookRepositoryInterface extends BaseRepositoryInterface
     public function getRecordById($id);
     public function getPublicAllowedPages($id);
     public function getPublishBooksByHighLightType($highlightType);
-    public function getSingleBookBySlug($slug);
+    public function getAuthorsByBookId($bookId, $language);
 }

@@ -224,3 +224,10 @@ Route::middleware(['web', 'auth'])->prefix('admin')->group(function () {
     });
 
 });
+
+
+  //---------------------------BOOKS SECTION ROUTE-----------------------------
+    Route::prefix('book')->as('books.')->controller(BookController::class)->group(function () {
+        Route::get('{id}/pdf', 'showPdf')->name('pdf');
+
+    });

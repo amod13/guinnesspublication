@@ -6,4 +6,7 @@ use App\Core\Repositories\Interface\BaseRepositoryInterface;
 interface BookCategoriesRepositoryInterface extends BaseRepositoryInterface
 {
     public function getActiveBookCategories();
+    public function getCategoryIdBySlug($slug);
+    public function searchCategories($data);
+    public function getBookCategories();
 }
