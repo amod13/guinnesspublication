@@ -141,7 +141,8 @@ class BookService extends BaseService implements BookServiceInterface
             'data' => $data
         ];
     }
-      public function searchBookByKeyword($keyword)
+
+    public function searchBookByKeyword($keyword)
     {
         // tyo catgeory ko sanga related books taneko
         $data['booksByCategories'] = $this->repository->searchBooksByKeyWord($keyword);
@@ -152,5 +153,10 @@ class BookService extends BaseService implements BookServiceInterface
         return [
             'data' => $data
         ];
+    }
+
+    public function getActiveBooks()
+    {
+        return $this->repository->getActiveBooks();
     }
 }

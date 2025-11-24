@@ -11,12 +11,14 @@ use App\Modules\Publication\Controllers\Admin\GalleryCategoryController;
 use App\Modules\Publication\Controllers\Admin\GalleryController;
 use App\Modules\Publication\Controllers\Admin\MarketingsController;
 use App\Modules\Publication\Controllers\Admin\MenuController;
+use App\Modules\Publication\Controllers\Admin\MessageController;
 use App\Modules\Publication\Controllers\Admin\PageController;
 use App\Modules\Publication\Controllers\Admin\SettingController;
 use App\Modules\Publication\Controllers\Admin\SliderController;
 use App\Modules\Publication\Controllers\Admin\ThemeSettingController;
 use App\Modules\Publication\Controllers\Admin\VmgController;
 use Illuminate\Support\Facades\Route;
+
 
 
 
@@ -221,6 +223,13 @@ Route::middleware(['web', 'auth'])->prefix('admin')->group(function () {
         Route::delete('destroy/{id}', 'delete')->name('destroy');
         Route::delete('bulk-delete', 'bulkDelete')->name('bulk.delete');
         Route::get('/update-order', 'updateOrder')->name('order');
+    });
+
+    //---------------------------Contact Message-----------------------------
+    Route::prefix('contact-message')->group(function () {
+        Route::get('/', [MessageController::class, 'contactMessages'])->name('contact-message.index');
+        Route::delete('delete/{id}', [MessageController::class, 'deleteContactMessage'])->name('contact-message.destroy');
+        Route::get('detail/{id}', [MessageController::class, 'contactMessageShow'])->name('contact-message.show');
     });
 
 });

@@ -202,6 +202,20 @@
                 'permission' => ['controller' => 'MarketingsController', 'method' => 'index'],
             ],
 
+               [
+                'title' => 'Messages',
+                'icon' => 'fas fa-comments amd-icon-color7',
+                'iconColor' => 'icon-color-9',
+                'submenu' => [
+                    [
+                        'title' => 'Contact Messages',
+                        'route' => 'contact-message.index',
+                        'route_pattern' => 'contact-message.*',
+                        'permission' => ['controller' => 'MessageController', 'method' => 'contactMessages'],
+                    ],
+                ],
+            ],
+
             [
                 'title' => 'Settings',
                 'icon' => 'fas fa-cog amd-icon-color5',

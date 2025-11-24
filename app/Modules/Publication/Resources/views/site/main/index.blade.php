@@ -16,10 +16,6 @@
                                     <p class="book-description">
                                         {!! $item->description ?? '' !!}
                                     </p>
-                                    <div class="amd-hero-buttons">
-                                        <a href="#" class="amd-btn amd-btn-primary">Contact Us</a>
-                                        <a href="#" class="amd-btn amd-btn-secondary">Browse Catalog</a>
-                                    </div>
                                 </div>
                                 <div class="amd-hero-images">
                                     <!-- IMPORTANT: Replace these placeholder image URLs with your own book covers -->
@@ -83,32 +79,23 @@
                         <p>
                             {!! $data['about']->description ?? '' !!}
                         </p>
-                        <div class="amd-about-section-content-footer">
+                        <div class="amd-about-section-content-footer text-end">
                             <!-- SVG Badge -->
-                            <div class="amd-about-section-badge">
-                                <svg class="amd-about-section-badge-svg" viewBox="0 0 100 100">
-                                    <defs>
-                                        <path id="circlePath" d="M 50, 50 m -40, 0 a 40,40 0 1,1 80,0 a 40,40 0 1,1 -80,0">
-                                        </path>
-                                    </defs>
-                                    <text font-family="Poppins, sans-serif" font-size="9" font-weight="700" fill="#212121">
-                                        <textPath xlink:href="#circlePath">
-                                            • SINCE 2001, LEADING DIGITAL AGENCY
-                                        </textPath>
-                                    </text>
-                                    <circle cx="50" cy="50" r="25" fill="#c9fcc269"></circle>
-                                    <g stroke="#212121" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                        fill="none">
-                                        <path d="M45 55 l10 -10"></path>
-                                        <path d="M55 55 l0 -10 l-10 0"></path>
-                                    </g>
-                                </svg>
-                            </div>
-                            <!-- Small Image -->
-                            <div class="amd-about-section-image-small">
-                                <img src="../assets/imgs/Untitled design (11).png" accept="png,tif,jpg"
-                                    alt="Two colleagues looking at a computer screen.">
-                            </div>
+
+                            <a href="{{ route('site.about.us', ['locale' => app()->getLocale()]) }}"
+                                class="amd-book-view-all">
+                                <!-- From Uiverse.io by Li-Deheng -->
+                                <button class="button">
+                                    <span>Read More</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 66 43">
+                                        <polygon points="39.58,4.46 44.11,0 66,21.5 44.11,43 39.58,38.54 56.94,21.5">
+                                        </polygon>
+                                        <polygon points="19.79,4.46 24.32,0 46.21,21.5 24.32,43 19.79,38.54 37.15,21.5">
+                                        </polygon>
+                                        <polygon points="0,4.46 4.53,0 26.42,21.5 4.53,43 0,38.54 17.36,21.5"></polygon>
+                                    </svg>
+                                </button>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -171,7 +158,7 @@
                 <div class="amd-book-section-bg-text">Classics</div>
                 <div class="amd-book-section-header">
                     <h2 class="amd-global-title-highlight">Classics</h2>
-                    <a href="#" class="amd-book-view-all">
+                    <a href="{{ route('site.book.list', ['locale' => app()->getLocale()]) }}" class="amd-book-view-all">
                         <!-- From Uiverse.io by Li-Deheng -->
                         <button class="button">
                             <span>{{ __('site/title.view_all') }}</span>
@@ -205,7 +192,9 @@
                                 </div>
                                 <div class="amd-book-section-info">
                                     <h3>{{ $item->title }}</h3>
-                                    <p>by: Friedrich Wilhelm</p>
+                                    @if (!empty($item->author->name))
+                                        <p>by: {{ $item->author->name ?? '' }}</p>
+                                    @endif
                                 </div>
                             </a>
                         @endforeach
@@ -217,7 +206,6 @@
             </div>
         </section>
     @endif
-
 
     <!-- category section -->
     @if ($data['activeBookCategories']->count() > 0)
@@ -266,7 +254,7 @@
             <div class="container">
                 <div class="amd-book-section-header amd-book-section-header-flex">
                     <div>
-                        <h2 class="amd-global-title-highlight">Ours Authors </h2>
+                        <h2 class="amd-global-title-highlight">Our Authors </h2>
                     </div>
                     <a href="{{ route('site.author.list', ['locale' => app()->getLocale()]) }}"
                         class="amd-book-view-all">
@@ -306,5 +294,69 @@
         </section>
     @endif
 
+    {{-- Blog Page --}}
+    @if ($data['blogs']->count() > 0)
+        <section class="amd-book-blog-section">
+            <div class="amd-book-blog-container container">
+                <!-- Section Header -->
+                <header class="amd-book-blog-header">
+                    <div class="amd-book-section-header amd-book-section-header-flex">
+                        <div>
+                            <h2 class="amd-global-title-highlight">Blogs</h2>
+                        </div>
+                    </div>
+                    @if ($data['blogs']->count() > 4)
+                        <nav class="amd-book-blog-header-nav">
+                            <button class="amd-book-blog-nav-arrow" aria-label="Previous Post">&larr;</button>
+                            <button class="amd-book-blog-nav-arrow" aria-label="Next Post">&rarr;</button>
+                        </nav>
+                    @endif
+                </header>
+                <!-- Blog Posts Grid -->
+                <div class="amd-book-blog-grid">
+
+                    @foreach ($data['blogs'] as $item)
+                        <article class="amd-book-blog-card">
+                            <a href="{{ route('site.blog.detail', ['locale' => app()->getLocale(), 'slug' => $item->slug ?? ($item->id ?? '')]) }}"
+                                class="amd-book-blog-card-link"
+                                aria-label="Blog Post', ['locale' => app()->getLocale()]) }}">
+                                <img src="{{ $item->getMediaUrl('thumbnail_image') }}" alt="{{ $item->title ?? '' }}"
+                                    class="amd-book-blog-card-image">
+                            </a>
+                            <div class="amd-book-blog-card-body">
+                                <p class="amd-book-blog-card-meta">{{ $item->created_at->format('M d, Y') }} •
+                                    <span>{{ $item->blogCategory->title ?? '' }}</span>
+                                </p>
+                                <h3 class="amd-book-blog-card-title">
+                                    <a
+                                        href="{{ route('site.blog.detail', ['locale' => app()->getLocale(), 'slug' => $item->slug ?? ($item->id ?? '')]) }}">{{ $item->title }}s</a>
+                                </h3>
+                                <a href="{{ route('site.blog.detail', ['locale' => app()->getLocale(), 'slug' => $item->slug ?? ($item->id ?? '')]) }}"
+                                    class="amd-book-read-more-btn">Read more &rarr;</a>
+                            </div>
+                        </article>
+                    @endforeach
+
+
+                </div>
+                <!-- Footer Button -->
+                <div class="text-end mt-3">
+                    <a href="{{ route('site.blog.list', ['locale' => app()->getLocale()]) }}"
+                        class="amd-book-view-all text-center">
+                        <!-- From Uiverse.io by Li-Deheng -->
+                        <button class="button">
+                            <span>View All</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 66 43">
+                                <polygon points="39.58,4.46 44.11,0 66,21.5 44.11,43 39.58,38.54 56.94,21.5"></polygon>
+                                <polygon points="19.79,4.46 24.32,0 46.21,21.5 24.32,43 19.79,38.54 37.15,21.5">
+                                </polygon>
+                                <polygon points="0,4.46 4.53,0 26.42,21.5 4.53,43 0,38.54 17.36,21.5"></polygon>
+                            </svg>
+                        </button>
+                    </a>
+                </div>
+            </div>
+        </section>
+    @endif
 
 @endsection

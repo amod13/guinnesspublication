@@ -2,7 +2,6 @@
 
 namespace App\Modules\Publication\Services\Interfaces;
 use App\Core\Services\Interface\BaseServiceInterface;
-use App\Core\Traits\HasPaginatedSearch;
 
 interface BookServiceInterface extends BaseServiceInterface
 {
@@ -10,4 +9,7 @@ interface BookServiceInterface extends BaseServiceInterface
     public function getRecordById($id);
     public function getPublishBooksByHighLightType($highlightType);
     public function getSingleBookBySlug($slug);
+    public function searchBookByKeyword($keyword);
+    public function giveMeBookByCategorySlug($slug);
+    public function getActiveBooks();
 }

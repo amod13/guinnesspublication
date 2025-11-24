@@ -2,11 +2,12 @@
 
 namespace App\Modules\Publication\Services\Implementations;
 
-use App\Core\Services\Implementation\BaseService;
+use App\Core\Helpers\ContentFormatter;
 use App\Core\Utils\SlugGeneratorService;
+use App\Core\Services\Implementation\BaseService;
 use App\Modules\Publication\DTOs\AboutUs\AboutUsDto;
-use App\Modules\Publication\Repositories\Interfaces\AboutUsRepositoryInterface;
 use App\Modules\Publication\Services\Interfaces\AboutUsServiceInterface;
+use App\Modules\Publication\Repositories\Interfaces\AboutUsRepositoryInterface;
 
 class AboutUsService extends BaseService implements AboutUsServiceInterface
 {
@@ -75,9 +76,17 @@ class AboutUsService extends BaseService implements AboutUsServiceInterface
     {
         return $this->repository->getActiveAboutUs();
     }
+
     public function hasBaseDataForLanguage($language, $excludeId = null)
     {
         return $this->repository->hasBaseDataForLanguage($language, $excludeId);
+    }
+
+    public function aboutUsFormHome()
+    {
+      $record =  $this->repository->getActiveAboutUs();
+        $record->description = ContentFormatter::limitWords($record->description, 150);
+        return $record;
     }
 
 }

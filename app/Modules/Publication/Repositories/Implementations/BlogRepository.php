@@ -50,6 +50,8 @@ class BlogRepository extends BaseRepository implements BlogRepositoryInterface
                 'thumbnail_image',
                 'author_name',
                 'published_date',
+                'created_at',
+                'updated_at',
             ])
             ->with([
                 'blogCategory:id,title,slug',
@@ -67,6 +69,7 @@ class BlogRepository extends BaseRepository implements BlogRepositoryInterface
                     'slug',
                     'thumbnail_image',
                     'published_date',
+                    'created_at',
                 ])
                 ->where('blog_category_id', $blog->blog_category_id)
                 ->where('id', '!=', $blog->id)
@@ -82,7 +85,6 @@ class BlogRepository extends BaseRepository implements BlogRepositoryInterface
 
         return $blog;
     }
-
 
     public function getBlogByCategorySlug($slug)
     {
@@ -108,4 +110,54 @@ class BlogRepository extends BaseRepository implements BlogRepositoryInterface
             ->paginate(10);
     }
 
+    public function getActiveBlogs()
+    {
+        return $this->model
+            ->select([
+                'id',
+                'blog_category_id',
+                'title',
+                'content',
+                'slug',
+                'excerpt',
+                'thumbnail_image',
+                'author_name',
+                'published_date',
+                'created_at',
+            ])
+            ->with([
+                'blogCategory:id,title,slug' // only category id and name
+            ])
+            ->where('is_published', true)
+            ->where('status', true)
+            ->orderBy('display_order')
+            ->paginate(10);
+    }
+
+    public function searchBlogs($data)
+    {
+        return $this->model
+            ->select([
+                'id',
+                'blog_category_id',
+                'title',
+                'content',
+                'slug',
+                'excerpt',
+                'thumbnail_image',
+                'author_name',
+                'published_date',
+                'created_at',
+            ])
+            ->with([
+                'blogCategory:id,title,slug' // only category id and name
+            ])
+            ->where('is_published', true)
+            ->where('status', true)
+            ->where('language', session('language', 'en'))
+            ->where('blog_category_id', $data['category_id'])
+            ->where('title', 'like', '%' . $data['keywords'] . '%')
+            ->orderBy('display_order')
+            ->paginate(10);
+    }
 }

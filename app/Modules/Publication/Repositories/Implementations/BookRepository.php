@@ -49,14 +49,6 @@ class BookRepository extends BaseRepository implements BookRepositoryInterface
             ->get();
     }
 
-    public function getBookIdBySlug($slug)
-    {
-        $record  = $this->model->where('slug', $slug)->select('id', 'category_id')->first();
-        return $record;
-    }
-
-
-
     public function getAuthorsByBookId($bookId, $language)
     {
         return $this->model
@@ -68,6 +60,11 @@ class BookRepository extends BaseRepository implements BookRepositoryInterface
             ->first();
     }
 
+    public function getBookIdBySlug($slug)
+    {
+        $record  = $this->model->where('slug', $slug)->select('id', 'category_id')->first();
+        return $record;
+    }
 
     public function getRelatedBookByCategoryId($categoryId, $excludeBookId = null)
     {
@@ -98,7 +95,7 @@ class BookRepository extends BaseRepository implements BookRepositoryInterface
             ->paginate(12);
     }
 
-    public function searchBooksByKeyWord($keyword)
+    public function searchBookByKeyword($keyword)
     {
         return $this->model
             ->with('category:id,name,slug') // category load
@@ -112,6 +109,17 @@ class BookRepository extends BaseRepository implements BookRepositoryInterface
                     ->orWhere('content', 'LIKE', "%{$keyword}%")
                     ->orWhere('slug', 'LIKE', "%{$keyword}%");
             })
+            ->paginate(12);
+    }
+
+    public function getActiveBooks()
+    {
+        return $this->model
+            ->with('category:id,name,slug') // category load
+            ->with('author:id,name,slug')
+            ->select('id', 'title', 'slug', 'thumbnail_image', 'language', 'highlights', 'status', 'content', 'category_id', 'author_id')
+            ->where('language', session('language', 'en'))
+            ->where('status', 'active')
             ->paginate(12);
     }
 }

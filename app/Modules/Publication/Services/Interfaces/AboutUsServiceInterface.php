@@ -8,4 +8,5 @@ interface AboutUsServiceInterface extends BaseServiceInterface
 {
     public function getActiveAboutUs();
     public function hasBaseDataForLanguage($language, $excludeId = null);
+    public function aboutUsFormHome();
 }

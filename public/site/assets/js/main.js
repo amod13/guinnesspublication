@@ -3,24 +3,41 @@ $(document).ready(function () {
   // -------------------------------
   // Navbar menus and hamburger
   // -------------------------------
+$(document).ready(function () {
+
   const hamburger = $('#amd-hamburger');
   const navMenu = $('#amd-nav-menu');
   const infoToggleBtn = $('#amd-info-toggle');
   const infoCanvas = $('#amd-info-canvas');
   const closeCanvasBtn = $('#amd-close-canvas');
+  const overlay = $('#amd-overlay'); // overlay element
 
   const closeMobileMenu = () => {
     hamburger.removeClass('amd-active');
     navMenu.removeClass('amd-open');
+    overlay.removeClass('amd-show');
   };
 
+  const closeInfoCanvas = () => {
+    infoCanvas.removeClass('amd-open');
+    overlay.removeClass('amd-show');
+  };
+
+  // Hamburger Menu
   hamburger.on('click', function (e) {
     e.stopPropagation();
     hamburger.toggleClass('amd-active');
     navMenu.toggleClass('amd-open');
+
+    // show overlay in mobile menu
+    if (navMenu.hasClass('amd-open')) {
+      overlay.addClass('amd-show');
+    } else {
+      overlay.removeClass('amd-show');
+    }
   });
 
-  // Mobile dropdown toggle on small screens
+  // Mobile dropdown toggle
   $('.amd-dropdown > a').on('click', function (e) {
     if ($(window).width() <= 992) {
       e.preventDefault();
@@ -35,29 +52,47 @@ $(document).ready(function () {
     }
   });
 
+  // Close mobile menu when clicking links
   navMenu.on('click', function (e) {
     if (e.target.tagName === 'A' && !$(e.target).parent().hasClass('amd-dropdown')) {
       closeMobileMenu();
     }
   });
 
+  // Open info canvas
   infoToggleBtn.on('click', function (e) {
     e.stopPropagation();
     infoCanvas.addClass('amd-open');
+    overlay.addClass('amd-show'); // show overlay
   });
 
+  // Close info canvas button
   closeCanvasBtn.on('click', function () {
-    infoCanvas.removeClass('amd-open');
+    closeInfoCanvas();
   });
 
+  // Close both (mobile menu + info canvas) when clicking outside
   $(document).on('click', function (event) {
-    if (navMenu.hasClass('amd-open') && !navMenu.is(event.target) && navMenu.has(event.target).length === 0) {
+
+    // Outside mobile nav
+    if (navMenu.hasClass('amd-open') &&
+      !navMenu.is(event.target) &&
+      navMenu.has(event.target).length === 0 &&
+      !hamburger.is(event.target)) {
       closeMobileMenu();
     }
-    if (infoCanvas.hasClass('amd-open') && !infoCanvas.is(event.target) && infoCanvas.has(event.target).length === 0 && !infoToggleBtn.is(event.target)) {
-      infoCanvas.removeClass('amd-open');
+
+    // Outside info canvas
+    if (infoCanvas.hasClass('amd-open') &&
+      !infoCanvas.is(event.target) &&
+      infoCanvas.has(event.target).length === 0 &&
+      !infoToggleBtn.is(event.target)) {
+      closeInfoCanvas();
     }
   });
+
+});
+
 
   // -------------------------------
   // Search Toggle
@@ -116,6 +151,74 @@ $(document).ready(function () {
   });
   //Load more btn loading animated js end****************
 
+  // -------------------------------
+  //hero section  Typing effect with blinking cursor
+  // -------------------------------
+
+
+  const highlight = document.getElementById("amd-highlight");
+  const dots = document.getElementById("amd-dots");
+
+  if (highlight && dots) {
+    const texts = ["Printed Realms", "Digital Stories", "Epic Novels", "Fantasy Worlds"];
+    let index = 0;
+    const typingSpeed = 100; // ms per character
+    const erasingSpeed = 50; // ms per character
+    const delayBetween = 1500; // delay before erasing starts
+
+    // Blinking dots as cursor
+    setInterval(() => {
+      dots.textContent = dots.textContent === "" ? "|" : "";
+    }, 500);
+
+    // Typing effect
+    function typeText(text, callback) {
+      let charIndex = 0;
+      highlight.textContent = "";
+
+      function typeChar() {
+        if (charIndex < text.length) {
+          highlight.textContent += text.charAt(charIndex);
+          charIndex++;
+          setTimeout(typeChar, typingSpeed);
+        } else {
+          setTimeout(() => callback(), delayBetween);
+        }
+      }
+      typeChar();
+    }
+
+    // Erase effect
+    function eraseText(callback) {
+      let text = highlight.textContent;
+      let charIndex = text.length;
+
+      function eraseChar() {
+        if (charIndex > 0) {
+          highlight.textContent = text.substring(0, charIndex - 1);
+          charIndex--;
+          setTimeout(eraseChar, erasingSpeed);
+        } else {
+          callback();
+        }
+      }
+      eraseChar();
+    }
+
+    // Loop through texts
+    function loopTexts() {
+      typeText(texts[index], () => {
+        eraseText(() => {
+          index = (index + 1) % texts.length;
+          loopTexts();
+        });
+      });
+    }
+
+    // Start typing loop
+    loopTexts();
+  }
+  // hero section typing text dot end
 
 
   // -------------------------------

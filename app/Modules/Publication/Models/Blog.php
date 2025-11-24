@@ -55,4 +55,27 @@ class Blog extends Model
     {
         return $this->belongsTo(User::class, 'author_id');
     }
+
+     public function getReadingTimeAttribute()
+    {
+        $content = $this->content ?? '';
+
+        // remove html, decode entities, then count words
+        $text = html_entity_decode(strip_tags($content));
+        // str_word_count might not count unicode well; use preg to count words:
+        preg_match_all('/\p{L}[\p{L}\p{N}_\'-]*/u', $text, $matches);
+        $wordCount = is_array($matches) ? count($matches[0]) : 0;
+
+        $wpm = 200; // words per minute (adjust if you want slower/faster)
+        $minutesFloat = $wordCount / $wpm;
+
+        if ($wordCount === 0) {
+            return 'Less than 1 min read';
+        }
+
+        // round up so user gets conservative estimate
+        $minutes = (int) ceil($minutesFloat);
+
+        return $minutes <= 1 ? '1 min read' : "{$minutes} min read";
+    }
 }

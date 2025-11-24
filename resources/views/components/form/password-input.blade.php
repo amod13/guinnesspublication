@@ -1,4 +1,11 @@
-@props(['id', 'name', 'label' => '', 'required' => false, 'value' => '', 'placeholder' => 'Password'])
+@props([
+      'id' => null,
+     'name',
+      'label' => '', 
+      'required' => false, 
+      'value' => '',
+       'placeholder' => 'Password'
+       ])
 
 <style>
     /* Custom CSS for the Password Field Component */

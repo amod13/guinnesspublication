@@ -214,7 +214,6 @@
                             </div>
                             <div class="amd-book-section-info">
                                 <h3>{{ $item->title }}</h3>
-                                <p>by: Friedrich Wilhelm</p>
                             </div>
                         </a>
                     @endforeach

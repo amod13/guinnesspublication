@@ -1,10 +1,6 @@
   </main>
   <!-- Footer Section -->
-
   <footer class="amd-book-footer">
-      <!-- Decorative background image of book spines -->
-      <img src="https://i.imgur.com/T0y3bSB.png" alt="Book spine decoration" class="amd-book-footer-decoration">
-
       <div class="container">
           <div class="row">
               <!-- Column 1: About & Socials -->
@@ -12,24 +8,37 @@
                   <p>
                       {{ $data['aboutTagline']->description ?? '' }}
                   </p>
-                  <div class="amd-book-footer-social-icons">
-                      @if ($data['setting']->facebook)
-                          <a href="{{ $data['setting']->facebook }}" aria-label="Facebook" target="_blank"><i
-                                  class="fab fa-facebook-f"></i></a>
-                      @endif
-                      @if ($data['setting']->twitter)
-                          <a href="{{ $data['setting']->twitter }}" aria-label="Twitter" target="_blank"><i
-                                  class="fab fa-twitter"></i></a>
-                      @endif
-                      @if ($data['setting']->instagram)
-                          <a href="{{ $data['setting']->instagram }}" aria-label="Instagram" target="_blank"><i
-                                  class="fab fa-instagram"></i></a>
-                      @endif
-                      @if ($data['setting']->youtube)
-                          <a href="{{ $data['setting']->youtube }}" aria-label="youtube" target="_blank"><i
-                                  class="fab fa-youtube"></i></a>
-                      @endif
-                  </div>
+                  <div class="amd-social-links">
+                       @if (!empty($data['setting']->facebook))
+                      <li><a href="{{ $data['setting']->facebook }}" target="_blank">
+                              <i class="bi bi-facebook text-white list-style-none"></i>
+                          </a></li>
+                  @endif
+
+                  @if (!empty($data['setting']->instagram))
+                      <li><a href="{{ $data['setting']->instagram }}" target="_blank">
+                              <i class="bi bi-instagram text-white list-style-none"></i>
+                          </a></li>
+                  @endif
+
+                  @if (!empty($data['setting']->twitter))
+                      <li><a href="{{ $data['setting']->twitter }}" target="_blank">
+                              <i class="bi bi-twitter-x text-white list-style-none"></i>
+                          </a></li>
+                  @endif
+
+                  @if (!empty($data['setting']->youtube))
+                      <li><a href="{{ $data['setting']->youtube }}" target="_blank">
+                              <i class="bi bi-youtube text-white list-style-none"></i>
+                          </a></li>
+                  @endif
+
+                  @if (!empty($data['setting']->website))
+                      <li><a href="{{ $data['setting']->website }}" target="_blank">
+                              <i class="bi bi-globe text-white list-style-none"></i>
+                          </a></li>
+                  @endif
+                    </div>
               </div>
 
               <!-- Column 2: Navigation Links -->

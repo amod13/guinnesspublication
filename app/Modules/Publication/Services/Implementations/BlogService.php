@@ -2,6 +2,7 @@
 
 namespace App\Modules\Publication\Services\Implementations;
 
+use App\Core\Helpers\ContentFormatter;
 use App\Core\Services\Implementation\BaseService;
 use App\Core\Traits\HasPaginatedSearch;
 use App\Core\Utils\SlugGeneratorService;
@@ -116,8 +117,36 @@ class BlogService extends BaseService implements BlogServiceInterface
     {
         return $this->repository->getBlogBySlug($slug);
     }
+
     public function getBlogByCategorySlug($slug)
     {
         return $this->repository->getBlogByCategorySlug($slug);
+    }
+
+    public function getActiveBlogs()
+    {
+        $records =  $this->repository->getActiveBlogs();
+
+        $this->trimContentFormat($records);
+
+        return $records;
+    }
+
+    public function searchBlogs($data)
+    {
+        $records = $this->repository->searchBlogs($data);
+
+        $this->trimContentFormat($records);
+
+        return $records;
+    }
+
+    private function trimContentFormat($records)
+    {
+        foreach ($records as $record) {
+            $record->content = ContentFormatter::limitWords($record->content, 20);
+        }
+
+        return $records;
     }
 }

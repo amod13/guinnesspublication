@@ -22,8 +22,6 @@ class UserManagementServiceProvider extends ServiceProvider
 {
     public function register()
     {
-        // merge config
-        // $this->mergeConfigFrom(__DIR__ . '/../Config/usermanagement.php', 'UserManagement');
         //binding repository
         $this->app->bind(PermissionRepositoryInterface::class, PermissionRepository::class);
         $this->app->bind(RoleHasPermissionRepositoryInterface::class, RoleHasPermissionRepository::class);
