@@ -14,6 +14,15 @@ class BookRepository extends BaseRepository implements BookRepositoryInterface
         parent::__construct($model);
     }
 
+    public function getDataForTable()
+    {
+        return $this->model
+            ->select('id', 'title', 'slug', 'thumbnail_image', 'language', 'highlights', 'status', 'content','category_id','display_order')
+            ->where('language', session('language', 'en'))
+            ->where('status', 'active')
+            ->orderBy('created_at', 'desc');
+    }
+
     public function getRecordById($id)
     {
         // 'category' relationship लाई Eager Load गर्ने
@@ -95,21 +104,30 @@ class BookRepository extends BaseRepository implements BookRepositoryInterface
             ->paginate(12);
     }
 
-    public function searchBookByKeyword($keyword)
+    public function searchBookByKeyword($request)
     {
-        return $this->model
-            ->with('category:id,name,slug') // category load
+        $keyword = $request['keyword'];
+        $categoryIds = $request['category_id'] ?? []; // array ma
+
+        $query = $this->model
+            ->with('category:id,name,slug')
             ->with('author:id,name,slug')
             ->select('id', 'title', 'slug', 'thumbnail_image', 'language', 'highlights', 'status', 'content', 'category_id', 'author_id')
             ->where('language', session('language', 'en'))
             ->where('status', 'active')
-            ->where(function ($query) use ($keyword) {
-                $query->where('title', 'LIKE', "%{$keyword}%")
+            ->where(function ($q) use ($keyword) {
+                $q->where('title', 'LIKE', "%{$keyword}%")
                     ->orWhere('highlights', 'LIKE', "%{$keyword}%")
                     ->orWhere('content', 'LIKE', "%{$keyword}%")
                     ->orWhere('slug', 'LIKE', "%{$keyword}%");
-            })
-            ->paginate(12);
+            });
+
+        // Category filter only if categoryIds not empty
+        if (!empty($categoryIds)) {
+            $query->whereIn('category_id', $categoryIds);
+        }
+
+        return $query->paginate(12);
     }
 
     public function getActiveBooks()
@@ -121,5 +139,18 @@ class BookRepository extends BaseRepository implements BookRepositoryInterface
             ->where('language', session('language', 'en'))
             ->where('status', 'active')
             ->paginate(12);
+    }
+
+    // Check if book is favourite
+    public function isFavouriteBooks($bookId, $userId)
+    {
+        $book = $this->model
+            ->where('id', $bookId)
+            ->whereHas('favourite', function ($query) use ($userId) {
+                $query->where('user_id', $userId);
+            })
+            ->first();
+
+        return $book ? true : false;
     }
 }

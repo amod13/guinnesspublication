@@ -1,27 +1,46 @@
 @extends('publication::site.main.app')
 @section('content')
-    <section class="amd-breadcrumb-section">
-        <nav class="breadcrumb-container-amd" aria-label="breadcrumb">
-            <ol class="breadcrumb-list-amd">
-                <li class="breadcrumb-item-amd">
-                    <a href="{{ url('/') }}" class="breadcrumb-link-amd">Home</a>
-                </li>
-                <li class="breadcrumb-item-amd">
-                    <a href="#" class="breadcrumb-link-amd">{{ $data['blog']->blogCategory->title ?? '' }}</a>
-                </li>
-                <li class="breadcrumb-item-amd">
-                    <a href="#" class="breadcrumb-link-amd">{{ $data['blog']->title ?? '' }}</a>
-                </li>
-            </ol>
-        </nav>
-    </section>
+@section('meta')
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="{{ $data['blog']->title ?? '' }}">
+    <meta property="og:description" content="{{ Str::limit(strip_tags($data['blog']->content ?? ''), 150) }}">
+    <meta property="og:image" content="{{ $data['blog']->getMediaUrl('thumbnail_image') }}">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:site_name" content="Publisher's Weekly">
 
-    <section class="amd-blog-detail-container">
-        <div class="container">
-          <header class="amd-blog-detail-header">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ $data['blog']->title ?? '' }}">
+    <meta name="twitter:description" content="{{ Str::limit(strip_tags($data['blog']->content ?? ''), 150) }}">
+    <meta name="twitter:image" content="{{ $data['blog']->getMediaUrl('thumbnail_image') }}">
+    <meta name="twitter:site" content="@amd_soft_services">
+    <meta name="twitter:url" content="{{ url()->current() }}">
+@endsection
+
+<section class="amd-breadcrumb-section">
+    <nav class="breadcrumb-container-amd" aria-label="breadcrumb">
+        <ol class="breadcrumb-list-amd">
+            <li class="breadcrumb-item-amd">
+                <a href="{{ url('/') }}" class="breadcrumb-link-amd">Home</a>
+            </li>
+            <li class="breadcrumb-item-amd">
+                <a href="#" class="breadcrumb-link-amd">{{ $data['blog']->blogCategory->title ?? '' }}</a>
+            </li>
+            <li class="breadcrumb-item-amd">
+                <a href="#" class="breadcrumb-link-amd">{{ $data['blog']->title ?? '' }}</a>
+            </li>
+        </ol>
+    </nav>
+</section>
+
+<section class="amd-blog-detail-container">
+    <div class="container">
+        <header class="amd-blog-detail-header">
             <h1>{{ $data['blog']->title ?? '' }}</h1>
             <div class="amd-blog-detail-meta">
-                <span>By <a href="#" class="amd-blog-detail-author">{{ $data['blog']->author_name ?? '' }}</a></span>
+                <span>By <a href="#"
+                        class="amd-blog-detail-author">{{ $data['blog']->author_name ?? '' }}</a></span>
                 <span>Last updated: {{ $data['blog']->updated_at->format('M d, Y') }}</span>
                 <span><i class="bi bi-clock"></i> {{ $data['blog']->reading_time ?? '' }}</span>
             </div>
@@ -30,26 +49,44 @@
         <figure class="amd-blog-detail-featured-image">
             <img src="{{ $data['blog']->getMediaUrl('thumbnail_image') }}" alt="{{ $data['blog']->title ?? '' }}">
         </figure>
+
         <div class="amd-blog-detail-main-layout">
             <aside class="amd-blog-detail-sidebar">
-                <div class="amd-blog-detail-sidebar-box amd-blog-detail-toc">
-                    <h3>In This Article</h3>
-                    <ul>
-                        <li><a href="#why-social-media">Why Social Media Matters</a></li>
-                        <li><a href="#find-your-platform">Find Your Niche Platform</a></li>
-                        <li><a href="#power-of-visuals">The Power of Visuals</a></li>
-                        <li><a href="#engage-and-connect">Engage and Connect</a></li>
-                    </ul>
-                </div>
                 <div class="amd-blog-detail-sidebar-box amd-blog-detail-subscribe">
-                    <h3>Publisher's Weekly</h3>
-                    <p>Get the best writing and marketing tips delivered to your inbox.</p>
-                    <form>
-                        <input type="email" placeholder="Enter Your Email Address">
-                        <button type="submit">Subscribe Now <i class="bi bi-arrow-right"></i></button>
-                    </form>
+                    <h3>Discover New Releases in Publisher's Weekly</h3>
+
+                    <!-- SHARE -->
+                    <div class="amd-blog-share">
+                        <h4>Share</h4>
+                        <div class="amd-social-links">
+                            <!-- Facebook -->
+                            <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(url()->current()) }}"
+                                target="_blank" title="Facebook">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+
+                            <!-- Twitter -->
+                            <a href="https://twitter.com/intent/tweet?url={{ urlencode(url()->current()) }}&text={{ urlencode($data['blog']->title ?? '') }}"
+                                target="_blank" title="Twitter">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+
+                            <!-- LinkedIn -->
+                            <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ urlencode(url()->current()) }}&title={{ urlencode($data['blog']->title ?? '') }}"
+                                target="_blank" title="LinkedIn">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+
+                            <!-- WhatsApp -->
+                            <a href="https://wa.me/?text={{ urlencode($data['blog']->title . ' ' . url()->current()) }}"
+                                target="_blank" title="WhatsApp">
+                                <i class="fab fa-whatsapp"></i>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </aside>
+
 
             <main class="amd-blog-detail-content">
                 <p>
@@ -57,8 +94,9 @@
                 </p>
             </main>
         </div>
-        </div>
-    </section>
+
+    </div>
+</section>
 
 @if ($data['blog']->related_blogs->count() > 0)
     <section class="amd-book-blog-section">
@@ -70,7 +108,7 @@
                         <h2 class="amd-global-title-highlight">Related Blogs</h2>
                     </div>
                 </div>
-                @if($data['blog']->related_blogs->count() > 4)
+                @if ($data['blog']->related_blogs->count() > 4)
                     <nav class="amd-book-blog-header-nav">
                         <button class="amd-book-blog-nav-arrow" aria-label="Previous Post">&larr;</button>
                         <button class="amd-book-blog-nav-arrow" aria-label="Next Post">&rarr;</button>
@@ -82,16 +120,21 @@
 
                 @foreach ($data['blog']->related_blogs as $item)
                     <article class="amd-book-blog-card">
-                        <a href="{{ route('site.blog.detail', ['locale' => app()->getLocale(), 'slug' => $item->slug ?? $item->id ?? '']) }}" class="amd-book-blog-card-link" aria-label="Blog Post', ['locale' => app()->getLocale()]) }}">
-                            <img src="{{ $item->getMediaUrl('thumbnail_image') }}"
-                                alt="{{ $item->title ?? '' }}" class="amd-book-blog-card-image">
+                        <a href="{{ route('site.blog.detail', ['locale' => app()->getLocale(), 'slug' => $item->slug ?? ($item->id ?? '')]) }}"
+                            class="amd-book-blog-card-link"
+                            aria-label="Blog Post', ['locale' => app()->getLocale()]) }}">
+                            <img src="{{ $item->getMediaUrl('thumbnail_image') }}" alt="{{ $item->title ?? '' }}"
+                                class="amd-book-blog-card-image">
                         </a>
                         <div class="amd-book-blog-card-body">
-                            <p class="amd-book-blog-card-meta">{{ $item->created_at->format('M d, Y') }} • {{ $item->blogCategory->title ?? '' }}</p>
+                            <p class="amd-book-blog-card-meta">{{ $item->created_at->format('M d, Y') }} •
+                                {{ $item->blogCategory->title ?? '' }}</p>
                             <h3 class="amd-book-blog-card-title">
-                                <a href="{{ route('site.blog.detail', ['locale' => app()->getLocale(), 'slug' => $item->slug ?? $item->id ?? '']) }}">{{ $item->title }}s</a>
+                                <a
+                                    href="{{ route('site.blog.detail', ['locale' => app()->getLocale(), 'slug' => $item->slug ?? ($item->id ?? '')]) }}">{{ $item->title }}s</a>
                             </h3>
-                            <a href="{{ route('site.blog.detail', ['locale' => app()->getLocale(), 'slug' => $item->slug ?? $item->id ?? '']) }}" class="amd-book-read-more-btn">Read more &rarr;</a>
+                            <a href="{{ route('site.blog.detail', ['locale' => app()->getLocale(), 'slug' => $item->slug ?? ($item->id ?? '')]) }}"
+                                class="amd-book-read-more-btn">Read more &rarr;</a>
                         </div>
                     </article>
                 @endforeach
@@ -100,7 +143,8 @@
             </div>
             <!-- Footer Button -->
             <div class="text-end mt-3">
-                <a href="{{ route('site.blog.list', ['locale' => app()->getLocale()]) }}" class="amd-book-view-all text-center">
+                <a href="{{ route('site.blog.list', ['locale' => app()->getLocale()]) }}"
+                    class="amd-book-view-all text-center">
                     <!-- From Uiverse.io by Li-Deheng -->
                     <button class="button">
                         <span>View All</span>

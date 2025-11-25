@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Modules\UserManagement\Repositories\Implementations;
 
 use App\Core\Repositories\Implementation\BaseRepository;
@@ -30,8 +31,19 @@ class RoleRepository extends BaseRepository implements RoleRepositoryInterface
     public function getRolesExcludingSuperadmin()
     {
         return $this->model
-        ->select('id', 'name')
-        ->where('is_superadmin', '!=', 1)
-        ->get();
+            ->select('id', 'name')
+            ->where('is_superadmin', '!=', 1)
+            ->get();
+    }
+
+    public function roleHasPermissionsCheckByRoleId($id)
+    {
+        $role = $this->model->find($id);
+
+        if (!$role) {
+            return false; // role nai chaina bhane
+        }
+
+        return $role->permissions()->exists();
     }
 }

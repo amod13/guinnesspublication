@@ -31,35 +31,44 @@
 
                     <!-- Sidebar/Offcanvas Body (This contains the actual filter content) -->
                     <div class="offcanvas-body">
-                        <h4 class="mb-3 d-none d-lg-block">Filters</h4>
-
-                        <!-- Search Bar -->
-                        <div class="mb-4 amd-book-list-page-search-bar">
-                            <form action="{{ route('global.search', ['locale' => app()->getLocale()]) }}" method="GET">
-
+                        <form action="{{ route('site.books.search', ['locale' => app()->getLocale()]) }}" method="POST">
+                            @csrf
+                            <h4 class="mb-3 d-none d-lg-block">Filters</h4>
+                            <!-- Search Bar -->
+                            <div class="mb-4 amd-book-list-page-search-bar">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" name="keyword"
-                                        placeholder="Search Books..." aria-label="Search books"
-                                        value="{{ request('keyword') }}">
-                                    <button class="btn" type="button" aria-label="Search"><i
-                                            class="bi bi-search"></i></button>
+                                    <input type="text" class="form-control" name="keyword" placeholder="Search Books..."
+                                        aria-label="Search books" value="{{ request('keyword') }}">
                                 </div>
-                            </form>
-                        </div>
-                        <!-- Category Filter -->
-                        <div class="amd-book-list-page-filter-section">
-                            <h5 class="amd-book-list-page-filter-title border-bottom pt-1">Category</h5>
-                            <ul class="list-unstyled amd-book-list-page-filter-links">
-                                @foreach ($data['activeCategories'] as $item)
-                                    <li>
-                                        <a href="{{ route('book.list.by.category', ['locale' => app()->getLocale(), 'slug' => $item->slug]) }}"
-                                            class="amd-book-list-page-filter-link {{ request()->route('slug') == $item->slug ? 'active' : '' }}">
-                                            {{ $item->name }}
-                                        </a>
-                                    </li>
-                                @endforeach
-                            </ul>
-                        </div>
+                            </div>
+                            <!-- Filter Accordion -->
+                            <div class="accordion accordion-flush amd-book-list-page-accordion" id="filterAccordion">
+                                <!-- Category -->
+                                <div class="accordion-item active">
+                                    <h2 class="accordion-header" id="h-cat"><button class="accordion-button"
+                                            type="button" data-bs-toggle="collapse" data-bs-target="#c-cat"
+                                            aria-expanded="true" aria-controls="c-cat">Category</button></h2>
+                                    <div id="c-cat" class="accordion-collapse collapse show" aria-labelledby="h-cat">
+                                        <div class="accordion-body amd-book-list-page-filter-list">
+                                            @foreach ($data['activeCategories'] as $item)
+                                                <div class="form-check">
+                                                    <input name="category_id[]" class="form-check-input" type="checkbox"
+                                                        value="{{ $item->id }}" id="cat{{ $item->id }}"
+                                                        @if (is_array(request('category_id')) && in_array($item->id, request('category_id'))) checked @endif>
+                                                    <label class="form-check-label" for="cat{{ $item->id }}">
+                                                        {{ $item->name }}</label>
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="amd-filter-apply-btn-wrapper">
+                                <button type="submit" class="amd-filter-apply-btn">Apply Filters</button>
+                            </div>
+                        </form>
+
                     </div>
                 </div>
             </aside>

@@ -29,9 +29,12 @@ class BookController extends BaseCrudController
     public function index(Request $request)
     {
         $perPage = $request->input('length', 10);
-        $searchTerm = $request->input('search');
-
-        return $this->dataIndex($perPage, $searchTerm);
+        $searchTerm = $request->all();
+        $data['records'] = $this->service->getPaginatedSearchResults($perPage, $searchTerm); 
+        $data['bookCategories'] = $this->categoryService->getActiveBookCategories();
+        $data['searchTerm'] = $searchTerm;
+        
+        return view($this->viewPrefix . 'index', ['data' => $data]);
     }
 
     public function create()

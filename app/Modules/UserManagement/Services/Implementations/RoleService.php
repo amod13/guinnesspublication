@@ -41,4 +41,18 @@ class RoleService extends BaseService implements RoleServiceInterface
         );
     }
 
+    public function deleteRecord($id)
+    {
+        // check yo role lai kunai permission xa ki nai
+        $roleHasPermission = $this->repository->roleHasPermissionsCheckByRoleId($id);
+
+        // if role has permission then show error message
+        if ($roleHasPermission == true) {
+            return [
+                'redirect' => true,
+                'error' => 'This role already has permissions assigned. Please remove the permissions first before deleting the role.'
+            ];
+        }
+        return $this->repository->deleteRecord($id);
+    }
 }

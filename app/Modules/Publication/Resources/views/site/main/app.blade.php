@@ -11,6 +11,11 @@
             Guiness Publication{{ !empty($data['header_title']) ? ' - ' . $data['header_title'] : '' }}
         @endif
     </title>
+   <meta name="description" content="{{ $data['setting']->site_name ?? '' }}">
+    <meta name="keywords" content="{{ $data['setting']->site_name ?? '' }}">
+
+    <!-- Yield page-specific meta -->
+    @yield('meta')
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{ asset('site/assets/css/bootstrap.min.css') }}">
@@ -39,9 +44,9 @@
     <link rel="stylesheet" href="{{ asset('site/assets/css/3dflipbook.css') }}">
 
     {{-- Favicon --}}
-        <link rel="shortcut icon" href="{{ asset('uploads/images/site/' . $data['setting']->favicon) }}"
+    <link rel="shortcut icon" href="{{ asset('uploads/images/site/' . $data['setting']->favicon) }}"
         type="image/x-icon">
-        @stack('styles')
+    @stack('styles')
 
 </head>
 

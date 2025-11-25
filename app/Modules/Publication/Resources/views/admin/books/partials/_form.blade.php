@@ -103,18 +103,18 @@
         <div class="card mb-4">
             <div class="card-header bg-light">
                 <h6 class="card-title mb-0">
-                    <i class="fas fa-file-pdf me-2 text-danger"></i>Allowed Public Pages
+                    <i class="fas fa-file-pdf me-2 text-danger"></i>Allowed Public Pages(coma seprated)
                 </h6>
             </div>
             <div class="card-body">
-                <x-form.text-input :id="'public_pdf_pages'" :label="''" :name="'public_pdf_pages'" :value="old('public_pdf_pages', $data['record']->public_pdf_pages ?? '')" />
+                <x-form.text-input :id="'public_pdf_pages'" :label="''" :name="'public_pdf_pages'" :value="old('public_pdf_pages', $data['record']->public_pdf_pages ?? '')" :placeholder="'1,2'" />
             </div>
         </div>
 
            <div class="card">
             <div class="card-header bg-light">
                 <h6 class="card-title mb-0">
-                    <i class="fas fa-file-pdf me-2 text-danger"></i>highlights
+                    <i class="fas fa-paper-plane me-2 text-danger"></i>highlights
                 </h6>
             </div>
             <div class="card-body">

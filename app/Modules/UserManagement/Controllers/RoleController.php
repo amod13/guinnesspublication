@@ -50,10 +50,19 @@ class RoleController extends BaseCrudController
         return $this->dataUpdate($request, $id);
     }
 
+
     public function delete($id)
     {
-        return $this->dataDelete($id);
+        $response = $this->service->deleteRecord($id);
+
+        if ($response['redirect']) {
+            return redirect()->back()->with('error', $response['error']);
+        }
+
+        return redirect()->route($this->routePrefix . 'index')
+            ->with('success', 'Role Deleted Successfully');
     }
+
 
     public function updateOrder(Request $request)
     {
@@ -70,7 +79,7 @@ class RoleController extends BaseCrudController
         $data['getRollName'] = $this->service->getRoleNameByRoleId($id); // Get the role name
 
         // Get the permission IDs and convert to an array
-        $data['roleHasPermissions'] = $this->service->getPermissionIdsByRoleId($id);// Fetch permission IDs for the role
+        $data['roleHasPermissions'] = $this->service->getPermissionIdsByRoleId($id); // Fetch permission IDs for the role
 
         return view($this->viewPrefix . '.add-permission', ['data' => $data]);
     }
@@ -80,5 +89,4 @@ class RoleController extends BaseCrudController
         $ids = $request->input('ids', []);
         return $this->dataDelete($ids);
     }
-
 }

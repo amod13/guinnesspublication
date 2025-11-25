@@ -3,6 +3,8 @@
 namespace App\Modules\Publication\Models;
 
 use App\Core\Model\BaseModel;
+use App\Modules\Publication\Models\Authors;
+use App\Modules\Publication\Models\BookCategories;
 
 class Book extends BaseModel
 {
@@ -31,5 +33,15 @@ class Book extends BaseModel
     public function author()
     {
         return $this->belongsTo(Authors::class, 'author_id');
+    }
+
+       public function favourite()
+    {
+        return $this->belongsToMany(
+            \App\Models\User::class,   // Related model
+            'favourite_books',         // Pivot table
+            'book_id',                 // Foreign key on pivot for Book
+            'user_id'                  // Foreign key on pivot for User
+        )->withTimestamps();
     }
 }

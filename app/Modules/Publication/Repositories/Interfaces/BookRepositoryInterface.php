@@ -12,7 +12,9 @@ interface BookRepositoryInterface extends BaseRepositoryInterface
     public function getAuthorsByBookId($bookId, $language);
     public function getBookIdBySlug($slug);
     public function getRelatedBookByCategoryId($categoryId, $excludeBookId);
-    public function searchBookByKeyword($keyword);
+    public function searchBookByKeyword($request);
     public function getBooksByCategoryId($categoryId);
     public function getActiveBooks();
+    public function isFavouriteBooks($bookId, $userId);
+    public function getDataForTable();
 }

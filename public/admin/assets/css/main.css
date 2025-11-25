@@ -182,7 +182,7 @@ body {
 
 .amd-sidebar ul li a.active,
 .nav-pills .nav-link.active,
-.nav-pills .show>.nav-link,
+.nav-pills .show > .nav-link,
 .amd-sidebar ul li.active a {
     background-color: var(--amd-primary-light);
     color: var(--amd-primary-color);
@@ -231,7 +231,6 @@ body {
     background-color: #eee;
     color: #000;
 }
-
 
 .amd-sidebar ul li i {
     font-size: 18px;
@@ -341,7 +340,6 @@ body {
 
 /* Desktop: on collapsed sidebar, hide texts */
 @media (min-width: 769px) {
-
     /* Desktop breakpoint */
     .amd-sidebar:not(.expanded):not(:hover) ul li a .amd-label-text,
     .amd-sidebar:not(.expanded):not(:hover) .amd-submenu,
@@ -350,7 +348,7 @@ body {
         display: none !important;
     }
 
-    .amd-sidebar:not(.expanded):not(:hover) ul li a>*:not(i) {
+    .amd-sidebar:not(.expanded):not(:hover) ul li a > *:not(i) {
         display: none !important;
         /* Only icons visible */
     }
@@ -386,9 +384,11 @@ body {
     position: fixed;
     bottom: 70px;
     right: 25px;
-    background: linear-gradient(135deg,
-            var(--amd-primary-color),
-            var(--amd-primary-purple));
+    background: linear-gradient(
+        135deg,
+        var(--amd-primary-color),
+        var(--amd-primary-purple)
+    );
     color: var(--amd-chat-card-bg);
     width: 38px;
     height: 48px;
@@ -420,7 +420,6 @@ body {
 
 /* Responsive adjustments for the custom elements */
 @media (max-width: 767.98px) {
-
     /* Small devices (sm and below) */
     .footer-container {
         flex-direction: column;
@@ -482,8 +481,8 @@ body {
     flex-direction: column;
 }
 
-.amd-sidebar:hover~.amd-main-content,
-.amd-sidebar.expanded~.amd-main-content {
+.amd-sidebar:hover ~ .amd-main-content,
+.amd-sidebar.expanded ~ .amd-main-content {
     margin-left: 230px;
 }
 
@@ -599,9 +598,11 @@ body {
     right: 0;
     width: 360px;
     height: 520px;
-    background: linear-gradient(135deg,
-            rgba(184, 146, 255, 0.15),
-            rgba(255, 255, 255, 0.05));
+    background: linear-gradient(
+        135deg,
+        rgba(184, 146, 255, 0.15),
+        rgba(255, 255, 255, 0.05)
+    );
     border-radius: 24px;
     box-shadow: 2px 10px 20px rgba(0, 0, 0, 0.55);
 
@@ -1049,9 +1050,11 @@ body {
         right: 0;
         width: 360px;
         height: 520px;
-        background: linear-gradient(135deg,
-                rgba(184, 146, 255, 0.15),
-                rgba(255, 255, 255, 0.05));
+        background: linear-gradient(
+            135deg,
+            rgba(184, 146, 255, 0.15),
+            rgba(255, 255, 255, 0.05)
+        );
         border-radius: 24px;
         box-shadow: 2px 10px 20px rgba(0, 0, 0, 0.55);
 
@@ -1630,7 +1633,7 @@ body {
     background: var(--amd-primary-color);
 }
 
-.dropdown-submenu>.dropdown-menu {
+.dropdown-submenu > .dropdown-menu {
     top: 0;
     left: 100%;
     margin-top: -0.125rem;
@@ -1640,7 +1643,7 @@ body {
     position: absolute;
 }
 
-.dropdown-submenu>a::after {
+.dropdown-submenu > a::after {
     content: "\f0da";
     font-family: "Font Awesome 5 Free";
     font-weight: 900;
@@ -1652,12 +1655,12 @@ body {
     opacity: 0.8;
 }
 
-.dropdown-submenu>a:hover::after {
+.dropdown-submenu > a:hover::after {
     transform: translateX(2px);
     transition: transform 0.2s ease;
 }
 
-.dropdown-submenu:hover>.dropdown-menu {
+.dropdown-submenu:hover > .dropdown-menu {
     display: block;
 }
 
@@ -1828,7 +1831,7 @@ Stay clean. Stay styled. 💅
     transition: color 0.3s ease;
 }
 
-.search-wrapper input[type="search"]:focus+.search-icon {
+.search-wrapper input[type="search"]:focus + .search-icon {
     color: #0d6efd;
 }
 
@@ -1924,7 +1927,6 @@ table.amd-soft-table tbody tr:hover {
 
 /* Responsive tweaks */
 @media (max-width: 768px) {
-
     .amd-soft-table-header,
     .amd-soft-subheader,
     .amd-soft-table-wrapper {
@@ -2387,7 +2389,6 @@ table.amd-soft-table tbody tr:hover {
 }
 
 @media (max-width: 992px) {
-
     .amd-soft-table1-table thead th,
     .amd-soft-table1-table tbody td {
         padding: 12px 16px;
@@ -2629,6 +2630,7 @@ table.amd-soft-table tbody tr:hover {
 .amd-fillter-card label {
     font-size: 0.85rem;
     font-weight: 500;
+    color: #000 !important;
 }
 
 .amd-fillter-card .btn {
@@ -2794,7 +2796,7 @@ table.amd-soft-table tbody tr:hover {
 }
 
 /* Bootstrap's .table-responsive handles horizontal scrolling for tables */
-.table-responsive>.amd-soft-table3-table {
+.table-responsive > .amd-soft-table3-table {
     margin-bottom: 0;
     /* Remove default table margin */
 }
@@ -2831,14 +2833,16 @@ table.amd-soft-table tbody tr:hover {
     transition: transform 0.2s ease-in-out;
 }
 
-.amd-soft-table3-table-head.amd-soft-table3-sorted-asc .amd-soft-table3-sort-icon {
+.amd-soft-table3-table-head.amd-soft-table3-sorted-asc
+    .amd-soft-table3-sort-icon {
     transform: rotate(180deg);
     /* Point up for ascending */
     color: #343a40;
     /* Darker color when sorted */
 }
 
-.amd-soft-table3-table-head.amd-soft-table3-sorted-desc .amd-soft-table3-sort-icon {
+.amd-soft-table3-table-head.amd-soft-table3-sorted-desc
+    .amd-soft-table3-sort-icon {
     transform: rotate(0deg);
     /* Point down for descending */
     color: #343a40;
@@ -3973,8 +3977,7 @@ table4 /*
 }
 
 /* High DPI screens */
-@media (-webkit-min-device-pixel-ratio: 2),
-(min-resolution: 192dpi) {
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
     .amd-table7-company-logo {
         border: 0.5px solid rgba(255, 255, 255, 0.1);
     }
@@ -3982,7 +3985,6 @@ table4 /*
 
 /* Landscape orientation on mobile */
 @media (max-width: 767px) and (orientation: landscape) {
-
     .amd-table7-header-left,
     .amd-table7-header-right {
         flex-direction: row;
@@ -4171,16 +4173,15 @@ table4 /*
         align-items: flex-start;
     }
 
-    .amd-employee-detail-asset-item>div:first-child {
+    .amd-employee-detail-asset-item > div:first-child {
         width: 100%;
     }
 
-    .amd-employee-detail-asset-item>div:last-child {
+    .amd-employee-detail-asset-item > div:last-child {
         width: 100%;
         justify-content: space-between;
     }
 }
-
 
 /* Column Manager Modal */
 /* Bootstrap-style modal centering */
@@ -4383,7 +4384,6 @@ table4 /*
 
 /* Responsive */
 @media (max-width: 768px) {
-
     .amd-table8-header,
     .amd-table8-toolbar,
     .amd-table8-footer {

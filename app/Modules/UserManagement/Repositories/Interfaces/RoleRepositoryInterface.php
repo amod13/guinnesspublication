@@ -7,4 +7,5 @@ interface RoleRepositoryInterface extends BaseRepositoryInterface
 {
     public function getRoleNameByRoleId($id);
     public function getPermissionIdsByRoleId($id);
+    public function roleHasPermissionsCheckByRoleId($id);
 }

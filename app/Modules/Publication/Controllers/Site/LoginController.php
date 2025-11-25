@@ -31,31 +31,31 @@ class LoginController extends Controller
         return view($this->viewPrefix . 'page.auth.login', ['data' => $data]);
     }
 
-   public function login(Request $request)
-{
-    $loginField = filter_var($request->name, FILTER_VALIDATE_EMAIL) ? 'email' : 'name';
-    $credentials = [
-        $loginField => $request->name,
-        'password' => $request->password
-    ];
+    public function login(Request $request)
+    {
+        $loginField = filter_var($request->name, FILTER_VALIDATE_EMAIL) ? 'email' : 'name';
+        $credentials = [
+            $loginField => $request->name,
+            'password' => $request->password
+        ];
 
-    $redirectTo = $request->input('redirect_to'); // optional manual redirect
+        $redirectTo = $request->input('redirect_to'); // optional manual redirect
 
-    if (Auth::attempt($credentials)) {
-        $request->session()->regenerate();
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
 
-        if ($redirectTo) {
-            return redirect($redirectTo)->with('success', 'Login Successfully');
+            if ($redirectTo) {
+                return redirect($redirectTo)->with('success', 'Login Successfully');
+            }
+
+            return redirect()->intended(route('home.index', ['locale' => app()->getLocale()]))
+                ->with('success', 'Login Successfully');
         }
 
-        return redirect()->intended(route('home.index', ['locale' => app()->getLocale()]))
-            ->with('success', 'Login Successfully');
+        // Return back with error if credentials don't match
+        return redirect()->back()->withInput($request->only('name'))
+            ->with('error', 'Invalid username/email or password');
     }
-
-    // Return back with error if credentials don't match
-    return redirect()->back()->withInput($request->only('name'))
-        ->with('error', 'Invalid username/email or password');
-}
 
 
     public function showRegisterForm()
@@ -98,18 +98,6 @@ class LoginController extends Controller
     }
 
 
-    // // 3. Auto Login After Register
-    // Auth::login($user);
-
-    // // 4. Redirect Back Where User Came From (Optional)
-    // $redirectTo = session('redirect_to');
-    // if ($redirectTo) {
-    //     session()->forget('redirect_to');
-    //     return redirect($redirectTo)->with('success', 'Registration Successful!');
-    // }
-
-    // 5. Default Redirect
-
     public function logOut($language, Request $request)
     {
         Auth::logout();                 // logout user
@@ -117,7 +105,7 @@ class LoginController extends Controller
         $request->session()->regenerateToken(); // CSRF token regenerate
 
         // redirect to home or previous page
-        return redirect()->back()->with('success', 'Logout Successfully');
+        return redirect()->route('home.index', ['locale' => app()->getLocale()])->with('success', 'Logout Successfully');
     }
 
     public function redirectToGoogle(Request $request)

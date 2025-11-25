@@ -6,6 +6,7 @@ use App\Core\Helpers\FilePathHelper;
 use App\Http\Controllers\Controller;
 use App\Modules\Publication\Enums\HighlightTypeEnum;
 use App\Modules\Publication\Models\ConatctMessage;
+use App\Modules\Publication\Models\FavouriteBook;
 use App\Modules\Publication\Requests\StoreContactMessageRequest;
 use App\Modules\Publication\Services\Interfaces\AboutUsServiceInterface;
 use App\Modules\Publication\Services\Interfaces\AuthorsServiceInterface;
@@ -40,7 +41,6 @@ class HomeController extends Controller
     public function __construct(
         PageServiceInterface $PageService,
         AboutUsServiceInterface $AboutUsService,
-        BookCategoriesServiceInterface $BookCategoriesService,
         SliderServiceInterface $SliderService,
         BookServiceInterface $BookService,
         BookCategoriesServiceInterface $bookCategoryService,
@@ -53,7 +53,6 @@ class HomeController extends Controller
     ) {
         $this->PageService = $PageService;
         $this->AboutUsService = $AboutUsService;
-        $this->BookCategoriesService = $BookCategoriesService;
         $this->SliderService = $SliderService;
         $this->BookService = $BookService;
         $this->bookCategoryService = $bookCategoryService;
@@ -68,7 +67,6 @@ class HomeController extends Controller
     public function index()
     {
         $data['about'] = $this->AboutUsService->aboutUsFormHome();
-        $data['BookCategories'] = $this->BookCategoriesService->getActiveBookCategories()->take(4);
         $data['slider'] = $this->SliderService->getActiveSliders();
         $bestSelling = HighlightTypeEnum::BestSelling->value;
         $data['bestSellingBooks'] = $this->BookService->getPublishBooksByHighLightType($bestSelling)->take(5);
@@ -78,54 +76,19 @@ class HomeController extends Controller
         $data['activeAuthors'] = $this->authorService->getAuthors()->take(6);
         $data['vmgs'] = $this->vmgService->getActiveVmg();
         $data['blogs'] = $this->blogService->getActiveBlogs()->take(6);
-        // dd($data['blogs']);
 
         return view($this->viewPrefix . 'main.index', ['data' => $data]);
     }
 
-    public function getBookDetailBySlug($language, $slug)
-    {
-        $data['header_title'] = $slug;
-        $data['book'] = $this->BookService->getSingleBookBySlug($slug);
-
-        return view($this->viewPrefix . 'page.book.single', ['data' => $data]);
-    }
-
+    // single page for page
     public function singlePage($language, $slug)
     {
         $data['page'] = $this->PageService->getSinglePageBySlug($slug);
         $data['header_title'] = $data['page']->title ?? '';
 
-
         return view($this->viewPrefix . 'page.page.single', ['data' => $data]);
     }
 
-    public function giveMeAllBooks()
-    {
-        $data['activeCategories'] = $this->bookCategoryService->getBookCategories();
-        $data['booksByCategories'] = $this->BookService->getActiveBooks();
-
-        return view($this->viewPrefix . 'page.book.bookListByCategory', ['data' => $data]);
-    }
-
-    public function giveMeBookByCategory($language, $slug)
-    {
-        $response = $this->BookService->giveMeBookByCategorySlug($slug);
-
-        return view($this->viewPrefix . 'page.book.bookListByCategory', [
-            'data' => $response['data']
-        ]);
-    }
-
-    public function globalSearch($language, Request $request)
-    {
-        $keyword = $request->input('keyword');
-        $response = $this->BookService->searchBookByKeyword($keyword);
-
-        return view($this->viewPrefix . 'page.book.bookListByCategory', [
-            'data' => $response['data']
-        ]);
-    }
 
     public function giveMeAllBookCategory()
     {
@@ -154,7 +117,7 @@ class HomeController extends Controller
     public function giveMeAllBlogs()
     {
         $data['blogs'] = $this->blogService->getActiveBlogs();
-         $data['activeBlogCategories'] = $this->blogCategoryService->getActiveBlogCategories();
+        $data['activeBlogCategories'] = $this->blogCategoryService->getActiveBlogCategories();
         return view($this->viewPrefix . 'page.blog.list', ['data' => $data]);
     }
 
@@ -176,7 +139,7 @@ class HomeController extends Controller
     public function aboutUs()
     {
         $data['about'] = $this->AboutUsService->getActiveAboutUs();
-                $data['vmgs'] = $this->vmgService->getActiveVmg();
+        $data['vmgs'] = $this->vmgService->getActiveVmg();
         return view($this->viewPrefix . 'page.aboutUs.index', ['data' => $data]);
     }
 
@@ -193,11 +156,12 @@ class HomeController extends Controller
         return redirect()->back()->with('success', 'Your message has been sent successfully!');
     }
 
-       public function giveMeGallery()
+    public function giveMeGallery()
     {
         $data['gallaries'] = $this->GalleryService->getGalleryData();
         $data['galleryCategories'] = $this->GalleryCategoryService->getActiveGalleryCategories();
 
         return view($this->viewPrefix . 'page.gallery.gallery', ['data' => $data]);
     }
+
 }

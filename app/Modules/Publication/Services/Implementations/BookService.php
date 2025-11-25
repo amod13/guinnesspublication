@@ -54,9 +54,16 @@ class BookService extends BaseService implements BookServiceInterface
         return $this->repository->updateRecord($id, $data);
     }
 
-    public function getPaginatedSearchResults(int $perPage, ?string $search = null)
+    public function getPaginatedSearchResults(int $perPage, ?array $searchTerm = [])
     {
-        $filters = ['search' => $search];
+        $filters = [
+            'search' => $searchTerm['keywords'] ?? null,
+            'status' => $searchTerm['status'] ?? null,
+            'category_id' => $searchTerm['category_id'] ?? null
+        ];
+
+        $baseQuery = $this->repository->getDataForTable();
+
         return $this->hasPaginatedWithSearch(
             perPage: $perPage,
             filters: $filters,
@@ -65,7 +72,7 @@ class BookService extends BaseService implements BookServiceInterface
             useFromCollection: false,
             sortDir: 'asc',
             sortBy: 'display_order',
-            baseQuery: null,
+            baseQuery: $baseQuery,
             filterField: 'language',
             filterId: session('language', 'en')
         );
@@ -96,9 +103,13 @@ class BookService extends BaseService implements BookServiceInterface
 
     public function getSingleBookBySlug($slug)
     {
+        $isBookmarked = false;
         $bookDate = $this->repository->getBookIdBySlug($slug);
         $isLoginUser = auth()->check();
-
+        if($isLoginUser){
+            $isBookmarked = $this->repository->isFavouriteBooks($bookDate->id, auth()->user()->id);
+        }
+    
         // yo book sanga related book nikaleko catgory id bata
         $relatedBook = $this->repository->getRelatedBookByCategoryId($bookDate->category_id, $bookDate->id);
 
@@ -122,7 +133,8 @@ class BookService extends BaseService implements BookServiceInterface
             'record' => $record,
             'isLoginUser' => $isLoginUser,
             'bookAuthorDetails' => $bookAuthorDetails,
-            'relatedBook' => $relatedBook
+            'relatedBook' => $relatedBook,
+            'isBookmarked' => $isBookmarked
         ];
     }
 
@@ -142,10 +154,10 @@ class BookService extends BaseService implements BookServiceInterface
         ];
     }
 
-    public function searchBookByKeyword($keyword)
+    public function searchBookByKeyword($request)
     {
         // tyo catgeory ko sanga related books taneko
-        $data['booksByCategories'] = $this->repository->searchBooksByKeyWord($keyword);
+        $data['booksByCategories'] = $this->repository->searchBookByKeyword($request);
 
         // active categories taneko
         $data['activeCategories'] = $this->bookCategoryService->getActiveBookCategories();

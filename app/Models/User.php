@@ -3,8 +3,9 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use App\Modules\UserManagement\Models\Role;
 use App\Core\Traits\HasMediaLibrary;
+use App\Modules\Publication\Models\Book;
+use App\Modules\UserManagement\Models\Role;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -63,6 +64,16 @@ class User extends Authenticatable
     public function role()
     {
         return $this->belongsTo(Role::class);
+    }
+
+        public function favouriteBooks()
+    {
+        return $this->belongsToMany(
+            Book::class,   // Related model
+            'favourite_books',         // Pivot table
+            'user_id',                 // Foreign key on pivot table for this model
+            'book_id'                  // Foreign key on pivot table for related model
+        )->withTimestamps();
     }
 
 }

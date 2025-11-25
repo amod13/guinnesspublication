@@ -127,7 +127,7 @@
                       <ul class="dropdown-menu amd-book-login-btn" style="border-radius: 0 !important;"
                           aria-labelledby="userDropdown">
                           <li>
-                              <a href="#" class="dropdown-item">
+                              <a href="{{ route('site.user.profile', ['locale' => app()->getLocale()]) }}" class="dropdown-item">
                                   <i class="fas fa-id-badge me-2"></i> Profile
                               </a>
                           </li>
