@@ -50,7 +50,7 @@
     <div id="amdSidebarOverlay" class="amd-sidebar-overlay"></div>
     <div class="amd-main-content">
         @include('admin.main.header') {{-- Header include --}}
-        @include('alert.amd-toast') {{-- Alert include --}}
+        @include('alert.top-end') {{-- Alert include --}}
         <div class="amd-dashboard-content-area">
             <div class="row p-4">
                 <div class="col-12">

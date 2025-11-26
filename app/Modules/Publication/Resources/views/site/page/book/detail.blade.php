@@ -52,11 +52,14 @@
                     <div class="col amd-3d-flipbook-head">
                         <div class="amd-book-title-group">
                             <h1 class="amd-book-detail-page-title">
-                                <strong>Harry Potter:</strong>
-                                <span>Half Blood Prince</span>
+                                <strong>{{ $data['book']['record']->title ?? '' }}</strong>
                             </h1>
-                            <p class="amd-book-detail-page-author">by
-                                {{ $data['book']['bookAuthorDetails']->name ?? '' }}</p>
+                            @if (!empty($data['book']['bookAuthorDetails']->name))
+                                <p class="amd-book-detail-page-author">
+                                    by {{ $data['book']['bookAuthorDetails']->name }}
+                                </p>
+                            @endif
+
                         </div>
                     </div>
                 </div>
@@ -104,7 +107,9 @@
         <!-- Right Column (Title/Author) - Stacks below image on mobile -->
         <div class="col-md-7 text-center text-md-start amd-book-detail-page-right-content">
             <h1 class="amd-book-detail-page-title">{{ $data['book']['record']->title }}</h1>
-            <p class="amd-book-detail-page-author">by {{ $data['book']['bookAuthorDetails']->name ?? '' }}</p>
+            @if (!empty($data['book']['bookAuthorDetails']->name))
+                <p class="amd-book-detail-page-author">by {{ $data['book']['bookAuthorDetails']->name ?? '' }}</p>
+            @endif
             <p class="amd-book-detail-page-summary mx-auto mx-md-0" style="max-width: 450px;">
                 {!! $data['book']['record']->content ?? '' !!}
             </p>
@@ -176,21 +181,27 @@
                 <!-- Details Row -->
                 <div class="row g-5">
                     <div class="col-md-12">
-                        @if(empty($data['book']['record']->content))
-                        <h5 class="amd-book-detail-page-section-title">Description</h5>
-                        <p class="amd-book-detail-page-section-content">
-                            {!! $data['book']['record']->content ?? '' !!}
-                        </p>
+                        @if (!empty($data['book']['record']->content))
+                            <h5 class="amd-book-detail-page-section-title">Description</h5>
+                            <p class="amd-book-detail-page-section-content">
+                                {!! $data['book']['record']->content ?? '' !!}
+                            </p>
                         @endif
                         <div class="d-flex align-items-center gap-3 amd-book-detail-page-review">
-                            {{-- <img src="{{ $data['book']['bookAuthorDetails']->getMediaUrl('image') ?? '' }}" alt="{{ $data['book']['bookAuthorDetails']->name ?? '' }}" class="amd-book-detail-page-review-avatar" />
-                                     --}}
+                            @if (!empty($data['book']['bookAuthorDetails']))
+                                <img src="{{ $data['book']['bookAuthorDetails']->getMediaUrl('image') }}"
+                                    alt="{{ $data['book']['bookAuthorDetails']->name ?? '' }}"
+                                    class="amd-book-detail-page-review-avatar" />
+                            @endif
+
                             <div>
                                 <p class="mb-1 amd-book-detail-page-reviewer-name">
                                     {{ $data['book']['bookAuthorDetails']->name ?? '' }}</p>
-                                <p class="mb-0 amd-book-detail-page-review-text">
-                                    {!! $data['book']['bookAuthorDetails']->content ?? '' !!}
-                                </p>
+                                @if (!empty($data['book']['bookAuthorDetails']->content))
+                                    <p class="mb-0 amd-book-detail-page-review-text">
+                                        {!! $data['book']['bookAuthorDetails']->content ?? '' !!}
+                                    </p>
+                                @endif
                             </div>
                         </div>
                     </div>

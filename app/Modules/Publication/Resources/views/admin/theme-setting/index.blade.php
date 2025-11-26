@@ -1,40 +1,45 @@
 @extends('admin.main.app')
 @section('content')
     <div class="row">
-        <div class="col-lg-6">
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="card-title mb-0">Customize Theme Colors</h4>
-                </div>
-                <div class="card-body">
-                    <form action="{{ route('theme-settings.store') }}" method="POST">
-                        @csrf
-
-                        <div class="row g-3">
-                            @foreach ($settings as $setting)
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label for="{{ $setting->key_name }}" class="form-label">
-                                            {{ $setting->label }}
-                                        </label>
-                                        <input type="{{ $setting->type }}" class="form-control theme-input"
-                                            id="{{ $setting->key_name }}" name="settings[{{ $setting->key_name }}]"
-                                            data-css-var="--{{ str_replace('_', '-', $setting->key_name) }}"
-                                            value="{{ old('settings.' . $setting->key_name, $setting->value) }}">
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
-
-                        <div class="mt-4 text-end">
-                            <button type="submit" class="btn btn-primary">
-                                <i class="fas fa-save me-1"></i> Update
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
+    <div class="col-lg-6">
+    <div class="card shadow-sm border-0">
+        <div class="card-header bg-primary text-white">
+            <h4 class="card-title mb-0">Customize Theme Colors</h4>
         </div>
+        <div class="card-body">
+            <form action="{{ route('theme-settings.store') }}" method="POST">
+                @csrf
+
+                <div class="row g-4">
+                    @foreach ($settings as $setting)
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="{{ $setting->key_name }}" class="form-label fw-semibold">
+                                    {{ $setting->label }}
+                                </label>
+                                <input 
+                                    type="{{ $setting->type }}" 
+                                    class="form-control theme-input py-2"
+                                    id="{{ $setting->key_name }}" 
+                                    name="settings[{{ $setting->key_name }}]"
+                                    data-css-var="--{{ str_replace('_', '-', $setting->key_name) }}"
+                                    value="{{ old('settings.' . $setting->key_name, $setting->value) }}"
+                                >
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+
+                <div class="mt-4 text-end">
+                    <button type="submit" class="btn btn-success btn-lg">
+                        <i class="fas fa-save me-1"></i> Update Colors
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 
         <div class="col-lg-6">
             <div class="card">

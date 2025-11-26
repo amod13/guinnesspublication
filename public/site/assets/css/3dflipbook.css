@@ -1,4 +1,8 @@
 /* Adjust flipbook-wrapper height to 100% to fill container vertically */
+.amd-flipbook-section {
+  margin-bottom: 5rem;
+}
+
 .flipbook-wrapper {
   height: 100%;
   /* override 100vh */
@@ -15,7 +19,7 @@
   background: #eef7f1;
   overflow: hidden;
   position: relative;
-  width: 1100px;
+  /* width: 1100px; */
   /* match your #flipbook width */
   max-width: 100%;
 }
@@ -84,7 +88,8 @@
   background-image: url('../imgs/GK.png');
   background-repeat: no-repeat;
   background-position: center center;
-  background-size: cover;  /* cover use karo taaki poora container fill ho jaye */
+  background-size: cover;
+  /* cover use karo taaki poora container fill ho jaye */
   height: 100%;
   width: 100%;
 
@@ -227,9 +232,15 @@
   /* no additional needed since flex container handles it */
 }
 
-.amd-3d-flipbook-head{
+.amd-3d-flipbook-head {
   margin-left: 40px;
-  
+
+}
+@media (max-width:991px)
+{
+  .flipbook-head h1 {
+    font-size: 1.5rem !important;
+  }
 }
 /* Responsive */
 @media (max-width: 900px) {
@@ -239,10 +250,11 @@
     flex-direction: column;
     gap: 15px;
   }
-.amd-3d-flipbook-head{
-  margin-left: 0;
-  
-}
+
+  .amd-3d-flipbook-head {
+    margin-left: 0;
+
+  }
 
   .side-arrow {
     width: 40px;
@@ -261,8 +273,9 @@
 
 .flipbook-head {
   /* margin-top: 20px; */
-  border-bottom:1px solid #bebebe;
+  border-bottom: 1px solid #bebebe;
   padding: 10px;
+  width: 100%;
   margin-bottom: 20px;
   text-align: center;
   align-items: center;
@@ -286,10 +299,22 @@
 }
 
 
-@media(max-width:768px)
-{   .flipbook-head h1{
-        font-size: 1.5rem !important;
-    }
-      .amd-book-detail-page-title {
-        font-size: 1.5rem;
-    }}
+@media(max-width:768px) {
+  .flipbook-head h1 {
+    font-size: 1.3rem !important;
+  }
+
+  .amd-book-detail-page-title {
+    font-size: 1.5rem;
+  }
+  .amd-flipbook-section {
+  margin-bottom: 3rem;
+}
+}
+@media(max-width:520px) {
+  .flipbook-head h1 {
+    font-size: 1rem !important;
+  }
+
+
+}
