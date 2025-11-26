@@ -14,6 +14,7 @@ class VmgDto extends BaseDto
     public ?string $subtitle;
     public mixed $features;
     public ?string $video_url;
+    public ?string $icon;
     public ?int $front_image_id;
     public ?int $front_image_id_media_id;
     public ?int $back_image_id;
@@ -31,6 +32,7 @@ class VmgDto extends BaseDto
             'slug' => $this->slug,
             'status' => $this->status ? '1' : '0',
             'display_order' => $this->display_order,
+            'icon' => $this->icon,
         ];
     }
 

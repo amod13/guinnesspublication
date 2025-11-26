@@ -108,7 +108,7 @@
                         <h2 class="amd-global-title-highlight">Related Blogs</h2>
                     </div>
                 </div>
-                @if ($data['blog']->related_blogs->count() > 4)
+                @if ($data['blog']->related_blogs->count() > 3)
                     <nav class="amd-book-blog-header-nav">
                         <button class="amd-book-blog-nav-arrow" aria-label="Previous Post">&larr;</button>
                         <button class="amd-book-blog-nav-arrow" aria-label="Next Post">&rarr;</button>
@@ -117,7 +117,6 @@
             </header>
             <!-- Blog Posts Grid -->
             <div class="amd-book-blog-grid">
-
                 @foreach ($data['blog']->related_blogs as $item)
                     <article class="amd-book-blog-card">
                         <a href="{{ route('site.blog.detail', ['locale' => app()->getLocale(), 'slug' => $item->slug ?? ($item->id ?? '')]) }}"

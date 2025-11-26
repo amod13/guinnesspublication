@@ -22,10 +22,6 @@
     </div>
 
     <div class="col-12 mb-3">
-        <x-form.textarea :id="'excerpt'" :label="'Excerpt'" :name="'excerpt'" :value="old('excerpt', $data['record']->excerpt ?? '')" :rows="3" />
-    </div>
-
-    <div class="col-12 mb-3">
         <label for="tags" class="form-label">Tags</label>
         <div class="tags-container" id="tags-container">
             <div class="tags-display" id="tags-display"></div>
@@ -33,15 +29,6 @@
         </div>
         <div id="tags-hidden-inputs"></div>
         <small class="form-text text-muted">Type a tag and press Enter or Space to add it</small>
-    </div>
-
-    <div class="col-md-6 mb-3">
-        <x-form.date-input :id="'published_date'" :label="'Published Date'" :name="'published_date'" :value="old('published_date', $data['record']->published_date ?? '')" />
-    </div>
-
-    <div class="col-md-6 mb-3">
-        <x-form.select-input :id="'is_published'" :label="'Published'" :name="'is_published'" :options="['1' => 'Yes', '0' => 'No']"
-            :value="(string) old('is_published', $data['record']->is_published ?? '0')" />
     </div>
 
     @isset($data['record']->id)

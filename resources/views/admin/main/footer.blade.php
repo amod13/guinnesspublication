@@ -27,9 +27,6 @@
 {{-- Custom(from my side) --}}
 <script src="{{ asset('admin/assets/js/custom.js') }}"></script>
 
-{{-- Icon Picker --}}
-<script src="{{ asset('js/icon-picker.js') }}"></script>
-
 {{-- Employee --}}
 <script src="{{ asset('admin/assets/js/employee.js') }}"></script>
 

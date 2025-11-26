@@ -24,6 +24,7 @@ class Vmg extends Model
         'status',
         'language',
         'display_order',
+        'icon',
     ];
 
     protected $casts = [

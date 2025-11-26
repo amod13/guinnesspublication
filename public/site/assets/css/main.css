@@ -22,8 +22,8 @@
     /*  Secondary */
     --amd-secondary: oklch(50% 0.25 150);
     /* base color */
-    --amd-secondary-light: color-mix(in oklch, var(--amd-secondary) 10%, white);
-    --amd-fade-secondary: color-mix(in oklch, var(--amd-secondary) 30%, transparent);
+    --amd-secondary-light: color-mix(in oklch, var(--amd-secondary) 4%, white);
+    --amd-fade-secondary: color-mix(in oklch, var(--amd-secondary) 16%, transparent);
 
     --amd-dark: #1c1c1c;
     --amd-muted: rgb(95, 95, 95);
@@ -60,18 +60,7 @@
 }
 
 
-/* Lenis Smooth Scroll Setup */
-html.lenis {
-    height: auto;
-}
 
-.lenis.lenis-smooth {
-    scroll-behavior: auto !important;
-}
-
-.lenis.lenis-stopped {
-    overflow: hidden !important;
-}
 
 body {
     font-family: var(--amd-font-family);
@@ -123,10 +112,10 @@ body {
 body,
 p,
 li {
-    font-family: 'Literata', Georgia, serif;
+
     /* Elegant serif for body text */
     line-height: 1.6;
-    color: #222;
+    color: var(--amd-dark);
 }
 
 /* --- Headings --- */
@@ -136,7 +125,7 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: 'Baskerville', 'Georgia', serif;
+    font-family: var(--amd-tittle-font-family);
     /* Stylish serif for headings */
     color: var(--amd-dark);
     margin: 0 0 12px 0;
@@ -149,7 +138,7 @@ button,
 a,
 .btn,
 .menu {
-    font-family: 'Roboto', Arial, sans-serif;
+
     /* Modern sans-serif for UI */
     font-weight: 500;
     text-decoration: none !important;
@@ -512,7 +501,7 @@ a,
     overflow-y: auto;
     transform: translateX(100%);
     transition: transform 0.55s cubic-bezier(0.77, 0, 0.18, 1);
-    z-index: 1100;
+    z-index: 9999;
 
     box-shadow: -5px 0 20px rgba(0, 0, 0, 0.12);
 }
@@ -645,7 +634,7 @@ a,
     }
 
     .amd-hamburger.amd-active .amd-bar {
-        background-color: #000000;
+        background-color: #ffffff;
     }
 
     /* Keep buttons inside amd-nav-actions nicely spaced */
@@ -1046,7 +1035,7 @@ a,
 
 .amd-book-read-more-btn {
     position: relative;
-    font-size: 1rem;
+    font-size: 0.8rem;
     font-weight: 500;
     padding: 3px 10px 3px 15px;
     /* extra left padding for the expanding bg */
@@ -1370,7 +1359,7 @@ a {
     transform: translateY(-50%);
     width: 5px;
     height: 50%;
-    background: #af50b1;
+    background: var(--amd-primary-light);
     border-radius: 3px;
 }
 
@@ -1926,7 +1915,7 @@ a {
 .amd-MGV-section-container {
     margin: 1rem 0;
     padding: 2rem 0;
-    background: #9fbd9f70;
+    background: var(--amd-secondary-light);
 }
 
 .amd-MGV-section-grid {
@@ -1957,7 +1946,7 @@ a {
 }
 
 .amd-MGV-card {
-    background-color: var(--amd-secondary-light);
+    background-color:var(--amd-fade-secondary);
     padding: 1rem;
     /* border-radius: 20px; */
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.04);
@@ -2213,7 +2202,7 @@ a {
 }
 
 .amd-book-section-info h3 {
-    font-size: 1rem;
+    font-size: 1.2rem;
     font-weight: 500;
     margin: 0 0 0.25rem 0;
     color: #444;
@@ -2376,7 +2365,7 @@ a {
 
 /* Specific styling for the 'See all Categories' card */
 .amd-category-see-all {
-    background-color: #c9fcc269;
+    background-color: var(--amd-fade-secondary);
     /* Darker Purple color */
     box-shadow: 0 0 0 0px transparent;
     /* Initial transparent border-run effect */
@@ -2393,6 +2382,17 @@ a {
     .amd-category-section {
         padding: 2rem 0;
     }
+  
+}
+@media (max-width:768px)
+{
+    .amd-category-icon img{
+        width: 50px;
+        height: 75px;
+    }
+      .amd-category-text{
+        font-size: 0.8rem;
+    }
 }
 
 /* See all Categories*/
@@ -2408,8 +2408,8 @@ a {
    Quote Banner Section
 ============================ */
 .amd-book-quote-banner {
-    background: linear-gradient(135deg, #707d518c, #5c835dd1);
-    color: #fff;
+    background: linear-gradient(var(--amd-fade-secondary));
+
     text-align: center;
     padding: 5rem 2rem;
     position: relative;
@@ -2432,7 +2432,7 @@ a {
 
 /* Quote text styling */
 .amd-book-quote-text {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     font-weight: 500;
     max-width: 900px;
     margin: 0 auto;
@@ -2589,7 +2589,7 @@ a {
 
 
 .amd-book-author-name {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     font-weight: 500;
     margin: 0 0 5px 0;
 }
@@ -2667,7 +2667,7 @@ a {
 
 .amd-book-blog-nav-arrow:hover {
     background: var(--amd-fade-secondary);
-    color: var(--amd-light);
+    color: var(--amd-dark);
 }
 
 /* ---------------------------------- */
@@ -2707,9 +2707,10 @@ a {
 }
 
 .amd-book-blog-card span {
-    background: #ffd7fd;
+    font-size: 0.7rem;
+    background: var(--amd-fade-primary);
     padding: 2px 4px;
-    font-weight: 700;
+    font-weight: 500;
     color: #313131;
 }
 
@@ -2737,20 +2738,19 @@ a {
 }
 
 .amd-book-blog-card-title {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     font-weight: 500;
     line-height: 1.4;
     margin: 0 0 12px 0;
-
     display: -webkit-box;
     -webkit-line-clamp: 3;
     /* <-- 3 line limit */
     -webkit-box-orient: vertical;
     overflow: hidden;
-
 }
 
 .amd-book-blog-card-title a {
+    font-family: var(--amd-tittle-font-family);
     color: var(--amd-dark);
     text-decoration: none;
     transition: color 0.3s ease;
@@ -2761,7 +2761,7 @@ a {
 }
 
 .amd-book-blog-card-excerpt {
-    font-size: 1rem;
+    font-size: 14px;
     line-height: 1.6;
     margin: 0 0 20px 0;
     display: -webkit-box;
@@ -3326,7 +3326,7 @@ a {
 }
 
 .amd-blog-page-card-title {
-    font-size: 1.25rem;
+    font-size: 1.3rem;
     font-weight: 600;
     color: var(--amd-dark);
     margin: 0 0 12px;
@@ -3334,6 +3334,7 @@ a {
 }
 
 .amd-blog-page-card-title a {
+    
     text-decoration: none;
     color: inherit;
 }
@@ -3343,6 +3344,7 @@ a {
 }
 
 .amd-blog-page-card-excerpt {
+    color: var(--amd-muted);
     margin: 0 0 20px;
     flex-grow: 1;
     font-size: 0.95rem;
@@ -3908,7 +3910,7 @@ a {
 /* Column Headers */
 .amd-book-footer-column h3 {
     font-family: 'Playfair Display', serif;
-    color: #fff;
+    color: var(--amd-light);
     font-size: 1.5rem;
     margin-bottom: 2rem;
     position: relative;
@@ -3969,7 +3971,7 @@ a {
 
 /* Links Column */
 .amd-book-footer-link-group h4 {
-    color: #fff;
+    color: var(--amd-light);
     margin-bottom: 1rem;
     font-size: 1.1rem;
 }
@@ -4063,6 +4065,10 @@ a {
     color: var(--amd-secondary);
 }
 
+.amd-book-footer-connect p{
+    color: var(--amd-light);
+
+}
 /* --- Responsive Adjustments --- */
 @media (max-width: 991.98px) {
     .amd-book-footer-decoration {
@@ -5356,7 +5362,7 @@ button {
 /* --- Individual Testimonial Card Styling --- */
 
 .amd-book-testimonial-card {
-    background-color: var(---amd-light);
+    background-color: var(--amd-light);
     border-width: 1px 1px 0 1px;
     border-style: solid;
     border-color: var(--amd-fade-secondary);
@@ -5596,9 +5602,9 @@ button {
 /* Left Column: Navigation & Avatar */
 .amd-book-profile__sidebar {
     width: 300px;
-    background: #f7f1e3;
+    background: var(--amd-secondary-light);
     /* Slightly different shade */
-    border-right: 2px solid #e0d8c7;
+    border-right: 2px solid var(--amd-border);
     padding: 1rem;
     display: flex;
     flex-direction: column;
@@ -5676,7 +5682,7 @@ button {
     background: var(--amd-light);
     /* font-weight: 600; */
     color: var(--amd-dark);
-    border-left-color: var(--amd-primary);
+    border-left-color: var(--amd-primary-light);
 }
 
 .amd-book-profile__logout-btn {
@@ -5728,7 +5734,7 @@ button {
     font-weight: 600;
     color: var(--amd-dark);
     margin-bottom: 2rem;
-    border-bottom: 2px solid #e0d8c7;
+    border-bottom: 2px solid var(--amd-border);
     padding-bottom: 1rem;
 }
 
@@ -5759,7 +5765,7 @@ button {
     font-size: 1rem;
     background: transparent;
     border: none;
-    border-bottom: 2px solid #ccc;
+    border-bottom: 2px solid var(--amd-border);
     outline: none;
     transition: border-color 0.3s;
     font-family: var(--amd-tittle-font-family);
@@ -5767,7 +5773,7 @@ button {
 }
 
 .amd-book-profile-form .amd-book-textarea {
-    height: 100px;
+    height: 118px;
     resize: vertical;
 }
 
@@ -5965,7 +5971,7 @@ button {
         overflow-x: auto;
     }
     .amd-book-profile__nav-item.active {
-        border-bottom-color: var(--amd-primary);
+        border-bottom-color: var(--amd-primary-light);
         text-align: left !important;
         border-left-color: transparent;
         display: inline-block;
@@ -6090,6 +6096,8 @@ button {
     font-size: 0.7em;
     font-weight: 700;
     padding: 3px 10px;
+    color: var(--amd-dark) !important;
+    background: var(--amd-fade-primary) !important;
     /* border-radius: 12px; */
 }
 
@@ -6102,7 +6110,7 @@ button {
     cursor: pointer;
     padding: 8px;
     border-radius: 50%;
-    color: #4D47C3;
+    color: var(--amd-secondary);
     /* Your primary purple color */
     font-size: 1.2em;
     display: flex;

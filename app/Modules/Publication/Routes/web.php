@@ -19,11 +19,6 @@ use App\Modules\Publication\Controllers\Admin\ThemeSettingController;
 use App\Modules\Publication\Controllers\Admin\VmgController;
 use Illuminate\Support\Facades\Route;
 
-
-
-
-
-
 Route::middleware(['web', 'auth'])->prefix('admin')->group(function () {
     //---------------------------MENU----------------------------
     Route::prefix('menu')->as('menu.')->controller(MenuController::class)->group(function () {

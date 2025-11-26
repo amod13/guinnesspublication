@@ -60,7 +60,7 @@ class BlogService extends BaseService implements BlogServiceInterface
         }
 
         if (empty($data['meta_description'])) {
-            $data['meta_description'] = SeoHelper::generateMetaDescription($data['title'], $data['excerpt'] ?? null);
+            $data['meta_description'] = SeoHelper::generateMetaDescription($data['title'], $data['excerpt'] ?? $data['description'] ?? null);
         }
 
         if (empty($data['meta_keywords'])) {

@@ -2,12 +2,17 @@
     action="{{ isset($data['record']->id) ? route('vmg.update', $data['record']->id) : route('vmg.store') }}"
     method="POST" enctype="multipart/form-data">
     @csrf
+
     @isset($data['record']->id)
         @method('PUT')
     @endisset
 
     <div class="col-md-12 mb-3">
         <x-form.text-input :id="'title'" :label="'Title'" :name="'title'" :value="old('title', $data['record']->title ?? '')" />
+    </div>
+
+    <div class="col-md-12 mb-3">
+        <x-form.icon-picker :id="'icon'" :label="'Icon'" :name="'icon'" :value="old('icon', $data['record']->icon ?? '')" />
     </div>
 
     @isset($data['record']->id)
@@ -34,35 +39,39 @@
                 <div class="mb-3">
                     <label class="form-label fw-bold">Features List</label>
                     <div id="features-container">
-                        @foreach($featuresList as $index => $feature)
-                        <div class="feature-item mb-2">
-                            <div class="row g-2">
-                                <div class="col-md-11">
-                                    <input type="text" class="form-control" name="features[features][{{ $index }}]"
-                                           placeholder="Feature description" value="{{ old('features.features.' . $index, $feature) }}">
-                                </div>
-                                <div class="col-md-1">
-                                    <button type="button" class="btn btn-danger btn-sm" onclick="removeFeature(this)">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
+                        @foreach ($featuresList as $index => $feature)
+                            <div class="feature-item mb-2">
+                                <div class="row g-2">
+                                    <div class="col-md-11">
+                                        <input type="text" class="form-control"
+                                            name="features[features][{{ $index }}]"
+                                            placeholder="Feature description"
+                                            value="{{ old('features.features.' . $index, $feature) }}">
+                                    </div>
+                                    <div class="col-md-1">
+                                        <button type="button" class="btn btn-danger btn-sm"
+                                            onclick="removeFeature(this)">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
                         @endforeach
-                        @if(empty($featuresList))
-                        <div class="feature-item mb-2">
-                            <div class="row g-2">
-                                <div class="col-md-11">
-                                    <input type="text" class="form-control" name="features[features][0]"
-                                           placeholder="Feature description" value="{{ old('features.features.0') }}">
-                                </div>
-                                <div class="col-md-1">
-                                    <button type="button" class="btn btn-danger btn-sm" onclick="removeFeature(this)">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
+                        @if (empty($featuresList))
+                            <div class="feature-item mb-2">
+                                <div class="row g-2">
+                                    <div class="col-md-11">
+                                        <input type="text" class="form-control" name="features[features][0]"
+                                            placeholder="Feature description" value="{{ old('features.features.0') }}">
+                                    </div>
+                                    <div class="col-md-1">
+                                        <button type="button" class="btn btn-danger btn-sm"
+                                            onclick="removeFeature(this)">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
                         @endif
                     </div>
                     <button type="button" class="btn btn-success btn-sm" onclick="addFeature()">
@@ -80,11 +89,11 @@
 </form>
 
 <script>
-let featureIndex = {{ empty($featuresList) ? 1 : count($featuresList) }};
+    let featureIndex = {{ empty($featuresList) ? 1 : count($featuresList) }};
 
-function addFeature() {
-    const container = document.getElementById('features-container');
-    const featureHtml = `
+    function addFeature() {
+        const container = document.getElementById('features-container');
+        const featureHtml = `
         <div class="feature-item mb-2">
             <div class="row g-2">
                 <div class="col-md-11">
@@ -99,12 +108,12 @@ function addFeature() {
             </div>
         </div>
     `;
-    container.insertAdjacentHTML('beforeend', featureHtml);
-    featureIndex++;
-}
+        container.insertAdjacentHTML('beforeend', featureHtml);
+        featureIndex++;
+    }
 
-function removeFeature(button) {
-    const featureItem = button.closest('.feature-item');
-    featureItem.remove();
-}
+    function removeFeature(button) {
+        const featureItem = button.closest('.feature-item');
+        featureItem.remove();
+    }
 </script>

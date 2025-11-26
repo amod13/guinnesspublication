@@ -123,7 +123,7 @@
                             @foreach ($data['vmgs'] as $vmg)
                                 <article class="amd-MGV-card">
                                     <div class="amd-MGV-card-icon">
-                                        <i class="fa-solid fa-eye"></i>
+                                        <i class="{{ $vmg->icon ?? '' }}"></i>
                                     </div>
                                     <div class="amd-MGV-card-content">
                                         <h3>{{ $vmg->title }}</h3>
@@ -305,7 +305,7 @@
                             <h2 class="amd-global-title-highlight">Blogs</h2>
                         </div>
                     </div>
-                    @if ($data['blogs']->count() > 4)
+                    @if ($data['blogs']->count() > 3)
                         <nav class="amd-book-blog-header-nav">
                             <button class="amd-book-blog-nav-arrow" aria-label="Previous Post">&larr;</button>
                             <button class="amd-book-blog-nav-arrow" aria-label="Next Post">&rarr;</button>
@@ -336,8 +336,6 @@
                             </div>
                         </article>
                     @endforeach
-
-
                 </div>
                 <!-- Footer Button -->
                 <div class="text-end mt-3">

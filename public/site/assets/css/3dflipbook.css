@@ -1,6 +1,6 @@
 /* Adjust flipbook-wrapper height to 100% to fill container vertically */
 .amd-flipbook-section {
-  margin-bottom: 5rem;
+  margin-bottom: 3rem;
 }
 
 .flipbook-wrapper {
@@ -261,8 +261,10 @@
 }
 
 .flipbook-head p {
+  text-align: end;
   margin: 0;
-  font-size: 1rem;
+  color: var(--amd-muted);
+  font-size: 12px;
 }
 
 @media (max-width: 991px)
@@ -303,7 +305,7 @@
 
 @media(max-width:768px) {
   .flipbook-head h1 {
-    font-size: 1.3rem !important;
+    font-size: 1.1rem !important;
   }
 
   .amd-book-detail-page-title {

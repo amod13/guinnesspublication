@@ -45,7 +45,7 @@ return new class extends Migration {
 
             // Publication Info
             $table->date('published_date')->nullable();
-            $table->boolean('is_published')->default(false);
+            $table->boolean('is_published')->default(1);
             $table->integer('views_count')->default(0);
 
             // Display Control

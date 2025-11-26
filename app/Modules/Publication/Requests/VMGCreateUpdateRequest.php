@@ -23,6 +23,7 @@ class VMGCreateUpdateRequest extends BaseFormRequest
             'features.features' => 'nullable|array',
             'features.features.*' => 'nullable|string|max:255',
             'display_order' => 'nullable|integer|min:1',
+            'icon' => 'nullable|string|max:255',
         ];
     }
 
@@ -47,6 +48,7 @@ class VMGCreateUpdateRequest extends BaseFormRequest
             'features.features' => 'nullable|array',
             'features.features.*' => 'nullable|string|max:255',
             'display_order' => 'nullable|integer|min:1',
+            'icon' => 'nullable|string|max:255',
         ];
     }
 }

@@ -2,6 +2,9 @@
     #featured-image-modal {
         z-index :9999;
     }
+    .attachment-details {
+        max-height: 450px;
+    }
     .featured-media-item {
         border: 2px solid #e1e5e9;
         border-radius: 8px;

@@ -21,6 +21,7 @@
                             </th>
                             <th>S.N.</th>
                             <th>Title</th>
+                            <th>Icon</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
@@ -33,6 +34,9 @@
                                 </td>
                                 <td class="serial-number">{{ ($data['records']->currentPage() - 1) * $data['records']->perPage() + $loop->iteration }}</td>
                                 <td>{{ $item['title'] }}</td>
+                                <td>
+                                    <i class="{{ $item['icon'] }}"></i>
+                                </td>
                                 <td>
                                     {{-- Status Mark --}}
                                     <x-table.status-badge :status="$item['status']" />

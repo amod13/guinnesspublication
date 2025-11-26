@@ -16,7 +16,7 @@ class VmgRepository extends BaseRepository implements VmgRepositoryInterface
     public function getActiveVmg()
     {
         return $this->model
-        ->select('id', 'title','subtitle', 'front_image_id','back_image_id','display_order','features')
+        ->select('id', 'title','subtitle', 'front_image_id','back_image_id','display_order','features','icon')
         ->where('status', 1)
         ->orderBy('display_order', 'asc')
         ->get();

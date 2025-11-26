@@ -60,7 +60,7 @@
                             @foreach ($data['vmgs'] as $vmg)
                                 <article class="amd-MGV-card">
                                     <div class="amd-MGV-card-icon">
-                                        <i class="fa-solid fa-eye"></i>
+                                        <i class="{{ $vmg->icon ?? '' }}"></i>
                                     </div>
                                     <div class="amd-MGV-card-content">
                                         <h3>{{ $vmg->title }}</h3>
