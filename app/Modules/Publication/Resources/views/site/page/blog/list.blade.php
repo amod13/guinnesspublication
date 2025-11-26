@@ -21,7 +21,7 @@
                     <form action="{{ route('site.blog.search', ['locale' => app()->getLocale()]) }}" method="POST">
                         @csrf
                         <div class="row g-3 align-items-center">
-                            <div class="col-lg-4">
+                            <div class="col-lg-4 col-12">
                                 <!-- Filter dropdown -->
                                 <select class="form-select amd-book-search-page-input" name="category_id" id="amdBookSearchFilter"
                                     aria-label="Filter books">
@@ -31,7 +31,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-6 col-8">
                                 <div class="input-group w-100">
                                     <input type="text" class="form-control amd-book-search-page-input"
                                         id="amdBookSearchPageInput" name="keywords" placeholder="Search blog..." aria-label="Search"  value="{{ request('keywords') }}">
@@ -42,7 +42,7 @@
                                     </a>
                                 </div>
                             </div>
-                            <div class="col-lg-2">
+                            <div class="col-lg-2 col-4 d-flex gap-1 amd-search-action">
                                   <a href="{{ route('site.blog.list', ['locale' => app()->getLocale()]) }}" class="btn btn-danger">
                                     <i class="bi bi-x-lg"></i>
                                 </a>

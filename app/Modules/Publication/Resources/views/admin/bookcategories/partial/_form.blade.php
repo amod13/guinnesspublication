@@ -12,6 +12,11 @@
         </div>
 
         <div class="col-md-12 mb-3">
+          <x-form.select-input :id="'parent_id'" :label="'Parent Category'" :name="'parent_id'" :options="$data['parents']->pluck('name', 'id')"
+                    :value="old('parent_id', $data['record']->parent_id ?? '')" />
+        </div>
+
+        <div class="col-md-12 mb-3">
             <x-form.file-upload :id="'thumbnail_image'" :label="''" :name="'thumbnail_image'" :value="isset($data['record']) ? $data['record']->getMediaUrl('thumbnail_image') : null" />
             @isset($data['record']->id)
                 <small class="form-text text-muted">Leave blank to keep current image</small>

@@ -30,10 +30,10 @@ class BookController extends BaseCrudController
     {
         $perPage = $request->input('length', 10);
         $searchTerm = $request->all();
-        $data['records'] = $this->service->getPaginatedSearchResults($perPage, $searchTerm); 
+        $data['records'] = $this->service->getPaginatedSearchResults($perPage, $searchTerm);
         $data['bookCategories'] = $this->categoryService->getActiveBookCategories();
         $data['searchTerm'] = $searchTerm;
-        
+
         return view($this->viewPrefix . 'index', ['data' => $data]);
     }
 
@@ -41,7 +41,7 @@ class BookController extends BaseCrudController
     {
         $highlights = HighlightTypeEnum::list();
         $bookCategories = $this->categoryService->getActiveBookCategories();
-             $authors = $this->authorService->getActiveAuthors();
+        $authors = $this->authorService->getActiveAuthors();
 
         return $this->dataCreate(['highlights' => $highlights, 'bookCategories' => $bookCategories,'authors' => $authors]);
     }

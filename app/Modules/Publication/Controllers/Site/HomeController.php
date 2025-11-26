@@ -90,13 +90,6 @@ class HomeController extends Controller
     }
 
 
-    public function giveMeAllBookCategory()
-    {
-        $data['activeBookCategories'] = $this->bookCategoryService->getBookCategories();
-
-        return view($this->viewPrefix . 'page.category.list', ['data' => $data]);
-    }
-
 
     public function searchCategories($language, Request $request)
     {

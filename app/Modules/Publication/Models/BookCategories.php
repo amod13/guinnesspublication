@@ -18,4 +18,9 @@ class BookCategories extends BaseModel
         'language',
         'thumbnail_image',
     ];
+
+    public function children()
+    {
+        return $this->hasMany(self::class, 'parent_id')->orderBy('display_order');
+    }
 }

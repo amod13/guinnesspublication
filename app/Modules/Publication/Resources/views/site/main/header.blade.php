@@ -35,6 +35,7 @@
           </ul> --}}
 
           <ul class="amd-nav-links" id="amd-nav-menu">
+
               <li>
                   <a href="{{ route('home.index', ['locale' => request()->route('locale') ?? 'en']) }}"
                       class="{{ request()->routeIs('home.index') ? 'active' : '' }}">
@@ -98,10 +99,10 @@
                       @endif
                   @endforeach
               @endif
-                    <li>
+              <li>
                   <a href="{{ route('site.contact.us', ['locale' => request()->route('locale') ?? 'en']) }}"
                       class="{{ request()->routeIs('site.contact.us') ? 'active' : '' }}">
-                     Contact Us
+                      Contact Us
                   </a>
               </li>
           </ul>
@@ -117,42 +118,49 @@
                           {{ request()->route('locale') == 'np' ? 'selected' : '' }}>नेपाली</option>
                   </select>
               </div> --}}
-              @auth
-                  <li class="list-unstyled dropdown amd-nav-links">
-                      <a href="#" class="dropdown-toggle d-flex align-items-center" id="userDropdown" role="button"
-                          data-bs-toggle="dropdown" aria-expanded="false">
-                          <i class="fas fa-user me-1"></i> Logged in
-                      </a>
+              <div class="auth">
+                  @auth
+                      <li class="list-unstyled dropdown amd-nav-links">
+                          <a href="#" class="dropdown-toggle d-flex align-items-center" id="userDropdown"
+                              role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                              <i class="fas fa-user me-1"></i> Logged in
+                          </a>
 
-                      <ul class="dropdown-menu amd-book-login-btn" style="border-radius: 0 !important;"
-                          aria-labelledby="userDropdown">
-                          <li>
-                              <a href="{{ route('site.user.profile', ['locale' => app()->getLocale()]) }}" class="dropdown-item">
-                                  <i class="fas fa-id-badge me-2"></i> Profile
-                              </a>
-                          </li>
-                          <li>
-                              <form action="{{ route('site.logout', ['locale' => app()->getLocale()]) }}" method="POST"
-                                  class="d-inline">
-                                  @csrf
-                                  <button type="submit" class="dropdown-item">
-                                      <i class="fas fa-sign-out-alt me-2"></i> Log out
-                                  </button>
-                              </form>
-                          </li>
+                          <ul class="dropdown-menu amd-book-login-btn" style="border-radius: 0 !important;"
+                              aria-labelledby="userDropdown">
+                              <li>
+                                  <a href="{{ route('site.user.profile', ['locale' => app()->getLocale()]) }}"
+                                      class="dropdown-item">
+                                      <i class="fas fa-id-badge me-2"></i> Profile
+                                  </a>
+                              </li>
+                              <li>
+                                  <form action="{{ route('site.logout', ['locale' => app()->getLocale()]) }}"
+                                      method="POST" class="d-inline">
+                                      @csrf
+                                      <button type="submit" class="dropdown-item">
+                                          <i class="fas fa-sign-out-alt me-2"></i> Log out
+                                      </button>
+                                  </form>
+                              </li>
 
-                      </ul>
-                  </li>
-              @endauth
+                          </ul>
+                      </li>
+                  @endauth
 
-              @guest
-                  <li class="list-unstyled amd-nav-links">
-                      <a href="{{ route('site.login.form', ['locale' => app()->getLocale(), 'redirect_to' => url()->current()]) }}"
-                          class="d-flex align-items-center">
-                          <i class="fas fa-user me-1"></i> Login
-                      </a>
-                  </li>
-              @endguest
+                  @guest
+                      <li class="list-unstyled amd-nav-links">
+                          <a href="{{ route('site.login.form', ['locale' => app()->getLocale(), 'redirect_to' => url()->current()]) }}"
+                              class="d-flex align-items-center">
+                              <i class="fas fa-user me-1"></i> Login
+                          </a>
+                      </li>
+                  @endguest
+
+              </div>
+
+
+
 
 
               <!-- 🔍 Search button -->
@@ -175,9 +183,11 @@
       </nav>
 
       {{-- Search panel --}}
-      <form action="" method="POST">
+      <form action="{{ route('site.books.search', ['locale' => app()->getLocale()]) }}" method="POST">
+          @csrf
           <div class="amd-search-bar" id="amd-search-bar">
-              <input type="text" id="amd-search-input" placeholder="Search books, authors, genres...">
+              <input type="text" name="keyword" id="amd-search-input" placeholder="Search books, authors, genres..."
+                  value="{{ request('keyword') }}">
               <span class="amd-clear" id="amd-clear">&times;</span>
               <button type="submit">Go</button>
           </div>

@@ -10,4 +10,5 @@ interface BookCategoriesServiceInterface extends BaseServiceInterface
     public function getCategoryIdBySlug($slug);
     public function searchCategories($data);
     public function getBookCategories();
+    public function getBookCategoryWithChildren();
 }

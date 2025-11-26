@@ -75,7 +75,8 @@
 
             <!-- BOOK GRID COLUMN -->
             <div class="col-lg-9">
-                <!-- Top Bar with sorting, counts, and view toggles -->
+
+                @if(!$data['booksByCategories']->isEmpty())
                 <div class="amd-book-list-page-top-bar">
                     <span class="text-muted">
                         Showing {{ $data['booksByCategories']->firstItem() }}–
@@ -115,6 +116,17 @@
                         </div>
                     @endforeach
                 </div>
+                @else
+
+                     <div class="amd-no-category-container">
+                        <div class="amd-no-category-card">
+                            <div class="amd-no-category-page-shadow"></div>
+                            <h2>No Book Found</h2>
+                            <p>The book you are searching for doesn't exist.</p>
+                        </div>
+                    </div>
+                    @endif
+
 
                 <!-- Pagination -->
                 @include('publication::site.page.pagination.pagination', [

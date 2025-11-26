@@ -3,6 +3,7 @@
 namespace App\Modules\Publication\Controllers\Site;
 
 use App\Http\Controllers\Controller;
+use App\Modules\Publication\Services\Interfaces\BookServiceInterface;
 use App\Modules\UserManagement\Services\Interfaces\UserServiceInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -10,10 +11,11 @@ use Illuminate\Support\Facades\Storage;
 class UserDashboardController extends Controller
 {
     protected string $viewPrefix = 'publication::site.page.userDashboard.';
-    protected $userService;
-    public function __construct(UserServiceInterface $userService)
+    protected $userService, $bookService;
+    public function __construct(UserServiceInterface $userService,BookServiceInterface $bookService)
     {
         $this->userService = $userService;
+        $this->bookService = $bookService;
     }
 
     public function userProfile()
@@ -66,6 +68,16 @@ class UserDashboardController extends Controller
         $this->userService->updateRecord($data, $id);
 
         return redirect()->route('site.user.profile',['locale' => app()->getLocale()])->with('success', 'Profile updated successfully.');
+    }
+
+    public function userBookmarks($languageId, $id)
+    {
+        $data['bookmarks'] = $this->bookService->getBookmarksBooks($id);
+        $data['userDetail'] = $this->userService->findById($id);
+
+        // dd($data);
+
+        return view($this->viewPrefix . 'bookMarkList', ['data' => $data]);
     }
 
 

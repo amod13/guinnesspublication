@@ -13,6 +13,7 @@ class BookCategoriesRequest extends BaseFormRequest
             'status' => ['nullable', 'in:active,inactive'],
             'display_order' => ['nullable', 'integer', 'min:1'],
             'thumbnail_image_media_id' => ['nullable', 'exists:media_library,id'],
+            'parent_id' => ['nullable', 'exists:book_categories,id'],
         ];
     }
 
@@ -23,6 +24,7 @@ class BookCategoriesRequest extends BaseFormRequest
             'status' => ['required', 'in:active,inactive'],
             'display_order' => ['nullable', 'integer', 'min:1'],
             'thumbnail_image_media_id' => ['nullable', 'exists:media_library,id'],
+                  'parent_id' => ['nullable', 'exists:book_categories,id'],
         ];
     }
 
@@ -35,6 +37,7 @@ class BookCategoriesRequest extends BaseFormRequest
             'status.required' => 'The status field is required.',
             'status.in' => 'The status must be either active or inactive.',
             'thumbnail_image_media_id.exists' => 'The thumbnail image media id does not exist.',
+            'parent_id.exists' => 'The parent id does not exist.',
         ];
     }
 }

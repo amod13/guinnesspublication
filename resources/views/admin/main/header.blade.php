@@ -34,16 +34,15 @@
                               <img src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->full_name ?? Auth::user()->name ?? '') }}&background=random"
                         alt="{{ Auth::user()->full_name ?? Auth::user()->name ?? '' }}" class="amd-profile-imgs rounded-circle me-2" width="36"
                         height="36">
-
                 @endif
                 <span>{{ Auth::user()->full_name ?? Auth::user()->name ?? '' }}</span>
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                <li><a class="dropdown-item 2" href="{{ route('user.profile') }}">Profile</a></li>
+                <li><a class="dropdown-item" href="{{ route('user.profile') }}">Profile</a></li>
                 <li>
-                    <hr class="dropdown-divider">
+                    <hr class="amd-dropdown-divider">
                 </li>
-                <li><a class="dropdown-item" href="#"
+                <li><a class="amd-dropdown-item" href="#"
                         onclick="document.getElementById('logout-form').submit();">Logout</a></li>
             </ul>
             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

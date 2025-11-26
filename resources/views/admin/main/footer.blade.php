@@ -36,18 +36,20 @@
 
 {{-- For Editor --}}
 <script src="{{ asset('admin/assets/js/editor.js') }}"></script>
+
+
 <script>
-    $(document).ready(function() {
-            $('.editor').ranjitEditor({
-                autosave: true,
-                wordCount: true,
-                darkMode: false,
-                fullscreen: true,
-                emoji: true,
-                autosaveInterval: 5000
-            }).addClass('ranjit-editor-initialized');
+      $(document).ready(function () {
+        // Initialize editor with advanced options
+        $(".editor").ranjitEditor({
+          autosave: true,
+          wordCount: true,
+          darkMode: false,
+          fullscreen: true,
+          emoji: true
         });
-</script>
+      });
+    </script>
 
 {{-- For DatePicker --}}
 <script src="{{ asset('admin/assets/js/flatpickr.js') }}"></script>

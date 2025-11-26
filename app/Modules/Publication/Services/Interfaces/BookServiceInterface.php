@@ -12,4 +12,5 @@ interface BookServiceInterface extends BaseServiceInterface
     public function searchBookByKeyword($request);
     public function giveMeBookByCategorySlug($slug);
     public function getActiveBooks();
+    public function getBookmarksBooks($userId);
 }

@@ -53,4 +53,10 @@ class BookCategoriesRepository extends BaseRepository implements BookCategoriesR
             ->select('id', 'name', 'thumbnail_image', 'slug')->orderBy('display_order', 'asc')
             ->paginate(10);
     }
+
+    public function getBookCategoryWithChildren()
+    {
+        $menus = $this->model::with('children')->where('language', session('language', 'en'))->orderBy('display_order')->get();
+        return $menus;
+    }
 }

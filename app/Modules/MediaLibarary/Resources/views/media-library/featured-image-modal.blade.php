@@ -1,4 +1,7 @@
 <style>
+    #featured-image-modal {
+        z-index :9999;
+    }
     .featured-media-item {
         border: 2px solid #e1e5e9;
         border-radius: 8px;
@@ -62,7 +65,7 @@
 </style>
 <!-- Featured Image Modal -->
 <div id="featured-image-modal" class="modal"
-    style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 1000; backdrop-filter: blur(2px);">
+    style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 10001; backdrop-filter: blur(2px);">
     <div class="modal-content"
         style="background: white; width: 100%; height: 100%; display: flex; flex-direction: column; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
         <div class="modal-header"
@@ -633,7 +636,7 @@
                 const preview = document.getElementById(currentFeaturedInputId + '_preview');
                 const uploadPlaceholder = document.querySelector(`[onclick*="${currentFeaturedInputId}"] .upload-placeholder`);
                 const deleteBtn = document.querySelector(`[onclick*="${currentFeaturedInputId}"] .delete-btn`);
-                
+
                 if (preview) {
                     if (selectedMedia.file_type === 'image') {
                         preview.innerHTML =
@@ -645,7 +648,7 @@
                     </div>`;
                     }
                 }
-                
+
                 // Hide placeholder and show delete button
                 if (uploadPlaceholder) uploadPlaceholder.style.display = 'none';
                 if (deleteBtn) deleteBtn.style.display = 'block';

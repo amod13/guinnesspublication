@@ -83,4 +83,9 @@ class BookCategoriesService extends BaseService implements BookCategoriesService
             'data' => $data
         ];
     }
+
+    public function getBookCategoryWithChildren()
+    {
+        return $this->repository->getBookCategoryWithChildren();
+    }
 }

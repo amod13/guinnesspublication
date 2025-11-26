@@ -17,7 +17,7 @@ class BookRepository extends BaseRepository implements BookRepositoryInterface
     public function getDataForTable()
     {
         return $this->model
-            ->select('id', 'title', 'slug', 'thumbnail_image', 'language', 'highlights', 'status', 'content','category_id','display_order')
+            ->select('id', 'title', 'slug', 'thumbnail_image', 'language', 'highlights', 'status', 'content', 'category_id', 'display_order')
             ->where('language', session('language', 'en'))
             ->where('status', 'active')
             ->orderBy('created_at', 'desc');
@@ -153,4 +153,20 @@ class BookRepository extends BaseRepository implements BookRepositoryInterface
 
         return $book ? true : false;
     }
+
+    public function getBookmarksBooks($userId)
+    {
+        $book = $this->model
+            ->with('author:id,name,slug')
+            ->with(['category:id,name,slug', 'favourite' => function ($q) use ($userId) {
+                $q->where('user_id', $userId)->select('user_id');
+            }])
+            ->whereHas('favourite', function ($query) use ($userId) {
+                $query->where('user_id', $userId);
+            })
+            ->paginate(4);
+
+        return $book;
+    }
+
 }

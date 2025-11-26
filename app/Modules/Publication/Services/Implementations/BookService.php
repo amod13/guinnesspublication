@@ -109,7 +109,7 @@ class BookService extends BaseService implements BookServiceInterface
         if($isLoginUser){
             $isBookmarked = $this->repository->isFavouriteBooks($bookDate->id, auth()->user()->id);
         }
-    
+
         // yo book sanga related book nikaleko catgory id bata
         $relatedBook = $this->repository->getRelatedBookByCategoryId($bookDate->category_id, $bookDate->id);
 
@@ -170,5 +170,10 @@ class BookService extends BaseService implements BookServiceInterface
     public function getActiveBooks()
     {
         return $this->repository->getActiveBooks();
+    }
+
+    public function getBookmarksBooks($userId)
+    {
+        return $this->repository->getBookmarksBooks($userId);
     }
 }

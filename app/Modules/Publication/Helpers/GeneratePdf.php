@@ -47,19 +47,26 @@ class GeneratePdf
         return $pdf->Output('S');
     }
 
-  private static function addBlurOverlay($pdf)
+    private static function addBlurOverlay($pdf)
     {
-        // Add white overlay to hide content
-        $pdf->SetFillColor(240, 240, 240); // Light gray overlay
-        $pdf->Rect(0, 0, 210, 297, 'F'); // A4 size overlay
+        // Light gray overlay
+        $pdf->SetFillColor(240, 240, 240);
+        $pdf->Rect(0, 0, 210, 297, 'F');
 
-        // Add "Premium Content" text
+        // Add image (example: lock icon)
+        // Path must be absolute
+        $imagePath = public_path('admin/assets/img/loginpart.png');
+        $pdf->Image($imagePath, 80, 70, 50); // (x, y, width)
+
+        // Title
         $pdf->SetFont('Arial', 'B', 24);
-        $pdf->SetTextColor(100, 100, 100); // Dark gray text
+        $pdf->SetTextColor(100, 100, 100);
         $pdf->SetXY(50, 140);
-        $pdf->Cell(110, 20, 'Premium Content', 0, 0, 'C');
-        $pdf->SetXY(50, 160);
+        $pdf->Cell(110, 20, 'Premium Content (You are not logged in)', 0, 0, 'C');
+
+        // Subtitle
         $pdf->SetFont('Arial', '', 12);
+        $pdf->SetXY(50, 160);
         $pdf->Cell(110, 10, 'Login First', 0, 0, 'C');
     }
 }

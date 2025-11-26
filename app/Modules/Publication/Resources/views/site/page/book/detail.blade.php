@@ -25,11 +25,8 @@
                 <a href="{{ url('/') }}" class="breadcrumb-link-amd">Home</a>
             </li>
             <li class="breadcrumb-item-amd">
-                <a href="#" class="breadcrumb-link-amd">{{ $data['book']['record']->category->name ?? '' }}</a>
-            </li>
-            <li class="breadcrumb-item-amd">
                 <span class="breadcrumb-current-amd"
-                    aria-current="page">{{ $data['book']['record']->title ?? '' }}</span>
+                    aria-current="page">{{ $data['book']['record']->category->name ?? '' }}</span>
             </li>
         </ol>
     </nav>
@@ -130,10 +127,8 @@
 
                         <!-- Icon Group -->
                         <div class="amd-book-detail-page-icon-group position-relative">
-                      <i class="bi {{ $data['book']['isBookmarked'] ? 'bi-bookmark-fill active' : 'bi-bookmark' }}" 
-   data-book-id="{{ $data['book']['record']->id }}" 
-   id="bookMarkBook"></i>
-
+                            <i class="bi {{ $data['book']['isBookmarked'] ? 'bi-bookmark-fill active' : 'bi-bookmark' }}"
+                                data-book-id="{{ $data['book']['record']->id }}" id="bookMarkBook"></i>
 
                             <!-- Share Icon with Dropdown -->
                             <div class="dropdown d-inline-block">
@@ -181,10 +176,12 @@
                 <!-- Details Row -->
                 <div class="row g-5">
                     <div class="col-md-12">
+                        @if(empty($data['book']['record']->content))
                         <h5 class="amd-book-detail-page-section-title">Description</h5>
                         <p class="amd-book-detail-page-section-content">
                             {!! $data['book']['record']->content ?? '' !!}
                         </p>
+                        @endif
                         <div class="d-flex align-items-center gap-3 amd-book-detail-page-review">
                             {{-- <img src="{{ $data['book']['bookAuthorDetails']->getMediaUrl('image') ?? '' }}" alt="{{ $data['book']['bookAuthorDetails']->name ?? '' }}" class="amd-book-detail-page-review-avatar" />
                                      --}}
@@ -269,38 +266,36 @@
 
 @push('scripts')
 <script>
-$(document).ready(function() {
-    $('#bookMarkBook').on('click', function() {
-         let icon = $(this);
-        let bookId = $(this).data('book-id');
+    $(document).ready(function() {
+        $('#bookMarkBook').on('click', function() {
+            let icon = $(this);
+            let bookId = $(this).data('book-id');
 
-        $.ajax({
-            url: "{{ route('site.books.favourite.toggle', ['locale' => app()->getLocale()]) }}",
-            type: "POST",
-            data: {
-                _token: "{{ csrf_token() }}",
-                book_id: bookId
-            },
-            success: function(response) {
-                 if(response.status === 'added') {
-                    icon.removeClass('bi-bookmark').addClass('bi-bookmark-fill active');
-                } else if(response.status === 'removed') {
-                    icon.removeClass('bi-bookmark-fill active').addClass('bi-bookmark');
+            $.ajax({
+                url: "{{ route('site.books.favourite.toggle', ['locale' => app()->getLocale()]) }}",
+                type: "POST",
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    book_id: bookId
+                },
+                success: function(response) {
+                    if (response.status === 'added') {
+                        icon.removeClass('bi-bookmark').addClass('bi-bookmark-fill active');
+                    } else if (response.status === 'removed') {
+                        icon.removeClass('bi-bookmark-fill active').addClass('bi-bookmark');
+                    }
+                },
+                error: function(xhr) {
+                    if (xhr.status === 401 && xhr.responseJSON?.redirect) {
+                        // Redirect to login if not authenticated
+                        window.location.href = xhr.responseJSON.redirect;
+                    } else {
+                        alert('An error occurred.');
+                        console.log(xhr.responseText);
+                    }
                 }
-            },
-            error: function(xhr) {
-                if(xhr.status === 401 && xhr.responseJSON?.redirect) {
-                    // Redirect to login if not authenticated
-                    window.location.href = xhr.responseJSON.redirect;
-                } else {
-                    alert('An error occurred.');
-                    console.log(xhr.responseText);
-                }
-            }
+            });
         });
     });
-});
-
 </script>
 @endpush
-

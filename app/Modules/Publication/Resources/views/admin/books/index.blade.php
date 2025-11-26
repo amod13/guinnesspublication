@@ -17,7 +17,7 @@
                 </div>
 
                 <div class="col-md-6">
-                    <label for="statusSelect" class="form-label text-muted">Dealer Status</label>
+                    <label for="statusSelect" class="form-label text-muted">Status</label>
                     <select id="statusSelect" name="status" class="form-select">
                         <option value="">All</option>
                         <option value="active" {{ old('status', $data['searchTerm']['status'] ?? '') == 'active' ? 'selected' : '' }}>Active
@@ -56,7 +56,7 @@
             <!-- Table -->
             <div class="amd-soft-table-wrapper bulk-enabled" data-bulk-delete-url="{{ route('books.bulk-delete') }}">
                 {{-- Filter --}}
-                <x-table.filter :action="route('books.index')" :placeholder="'Search book...'" />
+                <x-table.filter :action="route('books.index')" :placeholder="'Search book...'" :search="false" />
 
                 <table class="amd-soft-table" role="grid" aria-describedby="table-description" id="BookListTable"
                     data-column-manage="true">

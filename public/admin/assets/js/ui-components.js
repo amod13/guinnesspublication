@@ -239,7 +239,12 @@ $(document).ready(function () {
     );
 });
 
-//Toast Js
+// Carousel page js
+
+/**
+ * Global function to show a toast notification (jQuery version).
+ * @param {object} options - Configuration for the toast.
+ */
 function showToast(options) {
     // Default options and merge with provided options
     const defaultOptions = {
@@ -451,7 +456,13 @@ function showToast(options) {
         }
     });
 }
-
+/**
+ * Hides a specific toast notification and removes it from the DOM after its transition.
+ *
+ * @param {jQuery|HTMLElement} toastElement - The toast element (jQuery object or DOM element).
+ * @param {string} position - The position of the toast container for exit animation.
+ * @param {function} [onHideCallback=null] - Optional callback when toast finishes hiding.
+ */
 function hideToast(toastElement, position, onHideCallback = null) {
     const $toast =
         toastElement instanceof jQuery ? toastElement : $(toastElement);
@@ -484,6 +495,222 @@ function hideToast(toastElement, position, onHideCallback = null) {
         }
     });
 }
+
+$(document).ready(function () {
+    // Basic Toast Buttons (Using jQuery selectors)
+    $("#showSuccessToastBtn").on("click", () => {
+        showToast({
+            type: "success",
+            message: "Your data has been saved successfully!",
+        });
+    });
+
+    $("#showErrorToastBtn").on("click", () => {
+        showToast({
+            type: "error",
+            message: "Failed to process your request. Please try again.",
+        });
+    });
+
+    $("#showInfoToastBtn").on("click", () => {
+        showToast({
+            type: "info",
+            message: "You have 3 new messages in your inbox.",
+        });
+    });
+
+    $("#showWarningToastBtn").on("click", () => {
+        showToast({
+            type: "warning",
+            message: "Low disk space detected. Please clear some files.",
+        });
+    });
+
+    // Custom Duration Toast Buttons
+    $("#showShortToastBtn").on("click", () => {
+        showToast({
+            type: "info",
+            message: "This toast will disappear in 2 seconds.",
+            duration: 2000,
+        });
+    });
+
+    $("#showLongerToastBtn").on("click", () => {
+        showToast({
+            type: "success",
+            message:
+                "You have successfully signed up for the newsletter! This will stay for 7 seconds.",
+            duration: 7000,
+        });
+    });
+
+    $("#showPersistentToastBtn").on("click", () => {
+        showToast({
+            type: "error",
+            message:
+                "An unrecoverable error occurred. Please refresh the page.",
+            duration: 0,
+        });
+    });
+
+    // Advanced Toast Actions Buttons
+    $("#showCallbacksToastBtn").on("click", () => {
+        showToast({
+            type: "info",
+            title: "Download Progress",
+            message: "File download started!",
+            duration: 3000,
+            onShowCallback: () => console.log("Toast shown: File download"),
+            onHideCallback: () =>
+                console.log("Toast hidden: File download complete"),
+        });
+    });
+
+    $("#showHtmlLinkToastBtn").on("click", () => {
+        showToast({
+            type: "success",
+            message: `Item added to cart. <a href='#' onclick='alert("Navigating to cart!"); return false;' style='color: var(--amd-white-color); text-decoration: underline;'>View Cart</a>`,
+            duration: 5000,
+        });
+    });
+
+    // New Toast Styles
+    $("#showToastWithTitleBtn").on("click", () => {
+        showToast({
+            type: "info",
+            title: "New Notification",
+            message: "You have received a new message from Support.",
+            duration: 4000,
+        });
+    });
+
+    $("#showToastWithAvatarBtn").on("click", () => {
+        showToast({
+            type: "info",
+            title: "John Doe",
+            message: "Just shared a new document with you.",
+            avatarSrc: "https://via.placeholder.com/40/007bff/FFFFFF?text=JD",
+            duration: 5000,
+        });
+    });
+
+    $("#showToastWithActionBtn").on("click", () => {
+        showToast({
+            type: "warning",
+            title: "New Update Available",
+            message: "A new version of the application is ready to install.",
+            duration: 8000,
+            actions: [
+                {
+                    text: "Later",
+                    onClick: () => console.log("Update postponed."),
+                },
+                {
+                    text: "Update Now",
+                    onClick: () => alert("Starting update..."),
+                },
+            ],
+        });
+    });
+
+    $("#showToastWithProgressBarBtn").on("click", () => {
+        showToast({
+            type: "success",
+            title: "File Uploading",
+            message: "Your document is being uploaded to the cloud.",
+            duration: 6000,
+            showProgressBar: true,
+        });
+    });
+
+    $("#showUserActionConfirmationBtn").on("click", () => {
+        showToast({
+            type: "success",
+            message: 'Item "Product X" successfully added to your wishlist!',
+            duration: 3000,
+        });
+    });
+
+    $("#showNetworkErrorBtn").on("click", () => {
+        showToast({
+            type: "error",
+            title: "Connection Lost",
+            message:
+                "Could not connect to the server. Please check your internet.",
+            duration: 0,
+        });
+    });
+
+    $("#showReminderNotificationBtn").on("click", () => {
+        showToast({
+            type: "info",
+            title: "Meeting Reminder",
+            message: "Your daily stand-up starts in 5 minutes.",
+            duration: 6000,
+        });
+    });
+
+    $("#showTopLeftToastBtn").on("click", () => {
+        showToast({
+            type: "warning",
+            message: "Maintenance mode starting soon. Please save your work.",
+            duration: 5000,
+            position: "top-left",
+        });
+    });
+
+    $("#showBottomRightToastBtn").on("click", () => {
+        showToast({
+            type: "success",
+            message: "Feedback submitted successfully! Thank you.",
+            duration: 4000,
+            position: "bottom-right",
+        });
+    });
+
+    $("#showBottomCenterToastBtn").on("click", () => {
+        showToast({
+            type: "info",
+            title: "Application Update",
+            message:
+                'A new version is available. Click "Update" below to get the latest features.',
+            duration: 0,
+            position: "bottom-center",
+            actions: [
+                {
+                    text: "Dismiss",
+                    onClick: () => console.log("User dismissed update toast"),
+                },
+                {
+                    text: "Update",
+                    onClick: () => alert("Initiating update..."),
+                },
+            ],
+        });
+    });
+
+    // Canvas ripple effect
+    const $amdRippleCanvas = $(".amd-canvas-subtle-ripple");
+    if ($amdRippleCanvas.length) {
+        $amdRippleCanvas.on("mousemove", function (e) {
+            const offset = $(this).offset();
+            const x = e.pageX - offset.left;
+            const y = e.pageY - offset.top;
+
+            const $ripple = $("<div></div>")
+                .addClass("amd-ripple")
+                .css({ left: `${x}px`, top: `${y}px` })
+                .appendTo(this);
+
+            $ripple.on(
+                "animationend webkitAnimationEnd oAnimationEnd MSAnimationEnd",
+                function () {
+                    $(this).remove();
+                }
+            );
+        });
+    }
+});
 
 // off canvas page js
 $(document).ready(function () {
@@ -522,7 +749,6 @@ $(document).ready(function () {
                 // Additional push directions can be handled here if needed
                 $body.addClass("amd-body-pushed");
             }
-
             currentOpenOffCanvas = $targetPanel;
         }
     }
@@ -600,7 +826,6 @@ $(document).ready(function () {
         }
     );
 });
-
 
 // pagination page js
 $(document).ready(function () {
@@ -755,6 +980,7 @@ $(document).ready(function () {
 });
 
 // date picker page js
+
 $(document).ready(function () {
     $("#date1").flatpickr({ dateFormat: "Y-m-d" });
     $("#date2").flatpickr({ dateFormat: "Y-m-d" });
@@ -789,7 +1015,6 @@ $(function () {
         autoclose: true,
     });
 });
-
 
 // progress bar page js
 
@@ -1182,7 +1407,9 @@ $(document).ready(function () {
 });
 
 // form-select page end
+
 // FAQ page start
+
 $(document).ready(function () {
     // --- 1. "ChefKraft" - Custom List Group Accordion ---
     $(".amd-faq-style-tabs .list-group-item").on("click", function () {
@@ -1317,6 +1544,7 @@ $(document).ready(function () {
 // FAQ page end
 
 // subscription plan page start
+
 $(document).ready(function () {
     // --- General Pricing Toggle Logic ---
     function handlePricingToggle(toggleId, scopeClass) {
@@ -1404,3 +1632,1824 @@ $(document).ready(function () {
     );
 });
 // subscription plan end
+
+// --- 2. CONFIRMATION ALERTS ---
+function showConfirmAlert() {
+    Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "var(--color-danger)",
+        cancelButtonColor: "#8898aa",
+        confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+        if (result.isConfirmed) {
+            showSuccessAlert(
+                "Deleted!",
+                "The item has been successfully deleted."
+            );
+        }
+    });
+}
+function showConfirmDenyAlert() {
+    Swal.fire({
+        title: "Do you want to save the changes?",
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: "Save",
+        denyButtonText: `Don't save`,
+    }).then((result) => {
+        if (result.isConfirmed)
+            showSuccessAlert("Saved!", "Your changes have been saved.");
+        else if (result.isDenied)
+            Swal.fire("Changes are not saved", "", "info");
+    });
+}
+
+// --- 3. TOAST NOTIFICATIONS ---
+const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+        toast.addEventListener("mouseenter", Swal.stopTimer);
+        toast.addEventListener("mouseleave", Swal.resumeTimer);
+    },
+});
+function showToast(icon, title) {
+    Toast.fire({
+        icon: icon || "success",
+        title: title || "Action completed.",
+    });
+}
+
+// --- 4. ADVANCED & CUSTOM ALERTS ---
+function showAjaxLoader() {
+    Swal.fire({
+        title: "Processing Request...",
+        text: "Please wait.",
+        allowOutsideClick: false,
+        didOpen: () => {
+            Swal.showLoading();
+        },
+    });
+    setTimeout(() => {
+        Swal.fire({
+            icon: "success",
+            title: "Success!",
+            text: "Your request was processed successfully.",
+        });
+    }, 2000);
+}
+function showImageAlert() {
+    Swal.fire({
+        title: "Welcome!",
+        text: "It is great to have you here.",
+        imageUrl:
+            "https://images.unsplash.com/photo-1576158113928-4424e07c3b1e?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=800",
+        imageWidth: 400,
+        imageHeight: 200,
+        imageAlt: "Welcome image",
+    });
+}
+function showBgImageAlert() {
+    Swal.fire({
+        title: "A Room with a View",
+        width: 600,
+        padding: "3em",
+        color: "#fff",
+        background:
+            "#fff url(https://images.unsplash.com/photo-1440778303588-435521a205bc?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&w=1200)",
+        backdrop: `rgba(0,0,0,0.4) url("https://sweetalert2.github.io/images/nyan-cat.gif") left top no-repeat`,
+    });
+}
+function showHtmlAlert() {
+    Swal.fire({
+        title: "<strong>What's New in <u>v2.0</u></strong>",
+        icon: "info",
+        html: `<ul><li>New sleek design</li><li>Enhanced animations</li><li>Performance improvements</li></ul>`,
+        showCloseButton: true,
+        focusConfirm: false,
+        confirmButtonText: '<i class="fa fa-thumbs-up"></i> Great!',
+    });
+}
+function showCustomCloseAlert() {
+    Swal.fire({
+        title: "Modal with a Custom Close Button",
+        html: 'You can add any HTML inside. <br/><div style="position:absolute;top:1rem;right:1rem;font-size:1.5rem;cursor:pointer;color:#ccc" onclick="Swal.close()">×</div>',
+        showConfirmButton: false,
+    });
+}
+function showFooterTimerAlert() {
+    Swal.fire({
+        icon: "success",
+        title: "Offer Unlocked!",
+        text: "You have a 20% discount on your next purchase.",
+        timer: 4000,
+        timerProgressBar: true,
+        footer: "This offer expires soon!",
+    });
+}
+
+// --- 5. INPUT ALERTS ---
+function showEmailInput() {
+    Swal.fire({
+        title: "Join Our Newsletter",
+        input: "email",
+        inputLabel: "Email address",
+        inputPlaceholder: "Enter your email address",
+        showCancelButton: true,
+        confirmButtonText: "Subscribe",
+    }).then((result) => {
+        if (result.isConfirmed && result.value)
+            showToast("success", `Subscribed: ${result.value}`);
+    });
+}
+function showChainedModals() {
+    Swal.queue([
+        { title: "Step 1", text: "What is your name?", input: "text" },
+        { title: "Step 2", text: "Where are you from?", input: "text" },
+        { title: "Step 3", text: "What is your hobby?", input: "text" },
+    ]).then((result) => {
+        if (result.value) {
+            const answers = JSON.stringify(result.value);
+            Swal.fire({
+                title: "Complete!",
+                html: `Your answers: <pre><code>${answers}</code></pre>`,
+                confirmButtonText: "Lovely!",
+            });
+        }
+    });
+}
+function showSelectInput() {
+    Swal.fire({
+        title: "Select your country",
+        input: "select",
+        inputOptions: {
+            US: "United States",
+            DE: "Germany",
+            FR: "France",
+            JP: "Japan",
+        },
+        inputPlaceholder: "Select a country",
+        showCancelButton: true,
+    }).then((result) => {
+        if (result.value) showToast("info", "You selected: " + result.value);
+    });
+}
+function showCheckboxInput() {
+    Swal.fire({
+        title: "Terms and Conditions",
+        input: "checkbox",
+        inputValue: 0,
+        inputPlaceholder: "I agree with the terms and conditions",
+        confirmButtonText: 'Continue <i class="fa fa-arrow-right"></i>',
+        inputValidator: (result) => !result && "You must agree with the T&C!",
+    });
+}
+function showPasswordInput() {
+    Swal.fire({
+        title: "Enter your password",
+        input: "password",
+        inputLabel: "Password",
+        inputPlaceholder: "Enter your password",
+    }).then((result) => {
+        if (result.value)
+            Swal.fire({ title: "Password Entered", icon: "success" });
+    });
+}
+function showAsyncValidation() {
+    Swal.fire({
+        title: "Create a username",
+        input: "text",
+        inputLabel: "Username",
+        showCancelButton: true,
+        inputValidator: (value) =>
+            new Promise((resolve) => {
+                if (value === "taken") {
+                    setTimeout(
+                        () => resolve("Username is already taken."),
+                        500
+                    );
+                } else {
+                    resolve();
+                }
+            }),
+    }).then((result) => {
+        if (result.isConfirmed && result.value)
+            showSuccessAlert(
+                "Success!",
+                `Username "${result.value}" is available.`
+            );
+    });
+}
+
+// sweet alert page end
+
+// table 1 js
+$(document).ready(function () {
+    // GLOBAL VARIABLES
+    let sortColumn = "";
+    let sortDirection = "asc";
+    let allRows = $("#tableBody tr");
+    let selectedRows = new Set();
+    let draggedElement = null;
+
+    // ========== TABLE 1 (Search, Sort, Filter, Actions) ==========
+
+    // Search functionality
+    $("#searchInput").on("input", function () {
+        const query = $(this).val().toLowerCase();
+        searchTable(query);
+    });
+
+    // Sort headers click
+    $(".sortable").on("click", function () {
+        const column = $(this).data("sort");
+        handleSort(column, $(this));
+    });
+
+    // Filter button toggle
+    $("#filterBtn").on("click", toggleFilterPanel);
+
+    // Clear and apply filter buttons
+    $("#clearFilters").on("click", clearAllFilters);
+    $("#applyFilters").on("click", applyFilters);
+
+    // New Vehicle button (example)
+    $("#newVehicleBtn").on("click", function () {
+        alert("New Vehicle Form - This would open a modal or form");
+    });
+
+    // Close filter panel & action menus on outside click
+    $(document).on("click", function (e) {
+        const $filterPanel = $("#filterPanel");
+        const $filterBtn = $("#filterBtn");
+
+        if (
+            !$filterPanel.is(e.target) &&
+            $filterPanel.has(e.target).length === 0 &&
+            !$filterBtn.is(e.target) &&
+            $filterBtn.has(e.target).length === 0
+        ) {
+            $filterPanel.removeClass("show");
+            $filterBtn.removeClass("active");
+        }
+
+        if (!$(e.target).closest(".amd-soft-table1-actions").length) {
+            $(".amd-soft-table1-action-menu").removeClass("show");
+        }
+    });
+
+    // Toggle filter panel
+    function toggleFilterPanel() {
+        $("#filterPanel").toggleClass("show");
+        $("#filterBtn").toggleClass("active");
+    }
+
+    // Clear all filters
+    function clearAllFilters() {
+        $("#groupFilter, #typeFilter, #statusFilter").val("");
+        allRows.removeClass("hidden");
+    }
+
+    // Apply filters (example, implement as needed)
+    function applyFilters() {
+        alert("Apply filters functionality here");
+    }
+
+    // Sort handler
+    function handleSort(column, $header) {
+        if (sortColumn === column) {
+            sortDirection = sortDirection === "asc" ? "desc" : "asc";
+        } else {
+            sortColumn = column;
+            sortDirection = "asc";
+        }
+
+        $(".sortable").removeClass("sort-asc sort-desc");
+        $header.addClass(`sort-${sortDirection}`);
+
+        sortTable(column, sortDirection);
+    }
+
+    // Sort table rows
+    function sortTable(column, direction) {
+        const $tbody = $("#tableBody");
+        const rows = $tbody.find("tr").get();
+
+        rows.sort(function (a, b) {
+            let aVal = $(a).data(column);
+            let bVal = $(b).data(column);
+
+            if (column === "vehicle") {
+                aVal = parseInt((aVal.match(/\d+/) || ["0"])[0]);
+                bVal = parseInt((bVal.match(/\d+/) || ["0"])[0]);
+            } else {
+                aVal = ("" + aVal).toLowerCase();
+                bVal = ("" + bVal).toLowerCase();
+            }
+
+            if (direction === "asc") {
+                return aVal > bVal ? 1 : -1;
+            } else {
+                return aVal < bVal ? 1 : -1;
+            }
+        });
+
+        $tbody.empty().append(rows);
+        allRows = $("#tableBody tr");
+    }
+
+    // ========== TABLE 3 (Column Toggle, Sorting, Row Selection) ==========
+
+    $(document).on(
+        "change",
+        ".amd-soft-table3-column-toggle-checkbox",
+        function () {
+            const columnKey = $(this).val();
+            const isVisible = $(this).is(":checked");
+            $(
+                `th[data-column-key="${columnKey}"], td[data-column-key="${columnKey}"]`
+            ).toggleClass("amd-soft-table3-hidden-column", !isVisible);
+        }
+    );
+
+    $(document).on("click", ".amd-soft-table3-table-head", function () {
+        const $header = $(this);
+        const columnKey = $header.data("column-key");
+        const rows = $("#amd-soft-table3-data-rows tr").get();
+
+        let currentDirection = $header.hasClass("amd-soft-table3-sorted-asc")
+            ? "asc"
+            : $header.hasClass("amd-soft-table3-sorted-desc")
+            ? "desc"
+            : "none";
+        const newDirection = currentDirection === "asc" ? "desc" : "asc";
+
+        $(".amd-soft-table3-table-head").removeClass(
+            "amd-soft-table3-sorted-asc amd-soft-table3-sorted-desc"
+        );
+        $header.addClass(`amd-soft-table3-sorted-${newDirection}`);
+
+        rows.sort((a, b) => {
+            const A = $(a)
+                .find(`td[data-column-key="${columnKey}"]`)
+                .text()
+                .trim();
+            const B = $(b)
+                .find(`td[data-column-key="${columnKey}"]`)
+                .text()
+                .trim();
+            return newDirection === "asc"
+                ? A.localeCompare(B)
+                : B.localeCompare(A);
+        });
+
+        $("#amd-soft-table3-data-rows").append(rows);
+    });
+
+    $(document).on("change", ".amd-soft-table3-checkbox", function () {
+        $(this)
+            .closest("tr")
+            .toggleClass("amd-soft-table3-selected", $(this).is(":checked"));
+    });
+
+    $("#amd-soft-table3-column-toggles").on("click", function (e) {
+        e.stopPropagation();
+    });
+
+    // ========== TABLE 6 (Pagination, Sorting, Searching, Filter & Info Update) ==========
+
+    let currentPage = 1;
+    let itemsPerPage = 7;
+    sortColumn = "";
+    sortDirection = "asc";
+    allRows = $("#tableBody tr");
+
+    function updatePagination() {
+        const visibleRows = $("#tableBody tr:not(.hidden)");
+        const totalItems = visibleRows.length;
+        const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+        visibleRows.each(function (index) {
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            if (index >= startIndex && index < endIndex) $(this).show();
+            else $(this).hide();
+        });
+
+        $("#prevBtn").prop("disabled", currentPage === 1);
+        $("#nextBtn").prop(
+            "disabled",
+            currentPage === totalPages || totalPages === 0
+        );
+        $(".amd-table6-page-btn[data-page]").removeClass("active");
+        $(`.amd-table6-page-btn[data-page="${currentPage}"]`).addClass(
+            "active"
+        );
+    }
+
+    function updateInfo() {
+        const visibleRows = $("#tableBody tr:not(.hidden):visible");
+        const totalVisible = $("#tableBody tr:not(.hidden)").length;
+        const startIndex =
+            visibleRows.length > 0 ? (currentPage - 1) * itemsPerPage + 1 : 0;
+        const endIndex = Math.min(currentPage * itemsPerPage, totalVisible);
+
+        $("#showingStart").text(startIndex);
+        $("#showingEnd").text(endIndex);
+        $("#totalItems").text(totalVisible);
+    }
+
+    function sortTable6(column, direction) {
+        const $tbody = $("#tableBody");
+        const rows = $tbody.find("tr").toArray();
+
+        rows.sort(function (a, b) {
+            let aVal, bVal;
+
+            switch (column) {
+                case "product":
+                    aVal = $(a).data("product").toLowerCase();
+                    bVal = $(b).data("product").toLowerCase();
+                    break;
+                case "price":
+                    aVal = parseFloat($(a).data("price"));
+                    bVal = parseFloat($(b).data("price"));
+                    break;
+                case "shop":
+                    aVal = $(a).data("shop").toLowerCase();
+                    bVal = $(b).data("shop").toLowerCase();
+                    break;
+                case "visibility":
+                    aVal = parseInt($(a).data("visibility"));
+                    bVal = parseInt($(b).data("visibility"));
+                    break;
+                case "revenue":
+                    aVal = parseInt($(a).data("revenue"));
+                    bVal = parseInt($(b).data("revenue"));
+                    break;
+                default:
+                    return 0;
+            }
+
+            return direction === "asc"
+                ? aVal > bVal
+                    ? 1
+                    : -1
+                : aVal < bVal
+                ? 1
+                : -1;
+        });
+
+        $tbody.empty().append(rows);
+        currentPage = 1;
+        updatePagination();
+        updateInfo();
+    }
+
+    function searchTable(query) {
+        if (!query) {
+            allRows.removeClass("hidden");
+        } else {
+            allRows.each(function () {
+                const product = $(this).data("product").toLowerCase();
+                const shop = $(this).data("shop").toLowerCase();
+                $(this).toggleClass(
+                    "hidden",
+                    !(product.includes(query) || shop.includes(query))
+                );
+            });
+        }
+        currentPage = 1;
+        updatePagination();
+        updateInfo();
+    }
+
+    // Event listeners for table 6
+    $(".amd-table6-tab").on("click", function () {
+        $(".amd-table6-tab").removeClass("active");
+        $(this).addClass("active");
+    });
+
+    $(".sortable").on("click", function () {
+        const column = $(this).data("sort");
+
+        if (sortColumn === column) {
+            sortDirection = sortDirection === "asc" ? "desc" : "asc";
+        } else {
+            sortColumn = column;
+            sortDirection = "asc";
+        }
+
+        $(".sortable").removeClass("sort-asc sort-desc");
+        $(this).addClass(`sort-${sortDirection}`);
+
+        sortTable6(sortColumn, sortDirection);
+    });
+
+    $(document).on("click", ".amd-table6-page-btn[data-page]", function () {
+        currentPage = parseInt($(this).data("page"));
+        updatePagination();
+        updateInfo();
+    });
+
+    $("#prevBtn").on("click", function () {
+        if (currentPage > 1) {
+            currentPage--;
+            updatePagination();
+            updateInfo();
+        }
+    });
+
+    $("#nextBtn").on("click", function () {
+        const visibleRows = $("#tableBody tr:not(.hidden)");
+        const totalPages = Math.ceil(visibleRows.length / itemsPerPage);
+        if (currentPage < totalPages) {
+            currentPage++;
+            updatePagination();
+            updateInfo();
+        }
+    });
+
+    $("#perPageSelect").on("change", function () {
+        itemsPerPage = parseInt($(this).val());
+        currentPage = 1;
+        updatePagination();
+        updateInfo();
+    });
+
+    $("#searchInput").on("input", function () {
+        searchTable($(this).val().toLowerCase());
+    });
+
+    $("#filterBtn").on("click", function () {
+        alert("Filter functionality would be implemented here");
+    });
+
+    $("#customizeBtn").on("click", function () {
+        alert("Customize functionality would be implemented here");
+    });
+
+    $("#exportBtn").on("click", function () {
+        alert("Export functionality would be implemented here");
+    });
+
+    // Initialize table 6
+    updatePagination();
+    updateInfo();
+
+    // ========== TABLE 7 (Store Original Data, Filter, Sort, Render, Actions) ==========
+
+    let amdTable7OriginalData = [];
+    let amdTable7CurrentData = [];
+
+    // Store original table data
+    $("#amdTable7TableBody tr").each(function () {
+        const row = $(this);
+        amdTable7OriginalData.push({
+            element: row[0].outerHTML,
+            company: row.find(".amd-table7-company-name").text().toLowerCase(),
+            category: row.find("td:nth-child(2)").text().toLowerCase(),
+            domain: row.find("td:nth-child(3)").text().toLowerCase(),
+            location: row.find("td:nth-child(4)").text().toLowerCase(),
+            status: row.find(".amd-table7-status-badge").text().toLowerCase(),
+        });
+    });
+
+    amdTable7CurrentData = [...amdTable7OriginalData];
+
+    // Initialize event listeners for table7
+    $("#amdTable7SearchInput").on("input", function () {
+        const searchTerm = $(this).val().toLowerCase();
+        amdTable7FilterData(searchTerm);
+    });
+
+    $("#amdTable7SortBy").on("change", function () {
+        amdTable7SortData($(this).val());
+    });
+
+    $("#amdTable7Filter").on("change", function () {
+        amdTable7FilterByStatus($(this).val());
+    });
+
+    $("#amdTable7AddCompany").on("click", function () {
+        alert("Add Company functionality would open a form modal here");
+    });
+
+    $("#amdTable7ImportExport").on("change", function () {
+        const action = $(this).val();
+        if (action !== "📥 Import/Export") {
+            alert(`${action} functionality would be implemented here`);
+            $(this).val("📥 Import/Export");
+        }
+    });
+
+    // Filter data function
+    function amdTable7FilterData(searchTerm) {
+        if (!searchTerm) {
+            amdTable7CurrentData = [...amdTable7OriginalData];
+        } else {
+            amdTable7CurrentData = amdTable7OriginalData.filter(
+                (item) =>
+                    item.company.includes(searchTerm) ||
+                    item.category.includes(searchTerm) ||
+                    item.domain.includes(searchTerm) ||
+                    item.location.includes(searchTerm)
+            );
+        }
+        amdTable7RenderTable();
+    }
+
+    // Sort data function
+    function amdTable7SortData(sortBy) {
+        switch (sortBy) {
+            case "Name A-Z":
+                amdTable7CurrentData.sort((a, b) =>
+                    a.company.localeCompare(b.company)
+                );
+                break;
+            case "Name Z-A":
+                amdTable7CurrentData.sort((a, b) =>
+                    b.company.localeCompare(a.company)
+                );
+                break;
+            case "Category":
+                amdTable7CurrentData.sort((a, b) =>
+                    a.category.localeCompare(b.category)
+                );
+                break;
+            case "Status":
+                amdTable7CurrentData.sort((a, b) =>
+                    a.status.localeCompare(b.status)
+                );
+                break;
+        }
+        amdTable7RenderTable();
+    }
+
+    // Filter by status
+    function amdTable7FilterByStatus(status) {
+        if (status === "🔍 Filter") {
+            amdTable7CurrentData = [...amdTable7OriginalData];
+        } else {
+            amdTable7CurrentData = amdTable7OriginalData.filter(
+                (item) => item.status === status.toLowerCase()
+            );
+        }
+        amdTable7RenderTable();
+    }
+
+    // Render filtered/sorted table
+    function amdTable7RenderTable() {
+        const $tbody = $("#amdTable7TableBody");
+        $tbody.empty();
+        amdTable7CurrentData.forEach((item) => $tbody.append(item.element));
+
+        // Re-bind action buttons events
+        $(".amd-table7-action-btn")
+            .off("click")
+            .on("click", function () {
+                amdTable7ShowActionMenu(this);
+            });
+    }
+
+    // Action menu modal show
+    function amdTable7ShowActionMenu(button) {
+        const modal = new bootstrap.Modal($("#amdTable7ActionModal")[0]);
+        modal.show();
+    }
+
+    // Action functions
+    window.amdTable7EditCompany = function () {
+        $("#amdTable7ActionModal").modal("hide");
+        alert("Edit company functionality would open an edit form here");
+    };
+
+    window.amdTable7ViewCompany = function () {
+        $("#amdTable7ActionModal").modal("hide");
+        alert(
+            "View company details functionality would show detailed information here"
+        );
+    };
+
+    window.amdTable7DeleteCompany = function () {
+        $("#amdTable7ActionModal").modal("hide");
+        if (confirm("Are you sure you want to delete this company?")) {
+            alert("Company would be deleted here");
+        }
+    };
+
+    // Close modal if clicking outside
+    $(document).on("click", function (e) {
+        if (!$(e.target).closest(".amd-table7-action-btn, .modal").length) {
+            $("#amdTable7ActionModal").modal("hide");
+        }
+    });
+});
+
+// form input group page js ************** */
+
+// Password show/hide
+function togglePwd() {
+    var $pwd = $("#pwdInput");
+    $pwd.attr("type", $pwd.attr("type") === "password" ? "text" : "password");
+}
+// Number spinner
+function stepNumber(val) {
+    var $input = $("#spinnerInput");
+    var current = parseInt($input.val()) || 1;
+    var min = parseInt($input.attr("min")) || 1;
+    var max = parseInt($input.attr("max")) || 10;
+    var next = current + val;
+    if (next >= min && next <= max) $input.val(next);
+}
+// Tags input
+var tags = [];
+var $tagsBox = $("#tagsBox");
+var $tagInput = $("#tagInput");
+$tagInput.on("keydown", function (e) {
+    if ((e.key === "Enter" || e.key === ",") && $tagInput.val().trim() !== "") {
+        e.preventDefault();
+        addTag($tagInput.val().trim());
+        $tagInput.val("");
+    }
+});
+function addTag(text) {
+    if (tags.includes(text)) return;
+    tags.push(text);
+    renderTags();
+}
+function removeTag(text) {
+    tags = tags.filter(function (t) {
+        return t !== text;
+    });
+    renderTags();
+}
+function renderTags() {
+    $tagsBox.empty();
+    tags.forEach(function (tag) {
+        var $tagEl = $('<span class="tag"></span>').html(
+            tag +
+                '<span class="remove-tag" style="margin-left:2px;">&times;</span>'
+        );
+        $tagEl.find(".remove-tag").on("click", function () {
+            removeTag(tag);
+        });
+        $tagsBox.append($tagEl);
+    });
+    $tagsBox.append($tagInput);
+    $tagInput.focus();
+}
+// Password strength
+$("#pwdStrength").on("input", function () {
+    var val = $(this).val();
+    var $bar = $("#pwdStrengthBar");
+    var strength = "weak";
+    if (
+        val.length > 8 &&
+        /[A-Z]/.test(val) &&
+        /\d/.test(val) &&
+        /[^A-Za-z0-9]/.test(val)
+    ) {
+        strength = "strong";
+    } else if (val.length > 5 && (/[A-Z]/.test(val) || /\d/.test(val))) {
+        strength = "medium";
+    }
+    $bar.removeClass("weak medium strong").addClass(strength);
+});
+// Autocomplete
+var fruits = [
+    "Apple",
+    "Banana",
+    "Cherry",
+    "Date",
+    "Fig",
+    "Grape",
+    "Kiwi",
+    "Lemon",
+    "Mango",
+    "Orange",
+    "Peach",
+    "Pear",
+    "Pineapple",
+    "Plum",
+    "Strawberry",
+    "Watermelon",
+];
+var $autoInput = $("#autoInput");
+var $autoList = $("#autoList");
+$autoInput.on("input", function () {
+    var val = $autoInput.val().toLowerCase();
+    $autoList.empty();
+    if (val.length > 0) {
+        var matches = fruits.filter(function (f) {
+            return f.toLowerCase().startsWith(val);
+        });
+        matches.forEach(function (fruit) {
+            var $li = $('<li class="dropdown-item"></li>').text(fruit);
+            $li.on("click", function () {
+                $autoInput.val(fruit);
+                $autoList.empty().removeClass("show");
+            });
+            $autoList.append($li);
+        });
+        $autoList.addClass("show");
+    } else {
+        $autoList.removeClass("show");
+    }
+});
+$(document).on("click", function (e) {
+    if (!$(e.target).is($autoInput)) $autoList.removeClass("show");
+});
+// OTP input
+$(".otp-input").each(function (idx, el) {
+    $(el).on("input", function () {
+        if ($(el).val().length === 1 && idx < $(".otp-input").length - 1)
+            $(".otp-input")
+                .eq(idx + 1)
+                .focus();
+    });
+    $(el).on("keydown", function (e) {
+        if (e.key === "Backspace" && $(el).val() === "" && idx > 0)
+            $(".otp-input")
+                .eq(idx - 1)
+                .focus();
+    });
+});
+// Star rating
+var $starRating = $("#starRating");
+if ($starRating.length) {
+    var rating = 0;
+    $starRating.find("i").each(function (idx, star) {
+        $(star).on("mouseenter", function () {
+            highlightStars(idx + 1);
+        });
+        $(star).on("mouseleave", function () {
+            highlightStars(rating);
+        });
+        $(star).on("click", function () {
+            rating = idx + 1;
+            highlightStars(rating);
+        });
+    });
+    function highlightStars(val) {
+        $starRating.find("i").each(function (i, star) {
+            if (i < val) {
+                $(star).removeClass("bi-star").addClass("bi-star-fill");
+            } else {
+                $(star).removeClass("bi-star-fill").addClass("bi-star");
+            }
+        });
+    }
+}
+// Copy to clipboard
+$("#copyBtn").on("click", function () {
+    var $copyInput = $("#copyInput");
+    $copyInput[0].select();
+    $copyInput[0].setSelectionRange(0, 99999);
+    document.execCommand("copy");
+    alert("Copied: " + $copyInput.val());
+});
+
+// files upload page jquery *************** */
+
+$(document).ready(function () {
+    // Helper function to format file size
+    function formatSize(bytes) {
+        if (bytes < 1024) return bytes + " B";
+        if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + " KB";
+        return (bytes / 1024 / 1024).toFixed(2) + " MB";
+    }
+
+    // Helper to get Bootstrap file icon based on extension
+    function getFileIcon(filename) {
+        const ext = filename.split(".").pop().toLowerCase();
+        switch (ext) {
+            case "pdf":
+                return "bi-file-earmark-pdf";
+            case "doc":
+            case "docx":
+                return "bi-file-earmark-word";
+            case "xls":
+            case "xlsx":
+                return "bi-file-earmark-excel";
+            case "ppt":
+            case "pptx":
+                return "bi-file-earmark-ppt";
+            case "zip":
+            case "rar":
+                return "bi-file-earmark-zip";
+            case "txt":
+                return "bi-file-earmark-text";
+            case "js":
+            case "html":
+            case "css":
+                return "bi-file-earmark-code";
+            case "mp3":
+            case "wav":
+                return "bi-file-earmark-music";
+            case "mp4":
+            case "avi":
+                return "bi-file-earmark-play";
+            default:
+                return "bi-file-earmark";
+        }
+    }
+
+    // --- 1. Drag & Drop with preview and remove ---
+    let filesArr1 = [];
+    const $dropzone1 = $("#dropzone1");
+    const $dropzoneInput1 = $("#dropzoneInput1");
+    const $previewList1 = $("#previewList1");
+    const $fileError1 = $("#fileError1");
+
+    $dropzone1.on("click", function () {
+        $dropzoneInput1.trigger("click");
+    });
+
+    $dropzone1.on("dragover", function (e) {
+        e.preventDefault();
+        $(this).addClass("dragover");
+    });
+
+    $dropzone1.on("dragleave", function (e) {
+        e.preventDefault();
+        $(this).removeClass("dragover");
+    });
+
+    $dropzone1.on("drop", function (e) {
+        e.preventDefault();
+        $(this).removeClass("dragover");
+        handleFiles1(e.originalEvent.dataTransfer.files);
+    });
+
+    $dropzoneInput1.on("change", function () {
+        handleFiles1(this.files);
+    });
+
+    $dropzone1.on("keydown", function (e) {
+        if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            $dropzoneInput1.trigger("click");
+        }
+    });
+
+    function handleFiles1(fileList) {
+        $fileError1.hide();
+        Array.from(fileList).forEach((file) => {
+            if (
+                !filesArr1.some(
+                    (f) => f.name === file.name && f.size === file.size
+                )
+            ) {
+                filesArr1.push(file);
+            }
+        });
+        renderPreview1();
+    }
+
+    function renderPreview1() {
+        $previewList1.empty(); // Clear previous previews
+        filesArr1.forEach((file, idx) => {
+            let iconHtml = file.type.startsWith("image/")
+                ? `<img src="" class="amd-preview-img" alt="Image">`
+                : `<span class="amd-preview-icon"><i class="bi ${getFileIcon(
+                      file.name
+                  )}"></i></span>`;
+
+            const $previewItem = $(`
+                        <div class="amd-preview-item">
+                            <button class="amd-remove-btn" type="button" title="Remove" data-index="${idx}"><i class="bi bi-x-lg"></i></button>
+                            ${iconHtml}
+                            <div class="amd-preview-info">
+                                <div class="amd-preview-name">${file.name}</div>
+                                <div class="amd-preview-size">${formatSize(
+                                    file.size
+                                )}</div>
+                            </div>
+                        </div>
+                    `);
+
+            if (file.type.startsWith("image/")) {
+                const $img = $previewItem.find(".amd-preview-img");
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    $img.attr("src", e.target.result);
+                };
+                reader.readAsDataURL(file);
+            }
+
+            // Add event listener for the remove button
+            $previewItem.find(".amd-remove-btn").on("click", function () {
+                const indexToRemove = parseInt($(this).data("index"));
+                filesArr1.splice(indexToRemove, 1);
+                renderPreview1(); // Re-render to update indices and display
+            });
+
+            $previewList1.append($previewItem);
+        });
+    }
+
+    // --- 2. Avatar Upload with live preview ---
+    const $avatarInput = $("#avatarInput");
+    const $avatarImg = $("#avatarImg");
+
+    $avatarInput.on("change", function () {
+        const file = this.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                $avatarImg.attr("src", e.target.result);
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+    // --- 3. File List with remove and file type icon ---
+    let filesArr3 = [];
+    const $fileListInput = $("#fileListInput");
+    const $fileListUl = $("#fileList"); // Renamed to avoid conflict
+
+    $fileListInput.on("change", function () {
+        Array.from(this.files).forEach((file) => {
+            if (
+                !filesArr3.some(
+                    (f) => f.name === file.name && f.size === file.size
+                )
+            ) {
+                filesArr3.push(file);
+            }
+        });
+        renderFileList();
+    });
+
+    function renderFileList() {
+        $fileListUl.empty(); // Clear previous list items
+        filesArr3.forEach((file, idx) => {
+            const $listItem = $(`
+                        <li>
+                            <i class="bi ${getFileIcon(file.name)}"></i>
+                            <span>${file.name} (${formatSize(file.size)})</span>
+                            <button type="button" class="remove-file btn btn-link p-0 ms-auto" data-index="${idx}">
+                                <i class="bi bi-x-circle-fill"></i>
+                            </button>
+                        </li>
+                    `);
+
+            $listItem.find(".remove-file").on("click", function () {
+                const indexToRemove = parseInt($(this).data("index"));
+                filesArr3.splice(indexToRemove, 1);
+                renderFileList();
+            });
+            $fileListUl.append($listItem);
+        });
+    }
+
+    // --- 4. Image Gallery Upload (multiple, preview, remove) ---
+    let galleryFiles = [];
+    const $galleryInput = $("#galleryInput");
+    const $galleryPreview = $("#galleryPreview");
+
+    $galleryInput.on("change", function () {
+        Array.from(this.files).forEach((file) => {
+            if (file.type.startsWith("image/")) {
+                if (
+                    !galleryFiles.some(
+                        (f) => f.name === file.name && f.size === file.size
+                    )
+                ) {
+                    galleryFiles.push(file);
+                }
+            } else {
+                alert("Only image files are allowed for the gallery!");
+            }
+        });
+        renderGalleryPreview();
+    });
+
+    function renderGalleryPreview() {
+        $galleryPreview.empty();
+        galleryFiles.forEach((file, idx) => {
+            const $previewItem = $(`
+                        <div class="amd-preview-item">
+                            <button class="amd-remove-btn" type="button" title="Remove" data-index="${idx}"><i class="bi bi-x-lg"></i></button>
+                            <img src="" class="amd-preview-img" alt="Image">
+                            <div class="amd-preview-info">
+                                <div class="amd-preview-name">${file.name}</div>
+                                <div class="amd-preview-size">${formatSize(
+                                    file.size
+                                )}</div>
+                            </div>
+                        </div>
+                    `);
+
+            const $img = $previewItem.find(".amd-preview-img");
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                $img.attr("src", e.target.result);
+            };
+            reader.readAsDataURL(file);
+
+            $previewItem.find(".amd-remove-btn").on("click", function () {
+                const indexToRemove = parseInt($(this).data("index"));
+                galleryFiles.splice(indexToRemove, 1);
+                renderGalleryPreview();
+            });
+
+            $galleryPreview.append($previewItem);
+        });
+    }
+
+    // --- 5. File Upload with Progress Bar ---
+    const $progressInput = $("#progressInput");
+    const $progressBtn = $("#progressBtn");
+    const $progressBar = $("#progressBar");
+    const $progressContainer = $progressBar.closest(".progress");
+    const $progressStatus = $("#progressStatus");
+
+    $progressBtn.on("click", function () {
+        const file = $progressInput[0].files[0];
+        if (!file) {
+            $progressStatus
+                .text("Please select a file first.")
+                .css("color", "#dc3545");
+            return;
+        }
+
+        $progressContainer.show();
+        $progressBar.css("width", "0%").attr("aria-valuenow", 0).text("0%");
+        $progressStatus.text("Uploading...").css("color", "#6610f2");
+
+        let progress = 0;
+        const interval = setInterval(() => {
+            progress += 10;
+            if (progress <= 100) {
+                $progressBar
+                    .css("width", progress + "%")
+                    .attr("aria-valuenow", progress)
+                    .text(progress + "%");
+            }
+            if (progress >= 100) {
+                clearInterval(interval);
+                $progressStatus
+                    .text("Upload Complete!")
+                    .css("color", "#198754"); // Green for success
+                setTimeout(() => {
+                    // Hide progress after a short delay
+                    $progressContainer.hide();
+                    $progressBar
+                        .css("width", "0%")
+                        .attr("aria-valuenow", 0)
+                        .text("0%");
+                    $progressStatus.text("");
+                    $progressInput.val(""); // Clear the input
+                }, 2000);
+            }
+        }, 100); // Simulate upload progress
+    });
+
+    // --- 6. Only PDF Upload (with icon) ---
+    const $pdfInput = $("#pdfInput");
+    const $pdfPreview = $("#pdfPreview");
+    const $pdfFileName = $("#pdfFileName");
+    const $pdfFileSize = $("#pdfFileSize");
+    const $pdfError = $("#pdfError");
+
+    $pdfInput.on("change", function () {
+        const file = this.files[0];
+        $pdfError.hide();
+        $pdfPreview.hide();
+
+        if (file) {
+            if (file.type === "application/pdf") {
+                $pdfFileName.text(file.name);
+                $pdfFileSize.text(formatSize(file.size));
+                $pdfPreview.css("display", "flex"); // Show the preview item
+            } else {
+                $pdfError.text("Only PDF files are allowed.").show();
+                $(this).val(""); // Clear the input
+            }
+        }
+    });
+
+    window.removePdf = function () {
+        $pdfInput.val(""); // Clear the input
+        $pdfPreview.hide();
+        $pdfError.hide();
+    };
+
+    // --- 7. File Upload with Size Limit (2MB) ---
+    const $sizeLimitInput = $("#sizeLimitInput");
+    const $sizeLimitError = $("#sizeLimitError");
+    const MAX_FILE_SIZE = 2 * 1024 * 1024; // 2MB
+
+    $sizeLimitInput.on("change", function () {
+        const file = this.files[0];
+        $sizeLimitError.hide();
+
+        if (file) {
+            if (file.size > MAX_FILE_SIZE) {
+                $sizeLimitError
+                    .text(
+                        "File size exceeds 2MB limit. Please choose a smaller file."
+                    )
+                    .show();
+                $(this).val(""); // Clear the input
+            }
+        }
+    });
+
+    // --- 8. File Upload with Custom Button ---
+    const $customBtnInput = $("#customBtnInput");
+    const $customBtnFile = $("#customBtnFile");
+
+    $customBtnInput.on("change", function () {
+        const file = this.files[0];
+        if (file) {
+            $customBtnFile.text(file.name);
+        } else {
+            $customBtnFile.text("");
+        }
+    });
+
+    // --- 9. File Upload with Tooltip ---
+    // Initialize tooltips (requires Bootstrap JS)
+    const tooltipTriggerList = [].slice.call(
+        document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    );
+    const tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
+
+    // --- 10. File Upload with Outline Button & Reset ---
+    const $resetInput = $("#resetInput");
+    const $resetFile = $("#resetFile");
+    const $resetBtn = $("#resetBtn");
+
+    $resetInput.on("change", function () {
+        const file = this.files[0];
+        if (file) {
+            $resetFile.text(file.name);
+        } else {
+            $resetFile.text("");
+        }
+    });
+
+    $resetBtn.on("click", function () {
+        $resetInput.val(""); // Clear the file input
+        $resetFile.text(""); // Clear the displayed file name
+    });
+
+    // --- 11. Floating File Upload with Animated Label ---
+    // Bootstrap's form-floating handles the animation with CSS, no extra JS needed here
+    // The placeholder attribute combined with the label for the input does the trick.
+
+    // --- 12. File Upload with Drag-to-Select Animation ---
+    let dragSelectFiles = [];
+    const $dragSelectZone = $("#dragSelectZone");
+    const $dragSelectInput = $("#dragSelectInput");
+    const $dragSelectPreview = $("#dragSelectPreview");
+
+    $dragSelectZone.on("click", function () {
+        $dragSelectInput.trigger("click");
+    });
+
+    $dragSelectZone.on("dragover", function (e) {
+        e.preventDefault();
+        $(this)
+            .addClass("dragover")
+            .css("box-shadow", "0 0 0 0.25rem rgba(102, 16, 242, 0.25)"); // Add subtle glow
+    });
+
+    $dragSelectZone.on("dragleave", function (e) {
+        e.preventDefault();
+        $(this).removeClass("dragover").css("box-shadow", "none");
+    });
+
+    $dragSelectZone.on("drop", function (e) {
+        e.preventDefault();
+        $(this).removeClass("dragover").css("box-shadow", "none");
+        handleDragSelectFiles(e.originalEvent.dataTransfer.files);
+    });
+
+    $dragSelectInput.on("change", function () {
+        handleDragSelectFiles(this.files);
+    });
+
+    $dragSelectZone.on("focus", function () {
+        $(this).css("box-shadow", "0 0 0 0.25rem rgba(102, 16, 242, 0.25)");
+    });
+
+    $dragSelectZone.on("blur", function () {
+        $(this).css("box-shadow", "none");
+    });
+
+    function handleDragSelectFiles(fileList) {
+        Array.from(fileList).forEach((file) => {
+            if (
+                !dragSelectFiles.some(
+                    (f) => f.name === file.name && f.size === file.size
+                )
+            ) {
+                dragSelectFiles.push(file);
+            }
+        });
+        renderDragSelectPreview();
+    }
+
+    function renderDragSelectPreview() {
+        $dragSelectPreview.empty();
+        dragSelectFiles.forEach((file, idx) => {
+            let iconHtml = file.type.startsWith("image/")
+                ? `<img src="" class="amd-preview-img" alt="Image">`
+                : `<span class="amd-preview-icon"><i class="bi ${getFileIcon(
+                      file.name
+                  )}"></i></span>`;
+            const $previewItem = $(`
+                        <div class="amd-preview-item">
+                            <button class="amd-remove-btn" type="button" title="Remove" data-index="${idx}"><i class="bi bi-x-lg"></i></button>
+                            ${iconHtml}
+                            <div class="amd-preview-info">
+                                <div class="amd-preview-name">${file.name}</div>
+                                <div class="amd-preview-size">${formatSize(
+                                    file.size
+                                )}</div>
+                            </div>
+                        </div>
+                    `);
+
+            if (file.type.startsWith("image/")) {
+                const $img = $previewItem.find(".amd-preview-img");
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    $img.attr("src", e.target.result);
+                };
+                reader.readAsDataURL(file);
+            }
+
+            $previewItem.find(".amd-remove-btn").on("click", function () {
+                const indexToRemove = parseInt($(this).data("index"));
+                dragSelectFiles.splice(indexToRemove, 1);
+                renderDragSelectPreview();
+            });
+
+            $dragSelectPreview.append($previewItem);
+        });
+    }
+
+    // --- 13. File Upload with Stepper Progress ---
+    const $stepperInput = $("#stepperInput");
+    const $stepperBtn = $("#stepperBtn");
+    const $stepperBar = $("#stepperBar");
+    const $stepperStatus = $("#stepperStatus");
+    const $stepperProgressContainer = $stepperBar.closest(".progress");
+
+    $stepperBtn.on("click", function () {
+        const file = $stepperInput[0].files[0];
+        if (!file) {
+            $stepperStatus
+                .text("Please select a file for stepper upload.")
+                .css("color", "#dc3545");
+            return;
+        }
+
+        $stepperProgressContainer.show();
+        $stepperBar.css("width", "0%").attr("aria-valuenow", 0).text("0%");
+        $stepperStatus.text("Step 1: Initializing...").css("color", "#6610f2");
+        let step = 0;
+        const totalSteps = 5; // Example: 5 steps for upload process
+
+        const stepperInterval = setInterval(() => {
+            step++;
+            const progress = (step / totalSteps) * 100;
+            $stepperBar
+                .css("width", progress + "%")
+                .attr("aria-valuenow", progress)
+                .text(Math.round(progress) + "%");
+
+            if (step === 1) $stepperStatus.text("Step 1: Preparing file...");
+            else if (step === 2)
+                $stepperStatus.text("Step 2: Uploading chunks...");
+            else if (step === 3)
+                $stepperStatus.text("Step 3: Processing on server...");
+            else if (step === 4) $stepperStatus.text("Step 4: Finalizing...");
+            else if (step >= totalSteps) {
+                clearInterval(stepperInterval);
+                $stepperStatus
+                    .text("Stepper Upload Complete!")
+                    .css("color", "#198754");
+                setTimeout(() => {
+                    $stepperProgressContainer.hide();
+                    $stepperBar
+                        .css("width", "0%")
+                        .attr("aria-valuenow", 0)
+                        .text("0%");
+                    $stepperStatus.text("");
+                    $stepperInput.val("");
+                }, 2000);
+            }
+        }, 500); // Simulate steps every 0.5 seconds
+    });
+
+    // --- 14. File Upload with Preview Carousel ---
+    let carouselFiles = [];
+    const $carouselInput = $("#carouselInput");
+    const $carouselInner = $("#carouselInner");
+    const $carouselPreview = $("#carouselPreview"); // The main carousel container
+
+    $carouselInput.on("change", function () {
+        carouselFiles = []; // Clear previous files for a new selection
+        Array.from(this.files).forEach((file) => {
+            if (file.type.startsWith("image/")) {
+                carouselFiles.push(file);
+            } else {
+                alert("Only image files can be added to the carousel!");
+            }
+        });
+        renderCarouselPreview();
+    });
+
+    function renderCarouselPreview() {
+        $carouselInner.empty();
+        if (carouselFiles.length === 0) {
+            $carouselPreview.hide();
+            return;
+        }
+        $carouselPreview.show(); // Show the carousel if there are images
+
+        carouselFiles.forEach((file, idx) => {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const $carouselItem = $(`
+                            <div class="carousel-item ${
+                                idx === 0 ? "active" : ""
+                            }">
+                                <img src="${
+                                    e.target.result
+                                }" class="d-block w-100" alt="${file.name}">
+                                <div class="carousel-caption d-none d-md-block">
+                                    <h5>${file.name}</h5>
+                                    <p>${formatSize(file.size)}</p>
+                                </div>
+                            </div>
+                        `);
+                $carouselInner.append($carouselItem);
+            };
+            reader.readAsDataURL(file);
+        });
+    }
+
+    // --- 15. File Upload with Dropzone Progress Circle ---
+    const $circleDropzone = $("#circleDropzone");
+    const $circleDropInput = $("#circleDropInput");
+    const $progressCircle = $("#progressCircle");
+    const $progressCircleBar = $("#progressCircleBar");
+    const $circleDropStatus = $("#circleDropStatus");
+    const $circleDropPercent = $("#circleDropPercent");
+    const circumference = 2 * Math.PI * 26; // 2 * PI * radius (radius is 26)
+    $progressCircleBar.css("stroke-dasharray", circumference);
+
+    $circleDropzone.on("click", function () {
+        $circleDropInput.trigger("click");
+    });
+    $circleDropzone.on("dragover", function (e) {
+        e.preventDefault();
+        $(this).addClass("dragover");
+    });
+    $circleDropzone.on("dragleave", function (e) {
+        e.preventDefault();
+        $(this).removeClass("dragover");
+    });
+    $circleDropzone.on("drop", function (e) {
+        e.preventDefault();
+        $(this).removeClass("dragover");
+        handleCircleDropFiles(e.originalEvent.dataTransfer.files);
+    });
+    $circleDropInput.on("change", function () {
+        handleCircleDropFiles(this.files);
+    });
+
+    function handleCircleDropFiles(fileList) {
+        const file = fileList[0]; // Assuming single file for progress circle
+        if (!file) {
+            $circleDropStatus.text("No file selected.").css("color", "#dc3545");
+            $progressCircle.hide();
+            $circleDropPercent.hide();
+            return;
+        }
+
+        $circleDropStatus.text("");
+        $progressCircle.show();
+        $circleDropPercent.show().text("0%");
+        $progressCircleBar.css("stroke-dashoffset", circumference);
+
+        let progress = 0;
+        const uploadInterval = setInterval(() => {
+            progress += 5; // Simulate progress
+            if (progress > 100) progress = 100;
+
+            const offset = circumference - (progress / 100) * circumference;
+            $progressCircleBar.css("stroke-dashoffset", offset);
+            $circleDropPercent.text(progress + "%");
+
+            if (progress === 100) {
+                clearInterval(uploadInterval);
+                $circleDropStatus
+                    .text(
+                        `Upload complete: ${file.name} (${formatSize(
+                            file.size
+                        )})`
+                    )
+                    .css("color", "#198754");
+                setTimeout(() => {
+                    $progressCircle.hide();
+                    $circleDropPercent.hide();
+                    $circleDropStatus.text("");
+                    $circleDropInput.val("");
+                }, 2000);
+            }
+        }, 50); // Simulate upload speed
+    }
+});
+
+let amdFiles = [];
+
+function isImage(fileType) {
+    return fileType.startsWith("image/");
+}
+
+function renderFile(file) {
+    const idx = amdFiles.length;
+    const reader = new FileReader();
+    const $file = $(
+        '<div class="amd-file-upload-spl-file" data-idx="' + idx + '"></div>'
+    );
+
+    let contentReady = function (thumbnail) {
+        $file.append(thumbnail);
+        $file.append(
+            `<div class="amd-file-upload-spl-file-name">${file.name}</div>`
+        );
+        $file.append(
+            `<button class="amd-file-upload-spl-file-remove"><i class="bi bi-trash"></i></button>`
+        );
+        $file.append(`
+        <div class="amd-file-upload-spl-progress">
+          <div class="amd-file-upload-spl-progress-bar"></div>
+        </div>
+      `);
+        $("#amdUploadList").append($file);
+
+        let $bar = $file.find(".amd-file-upload-spl-progress-bar");
+        let percent = 0;
+        let interval = setInterval(() => {
+            percent += 5;
+            $bar.css("width", percent + "%");
+            if (percent >= 100) {
+                clearInterval(interval);
+                $bar.addClass("uploaded");
+            }
+        }, 60);
+    };
+
+    if (isImage(file.type)) {
+        reader.onload = function (e) {
+            contentReady(
+                `<img src="${e.target.result}" class="amd-file-upload-spl-thumb" />`
+            );
+        };
+        reader.readAsDataURL(file);
+    } else {
+        contentReady(
+            `<div class="amd-file-upload-spl-thumb d-flex align-items-center justify-content-center" style="font-size:18px;">📄</div>`
+        );
+    }
+}
+
+function handleFiles(files) {
+    Array.from(files).forEach((file) => {
+        if (
+            !amdFiles.some((f) => f.name === file.name && f.size === file.size)
+        ) {
+            amdFiles.push(file);
+            renderFile(file);
+        }
+    });
+}
+// Browse
+$("#amdBrowseBtn").on("click", function () {
+    $("#amdFileInput").click();
+});
+
+// On file input
+$("#amdFileInput").on("change", function () {
+    handleFiles(this.files);
+});
+
+// Drag & drop
+$("#amdDropzone")
+    .on("dragover", function (e) {
+        e.preventDefault();
+        $(this).addClass("dragover");
+    })
+    .on("dragleave drop", function (e) {
+        e.preventDefault();
+        $(this).removeClass("dragover");
+    })
+    .on("drop", function (e) {
+        const files = e.originalEvent.dataTransfer.files;
+        handleFiles(files);
+    });
+
+// Remove
+$("#amdUploadList").on(
+    "click",
+    ".amd-file-upload-spl-file-remove",
+    function () {
+        const $file = $(this).closest(".amd-file-upload-spl-file");
+        const idx = $file.data("idx");
+        amdFiles.splice(idx, 1);
+        $file.remove();
+    }
+);
+
+// fiel upload page end *************** */
+
+// dropdown page js *************** */
+
+$(function () {
+    $('.amd-multi-select-person-tag-v2-container').each(function () {
+
+        const $container = $(this);
+        const $tags = $container.find('.amd-multi-select-person-tag-v2-tags');
+        const $input = $tags.find('input');
+        const $dropdown = $container.find('.amd-multi-select-person-tag-v2-dropdown');
+        const $checkboxes = $dropdown.find('input.amd-multi-select-checkbox');
+        const selected = new Map();
+
+        // ===========================
+        // DEFAULT SELECT USING CLASS
+        // ===========================
+        $dropdown.find("li.amd-default-selected").each(function () {
+            const $li = $(this);
+            const name = $li.data("value");
+            const img = $li.data("img");
+
+            selected.set(name, img);
+
+            // Mark checkbox as checked
+            $li.find("input.amd-multi-select-checkbox")
+                .prop("checked", true);
+        });
+
+        updateUI();
+        // ===========================
+
+
+        // Toggle dropdown
+        $tags.on('click', () => {
+            $dropdown.toggle();
+        });
+
+        // Close dropdown on outside click
+        $(document).on('click', (e) => {
+            if (!$container.is(e.target) && $container.has(e.target).length === 0) {
+                $dropdown.hide();
+            }
+        });
+
+        // Checkbox change event
+        $checkboxes.on('change', function () {
+            const $cb = $(this);
+            const $li = $cb.closest('li');
+            const val = $li.data('value');
+            const img = $li.data('img');
+
+            if ($cb.is(':checked')) {
+                selected.set(val, img);
+            } else {
+                selected.delete(val);
+            }
+
+            updateUI();
+        });
+
+        // -------------------
+        // UPDATE TAGS UI
+        // -------------------
+        function updateUI() {
+            $tags.find('.amd-multi-select-person-tag-v2-tag').remove();
+
+            selected.forEach((img, name) => {
+                const $tag = $(`
+                    <div class="amd-multi-select-person-tag-v2-tag">
+                        <span>${name}</span>
+                        <span class="remove-tag" title="Remove">&times;</span>
+                    </div>
+                `);
+
+                // Remove tag event
+                $tag.find('.remove-tag').on('click', function () {
+                    selected.delete(name);
+
+                    // Uncheck corresponding checkbox
+                    $checkboxes.filter(function () {
+                        return $(this).closest('li').data('value') === name;
+                    })
+                    .prop('checked', false)
+                    .trigger('change');
+
+                    updateUI();
+                });
+
+                $tag.insertBefore($input);
+            });
+
+            $input.attr('placeholder', selected.size === 0 ? 'Select persons...' : '');
+        }
+
+    });
+});
+
+$(document).ready(function () {
+    // --- Variant 13, 14, 15: Keep dropdown open on click inside ---
+    // This is necessary for forms, checkboxes, and radio buttons.
+    $("#checkbox-menu, #radio-menu, #form-menu, #search-menu").on(
+        "click",
+        function (e) {
+            e.stopPropagation();
+        }
+    );
+
+    // --- Variant 20: Hover Dropdown ---
+    $("#hover-dropdown")
+        .on("mouseenter", function () {
+            $(this).find(".dropdown-menu").addClass("show");
+        })
+        .on("mouseleave", function () {
+            $(this).find(".dropdown-menu").removeClass("show");
+        });
+
+    // --- Variant 22: Search Filter Dropdown ---
+    $("#search-input").on("keyup", function () {
+        const filter = $(this).val().toLowerCase();
+        const items = $("#search-menu a.dropdown-item");
+
+        items.each(function () {
+            const text = $(this).text().toLowerCase();
+            if (text.includes(filter)) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
+    });
+});
+
+$(document).ready(function () {
+    // Keep dropdown open on click inside for forms and search menus
+    $("#form-menu, #search-menu").on("click", function (e) {
+        e.stopPropagation();
+    });
+
+    // Search Filter for Variant 11
+    $("#search-input").on("keyup", function () {
+        const filter = $(this).val().toLowerCase();
+        const items = $("#search-menu a.dropdown-item");
+        items.each(function () {
+            $(this).toggle($(this).text().toLowerCase().includes(filter));
+        });
+    });
+});
+
+// dropdown page end *************** */
+
+// carousel page js *************** */
+
+document.addEventListener("DOMContentLoaded", function () {
+    var carouselThumbs = document.getElementById("carouselThumbs");
+    if (carouselThumbs) {
+        carouselThumbs.addEventListener("slid.bs.carousel", function (e) {
+            var newIndex = e.to; // Get the index of the new slide
+
+            // Remove 'active' from all thumb items
+            var thumbItems =
+                carouselThumbs.nextElementSibling.querySelectorAll(
+                    ".thumb-item"
+                );
+            thumbItems.forEach(function (item) {
+                item.classList.remove("active");
+            });
+
+            // Add 'active' to the corresponding thumb item
+            thumbItems[newIndex].classList.add("active");
+        });
+    }
+});
+
+// carousel end *************** */

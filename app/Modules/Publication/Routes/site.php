@@ -51,6 +51,7 @@ Route::middleware(['web'])->controller(LoginController::class)->group(function (
 Route::middleware(['web'])->controller(UserDashboardController::class)->group(function () {
     Route::get('/user/profile', 'userProfile')->name('site.user.profile');
     Route::get('/user/profile/edit/{id}', 'userProfileEdit')->name('site.user.profile.edit');
+    Route::get('/user/bookmark/list/{id}', 'userBookmarks')->name('site.user.bookmark');
     Route::put('update/user/profile/edit/{id}', 'userProfileUpdate')->name('site.user.profile.update');
 });
 Route::middleware(['web'])->controller(SiteBookController::class)->group(function () {

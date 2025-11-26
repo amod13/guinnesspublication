@@ -1,0 +1,232 @@
+
+.amd-editor-content-container{
+    padding: 1.5rem 0;
+}
+.amd-editor-content-container .amd-editor-content * {
+    padding: 2rem 0 !important;
+    all: unset !important; /* Reset sab properties (be careful) */
+    box-sizing: border-box !important;
+    font-family: inherit !important;
+    color: inherit !important;
+    line-height: normal !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    background: none !important;
+    text-decoration: none !important;
+    vertical-align: baseline !important;
+}
+
+/* Reapply basics for common tags */
+.amd-editor-content-container .amd-editor-content .boxed{
+    margin: 0 auto !important;
+    text-align: justify !important;
+}
+/* Paragraph */
+.amd-editor-content-container .amd-editor-content p {
+    text-align: justify !important;
+    all: unset !important;
+    display: block !important;
+    margin-bottom: 1rem !important;
+    font-size: 1rem !important;
+    line-height: 1.7 !important;
+    color: #333 !important;
+}
+
+/* Headings */
+.amd-editor-content-container .amd-editor-content h1,
+.amd-editor-content-container .amd-editor-content h2,
+.amd-editor-content-container .amd-editor-content h3,
+.amd-editor-content-container .amd-editor-content h4,
+.amd-editor-content-container .amd-editor-content h5,
+.amd-editor-content-container .amd-editor-content h6 {
+    all: unset !important;
+    display: block !important;
+    font-weight: 600 !important;
+    margin: 1.25rem 0 0.5rem !important;
+    color: #000 !important;
+    line-height: 1.3 !important;
+}
+
+.amd-editor-content-container .amd-editor-content h1 { font-size: 2.5rem !important; }
+.amd-editor-content-container .amd-editor-content h2 { font-size: 2rem !important; }
+.amd-editor-content-container .amd-editor-content h3 { font-size: 1.75rem !important; }
+.amd-editor-content-container .amd-editor-content h4 { font-size: 1.4rem !important; }
+.amd-editor-content-container .amd-editor-content h5 { font-size: 1.2rem !important; }
+.amd-editor-content-container .amd-editor-content h6 { font-size: 1rem !important; }
+
+/* Responsive headings */
+@media (max-width: 992px) {
+  .amd-editor-content-container .amd-editor-content h1 { font-size: 2.2rem !important; }
+  .amd-editor-content-container .amd-editor-content h2 { font-size: 1.8rem !important; }
+  .amd-editor-content-container .amd-editor-content h3 { font-size: 1.5rem !important; }
+}
+
+@media (max-width: 576px) {
+  .amd-editor-content-container .amd-editor-content h1 { font-size: 1.8rem !important; }
+  .amd-editor-content-container .amd-editor-content h2 { font-size: 1.5rem !important; }
+  .amd-editor-content-container .amd-editor-content h3 { font-size: 1.3rem !important; }
+  .amd-editor-content-container .amd-editor-content p { font-size: 0.95rem !important; }
+}
+
+/* Images */
+.amd-editor-content-container .amd-editor-content img {
+    all: unset !important;
+    display: block !important;
+    max-width: 100% !important;
+    height: auto !important;
+    margin: 1rem 0 !important;
+    border-radius: 0 !important;
+}
+
+/* Lists */
+.amd-editor-content-container .amd-editor-content ul,
+.amd-editor-content-container .amd-editor-content ol {
+    all: unset !important;
+    display: block !important;
+    margin: 1rem 0 1rem 1.5rem !important;
+    padding-left: 0 !important;
+    color: #333 !important;
+}
+
+.amd-editor-content-container .amd-editor-content li {
+    all: unset !important;
+    display: list-item !important;
+    margin-bottom: 0.5rem !important;
+    line-height: 1.5 !important;
+}
+
+/* Links */
+.amd-editor-content-container .amd-editor-content a {
+    all: unset !important;
+    color: #0a58ca !important;
+    text-decoration: underline !important;
+    cursor: pointer !important;
+}
+
+.amd-editor-content-container .amd-editor-content a:hover {
+    color: #084298 !important;
+}
+
+/* Blockquotes */
+.amd-editor-content-container .amd-editor-content blockquote {
+    all: unset !important;
+    display: block !important;
+    border-left: 4px solid #999 !important;
+    background-color: #f8f8f8 !important;
+    padding: 1rem 1.5rem !important;
+    margin: 1.5rem 0 !important;
+    border-radius: 0 !important;
+    color: #555 !important;
+    font-style: italic !important;
+}
+
+/* Horizontal rule */
+.amd-editor-content-container .amd-editor-content hr {
+    all: unset !important;
+    border-top: 1px solid #ccc !important;
+    margin: 2rem 0 !important;
+}
+
+/* Tables */
+/* Table container */
+.amd-editor-content-container .amd-editor-content table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    margin: 1.5rem 0 !important;
+    font-size: 1rem !important;
+    border: 1px solid #ccc !important;
+    display: table !important;
+}
+
+/* Table head and body */
+.amd-editor-content-container .amd-editor-content thead,
+.amd-editor-content-container .amd-editor-content tbody {
+    display: table-header-group !important;
+    display: table-row-group !important;
+}
+
+/* Table rows */
+.amd-editor-content-container .amd-editor-content tr {
+    display: table-row !important;
+    border: none !important;
+}
+
+/* Table header cells */
+.amd-editor-content-container .amd-editor-content th {
+    font-weight: 600 !important;
+    background-color: #f0f0f0 !important;
+    padding: 0.75rem 1rem !important;
+    border: 1px solid #ccc !important;
+    text-align: left !important;
+    display: table-cell !important;
+}
+
+/* Table data cells */
+.amd-editor-content-container .amd-editor-content td {
+    padding: 0.75rem 1rem !important;
+    border: 1px solid #ccc !important;
+    text-align: left !important;
+    display: table-cell !important;
+}
+
+
+/* Videos and iframes */
+.amd-editor-content-container .amd-editor-content iframe,
+.amd-editor-content-container .amd-editor-content video {
+    all: unset !important;
+    display: block !important;
+    width: 100% !important;
+    height: auto !important;
+    margin: 1rem 0 !important;
+    border: none !important;
+}
+
+/* Code blocks */
+.amd-editor-content-container .amd-editor-content pre,
+.amd-editor-content-container .amd-editor-content code {
+    all: unset !important;
+    display: block !important;
+    font-family: Consolas, Monaco, 'Courier New', monospace !important;
+    background-color: #f4f4f4 !important;
+    padding: 0.75rem 1rem !important;
+    border-radius: 0 !important;
+    overflow-x: auto !important;
+    margin: 1rem 0 !important;
+    color: #333 !important;
+    font-size: 0.9rem !important;
+}
+
+/* Strong and Em */
+.amd-editor-content-container .amd-editor-content strong {
+    all: unset !important;
+    font-weight: 700 !important;
+}
+
+.amd-editor-content-container .amd-editor-content em {
+    all: unset !important;
+    font-style: italic !important;
+}
+
+/* Span */
+.amd-editor-content-container .amd-editor-content span {
+    all: unset !important;
+    max-width: 100% !important;
+}
+
+/* Sup and Sub */
+.amd-editor-content-container .amd-editor-content sup,
+.amd-editor-content-container .amd-editor-content sub {
+    all: unset !important;
+    font-size: 0.75rem !important;
+    vertical-align: baseline !important;
+    position: relative !important;
+}
+
+.amd-editor-content-container .amd-editor-content sup {
+    top: -0.5em !important;
+}
+
+.amd-editor-content-container .amd-editor-content sub {
+    bottom: -0.25em !important;
+}

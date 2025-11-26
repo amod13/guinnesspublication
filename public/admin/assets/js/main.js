@@ -1,19 +1,13 @@
 const scrollBtn = document.getElementById("scrollBtn");
 
-window.addEventListener("scroll", () => {
-    // if (window.scrollY > 200) {
-    //     scrollBtn.classList.add("show");
-    // }
-    // else {
-    //     scrollBtn.classList.remove("show");
-    // }
-});
+
 
 function scrollToTop() {
     window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
 const sidebar = document.getElementById("amdSidebar");
+     console.log(sidebar);
 const toggleBtn = document.getElementById("toggleSidebar");
 const closeBtn = document.getElementById("closeSidebar");
 const overlay = document.getElementById("amdSidebarOverlay");
@@ -57,12 +51,27 @@ toggleBtn.addEventListener("click", () => {
 closeBtn.addEventListener("click", closeMobileSidebar);
 overlay.addEventListener("click", closeMobileSidebar);
 
+
+  
 // On page load: default expand on desktop
 window.addEventListener("DOMContentLoaded", () => {
+   
     if (window.innerWidth > 768) {
-        sidebar.classList.add("expanded");
-        sidebar.classList.remove("collapsed");
+         sidebar.classList.remove("collapsed");
+         sidebar.classList.add("expanded");
+   
     }
+
+      if (window.innerWidth < 767) {
+        debugger;
+        console.log(sidebar);
+        sidebar.classList.remove("expanded");
+        //sidebar.classList.add("collapsed");
+         sidebar.style.visibility = "visible";
+               console.log(sidebar);
+      
+    }
+
 });
 
 // On window resize: adjust classes
@@ -106,3 +115,17 @@ $(document).on("click", function (e) {
     }
 });
 
+
+
+
+// === PROFILE DROPDOWN TOGGLE ===
+$("#profileToggle").on("click", function (e) {
+    e.stopPropagation();
+    $("#profileDropdown").css("display", function (i, val) {
+        return val === "flex" ? "none" : "flex";
+    });
+});
+
+$(document).on("click", function () {
+    $("#profileDropdown").hide();
+});

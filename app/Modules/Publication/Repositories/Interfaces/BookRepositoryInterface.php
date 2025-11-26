@@ -17,4 +17,5 @@ interface BookRepositoryInterface extends BaseRepositoryInterface
     public function getActiveBooks();
     public function isFavouriteBooks($bookId, $userId);
     public function getDataForTable();
+    public function getBookmarksBooks($userId);
 }

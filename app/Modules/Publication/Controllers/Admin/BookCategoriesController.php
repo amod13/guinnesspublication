@@ -30,7 +30,8 @@ class BookCategoriesController extends BaseCrudController
 
     public function create()
     {
-        return $this->dataCreate();
+        $parents = $this->service->getBookCategoryWithChildren();
+        return $this->dataCreate(['parents' => $parents]);
     }
 
     public function store(BookCategoriesRequest $request)
@@ -45,7 +46,8 @@ class BookCategoriesController extends BaseCrudController
 
     public function edit($id)
     {
-        return $this->dataEdit($id);
+        $parents = $this->service->getBookCategoryWithChildren();
+        return $this->dataEdit($id, ['parents' => $parents]);
     }
 
     public function update(BookCategoriesRequest $request, $id)
