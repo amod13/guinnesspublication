@@ -4308,7 +4308,7 @@ a {
 
 @media (max-width:991px) {
     .amd-book-list-container {
-        padding: 0 3px;
+        padding: 0 !important;
     }
 
 }
@@ -5599,7 +5599,7 @@ button {
     background: #f7f1e3;
     /* Slightly different shade */
     border-right: 2px solid #e0d8c7;
-    padding: 2rem;
+    padding: 1rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -5662,7 +5662,7 @@ button {
 }
 
 .amd-book-profile__nav-item {
-    padding: 9px 18px;
+    padding: 9px 8px;
     margin-bottom: 10px;
     font-weight: 700;
     cursor: pointer;
@@ -5674,6 +5674,7 @@ button {
 .amd-book-profile__nav-item.active,
 .amd-book-profile__nav-item:hover {
     background: var(--amd-light);
+    /* font-weight: 600; */
     color: var(--amd-dark);
     border-left-color: var(--amd-primary);
 }
@@ -5927,17 +5928,12 @@ button {
     }
 
     .amd-book-profile__sidebar {
-        width: 299px;
+        width: 308px;
         border-right: none;
         border-bottom: 2px solid #e0d8c7;
     }
 
-    .amd-book-profile__nav {
-        /* display: flex; */
-        justify-content: center;
-        width: 100%;
-        overflow-x: auto;
-    }
+   
 
     .amd-book-profile__nav-item {
         text-align: left;
@@ -5946,7 +5942,6 @@ button {
         margin: 0 10px;
         border-radius: 0;
     }
-
 
 
     .amd-book-profile__logout-btn {
@@ -5963,7 +5958,12 @@ button {
         text-align: center;
         font-size: 1.5rem;
     }
-
+ .amd-book-profile__nav {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        overflow-x: auto;
+    }
     .amd-book-profile__nav-item.active {
         border-bottom-color: var(--amd-primary);
         text-align: left !important;
@@ -5974,6 +5974,7 @@ button {
 
     .amd-book-profile__nav-item {
         text-align: center;
+        font-size: 0.9rem;
     }
 
     .amd-book-profile-container {

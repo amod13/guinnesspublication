@@ -4,12 +4,6 @@
 <div class="message-detail-container py-5">
     <div class="container">
         <!-- Back Navigation -->
-        <div class="mb-4">
-            <a href="{{ route('contact-message.index') }}" class="btn btn-outline-primary btn-lg rounded-pill">
-                <i class="fas fa-arrow-left me-2"></i>Back to Messages
-            </a>
-        </div>
-
         <div class="row justify-content-center">
             <div class="col-lg-9">
 
