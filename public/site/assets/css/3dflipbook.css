@@ -236,7 +236,36 @@
   margin-left: 40px;
 
 }
-@media (max-width:991px)
+.flipbook-head {
+  /* margin-top: 20px; */
+  border-bottom: 1px solid #bebebe;
+  padding: 10px;
+  width: 100%;
+  margin-bottom: 20px;
+  text-align: center;
+  align-items: center;
+  background: #f2fff0;
+}
+
+.flipbook-head h1 {
+  text-align: start;
+  font-size: 2rem !important;
+  font-weight: 500 !important;
+  margin-bottom: 0;
+}
+
+.flipbook-head h1 span {
+  font-size: 1rem;
+  font-weight: 400;
+
+}
+
+.flipbook-head p {
+  margin: 0;
+  font-size: 1rem;
+}
+
+@media (max-width: 991px)
 {
   .flipbook-head h1 {
     font-size: 1.5rem !important;
@@ -271,33 +300,6 @@
 
 
 
-.flipbook-head {
-  /* margin-top: 20px; */
-  border-bottom: 1px solid #bebebe;
-  padding: 10px;
-  width: 100%;
-  margin-bottom: 20px;
-  text-align: center;
-  align-items: center;
-  background: #f2fff0;
-}
-
-.flipbook-head h1 {
-  font-size: 2rem !important;
-  margin-bottom: 0;
-}
-
-.flipbook-head h1 span {
-  font-size: 1rem;
-  font-weight: 400;
-
-}
-
-.flipbook-head p {
-  margin: 0;
-  font-size: 1rem;
-}
-
 
 @media(max-width:768px) {
   .flipbook-head h1 {
@@ -307,9 +309,7 @@
   .amd-book-detail-page-title {
     font-size: 1.5rem;
   }
-  .amd-flipbook-section {
-  margin-bottom: 3rem;
-}
+  
 }
 @media(max-width:520px) {
   .flipbook-head h1 {

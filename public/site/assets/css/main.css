@@ -5947,13 +5947,7 @@ button {
         border-radius: 0;
     }
 
-    .amd-book-profile__nav-item.active,
-    .amd-book-profile__nav-item:hover {
-        border-bottom-color: var(--amd-primary);
-        text-align: left !important;
 
-
-    }
 
     .amd-book-profile__logout-btn {
         margin-top: 2rem;
@@ -5970,8 +5964,7 @@ button {
         font-size: 1.5rem;
     }
 
-    .amd-book-profile__nav-item.active,
-    .amd-book-profile__nav-item:hover {
+    .amd-book-profile__nav-item.active {
         border-bottom-color: var(--amd-primary);
         text-align: left !important;
         border-left-color: transparent;

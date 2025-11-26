@@ -687,12 +687,12 @@
                     <div class="form-group-modern">
                         <label for="whatsapp">
                             <i class="ri-whatsapp-fill"></i>
-                            WhatsApp Number
+                            WhatsApp URL
                         </label>
-                        <input type="text" id="whatsapp" name="whatsapp" 
+                                <input type="url" id="whatsapp" name="whatsapp" 
                                class="form-input-modern" 
                                value="{{ old('whatsapp', $data['global_setting']->whatsapp ?? '') }}"
-                               placeholder="+1234567890">
+                               placeholder="https://wa.me/1234567890">
                     </div>
                 </div>
             </div>
