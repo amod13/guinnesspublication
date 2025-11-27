@@ -33,7 +33,7 @@ class BlogDto extends BaseDto
             'id' => $this->id,
             'title' => $this->title,
             'slug' => $this->slug,
-            'blog_category_id' => $this->blog_category_id ?? '-',
+            'blog_category_id' => $data['blogCategory']->title ?? '-',
             'author_name' => $this->author_name ?? '-',
             'is_published' => $this->is_published ? '1' : '0',
             'status' => $this->status ? '1' : '0',

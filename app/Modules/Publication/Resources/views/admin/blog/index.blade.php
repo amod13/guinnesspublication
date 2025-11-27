@@ -39,7 +39,11 @@
                                 <td>{{ $item['blog_category_id'] }}</td>
                                 <td>{{ $item['author_name'] }}</td>
                                 <td>
-                                    <x-table.status-badge :status="$item['is_published']" />
+                                    @if ($item['is_published'] = 1)
+                                        <span class="amd-badge amd-badge-outline-primary">Yes</span>
+                                        @else
+                                          <span class="amd-badge amd-badge-outline-danger">No</span>
+                                    @endif
                                 </td>
                                 <td>
                                     <x-table.status-badge :status="$item['status']" />

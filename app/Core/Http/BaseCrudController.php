@@ -18,6 +18,7 @@ abstract class BaseCrudController extends BaseController
         $data = $this->prepareCommonData($this->entityName . ' List');
         $data['records'] = $this->service->getPaginatedSearchResults($perPage, $searchTerm);
 
+
         return view($this->viewPrefix . 'index', ['data' => $data]);
     }
 

@@ -24,15 +24,16 @@ class BlogService extends BaseService implements BlogServiceInterface
     public function getPaginatedSearchResults(int $perPage, ?string $search = null)
     {
         $filters = ['search' => $search];
+        $baseQuery = $this->repository->getDataForTable();
         return $this->hasPaginatedWithSearch(
             perPage: $perPage,
             filters: $filters,
-            searchableFields: ['title'],
+            searchableFields: ['title','blogCategory.title'],
             dtoClass: BlogDto::class,
             useFromCollection: false,
             sortDir: 'asc',
             sortBy: 'display_order',
-            baseQuery: null,
+            baseQuery: $baseQuery,
             filterField: 'language',
             filterId: session('language', 'en')
         );

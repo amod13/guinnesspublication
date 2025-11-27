@@ -1,13 +1,36 @@
 <?php
 
-        namespace App\Modules\DashboardManagement\Repositories\Implementations;
+namespace App\Modules\DashboardManagement\Repositories\Implementations;
 
-        use App\Modules\DashboardManagement\Repositories\Interfaces\DashboardManagementRepositoryInterface;
+use App\Modules\DashboardManagement\Repositories\Interfaces\DashboardManagementRepositoryInterface;
+use Illuminate\Support\Facades\DB;
 
-        class DashboardManagementRepository implements DashboardManagementRepositoryInterface
-        {
-            public function getAll()
-            {
-                return []; // return model::all() later
-            }
-        }
+class DashboardManagementRepository implements DashboardManagementRepositoryInterface
+{
+    public function getAll()
+    {
+        return []; // return model::all() later
+    }
+
+    public function getDashboardData()
+    {
+        $totalDealerCount = DB::table('dealers')
+            ->count('id');
+
+        $totalEmployees = DB::table('employee_information')
+            ->count('id');
+
+        $TotalBlog = DB::table('blogs')
+            ->count('id');
+
+        $TotalBlogCategory = DB::table('blogs')
+            ->count('id');
+
+        return [
+            'totalDealerCount' => $totalDealerCount,
+            'totalEmployees' => $totalEmployees,
+            'TotalBlog' => $TotalBlog,
+            'TotalBlogCategory' => $TotalBlogCategory
+        ];
+    }
+}

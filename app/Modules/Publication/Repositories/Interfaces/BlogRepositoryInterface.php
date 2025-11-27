@@ -11,4 +11,5 @@ interface BlogRepositoryInterface extends BaseRepositoryInterface
     public function getBlogByCategorySlug($slug);
     public function getActiveBlogs();
     public function searchBlogs($data);
+    public function getDataForTable();
 }

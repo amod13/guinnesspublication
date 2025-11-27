@@ -17,6 +17,8 @@ class DashboardManagementController extends BaseController
     public function AdminLayout()
     {
         $data = $this->prepareCommonData('Dashboard Management');
+        $data['dashboardData'] = $this->service->getDashboardData();
+
 
         return view('dashboardmanagement::index', ['data' => $data]);
     }

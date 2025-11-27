@@ -160,4 +160,29 @@ class BlogRepository extends BaseRepository implements BlogRepositoryInterface
             ->orderBy('display_order')
             ->paginate(10);
     }
+    
+        public function getDataForTable()
+        {
+            return $this->model
+                ->select([
+                    'id',
+                    'blog_category_id',
+                    'title',
+                    'content',
+                    'slug',
+                    'is_published',
+                    'status',
+                    'excerpt',
+                    'thumbnail_image',
+                    'display_order',
+                    'author_name',
+                    'published_date',
+                    'views_count',
+                    'created_at',
+                ])
+                ->with([
+                    'blogCategory:id,title,slug' // only category id and name
+                ])
+                ->orderBy('display_order');
+        }
 }

@@ -1,8 +1,9 @@
 <?php
 
-        namespace App\Modules\DashboardManagement\Repositories\Interfaces;
+namespace App\Modules\DashboardManagement\Repositories\Interfaces;
 
-        interface DashboardManagementRepositoryInterface
-        {
-            public function getAll();
-        }
+interface DashboardManagementRepositoryInterface
+{
+    public function getAll();
+    public function getDashboardData();
+}
