@@ -875,19 +875,19 @@
     const offCanvasHtml = `
       <div class="ranjit-offcanvas-overlay" id="settingsOffCanvas">
         <div class="ranjit-offcanvas-content">
-          <div class="offcanvas-header">
+          <div class="ranjit-offcanvas-header">
             <h3>⚙️ Editor Settings</h3>
-            <button class="offcanvas-close" id="closeSettings">&times;</button>
+            <button class="ranjit-offcanvas-close" id="closeSettings">&times;</button>
           </div>
 
           <div class="settings-tabs">
-            <button class="tab-btn active" data-tab="toolbar">🛠️ Toolbar Features</button>
+            <button class="tab-btn ranjit-active" data-tab="toolbar">🛠️ Toolbar Features</button>
             <button class="tab-btn" data-tab="preferences">🎨 Editor Preferences</button>
             <button class="tab-btn" data-tab="notifications">🔔 Notifications</button>
           </div>
 
-          <div class="offcanvas-body">
-            <div class="tab-content active" id="toolbar-tab">
+          <div class="ranjit-offcanvas-body">
+            <div class="ranjit-tab-content ranjit-active" id="toolbar-tab">
               <div class="settings-list">
                 <label class="setting-toggle">
                   <input type="checkbox" id="enableTextEffects" ${savedSettings.textEffects ? 'checked' : ''}>
@@ -980,7 +980,7 @@
               </div>
             </div>
 
-            <div class="tab-content" id="preferences-tab">
+            <div class="ranjit-tab-content" id="preferences-tab">
               <div class="settings-list">
                 <label class="setting-toggle">
                   <input type="checkbox" id="enableAutosave" ${savedSettings.autosave ? 'checked' : ''}>
@@ -1009,7 +1009,7 @@
               </div>
             </div>
 
-            <div class="tab-content" id="notifications-tab">
+            <div class="ranjit-tab-content" id="notifications-tab">
               <div class="settings-list">
                 <label class="setting-toggle">
                   <input type="checkbox" id="enableImageSuccess" ${savedSettings.showImageSuccess ? 'checked' : ''}>
@@ -1023,7 +1023,7 @@
             </div>
           </div>
 
-          <div class="offcanvas-footer">
+          <div class="ranjit-offcanvas-footer">
             <button class="settings-btn ranjit-primary" id="applySettings">✓ Apply Settings</button>
             <button class="settings-btn" id="resetSettings">🔄 Reset Default</button>
           </div>
@@ -1035,29 +1035,29 @@
 
     // Show with animation
     setTimeout(() => {
-      $('#settingsOffCanvas').addClass('show');
+      $('#settingsOffCanvas').addClass('ranjit-show');
     }, 10);
 
     // Tab switching
     $('.tab-btn').on('click', function() {
       const tabId = $(this).data('tab');
-      $('.tab-btn').removeClass('active');
-      $('.tab-content').removeClass('active');
-      $(this).addClass('active');
-      $(`#${tabId}-tab`).addClass('active');
+      $('.tab-btn').removeClass('ranjit-active');
+      $('.ranjit-tab-content').removeClass('ranjit-active');
+      $(this).addClass('ranjit-active');
+      $(`#${tabId}-tab`).addClass('ranjit-active');
     });
 
     // Event handlers
     $('#closeSettings, .ranjit-offcanvas-overlay').on('click', function(e) {
       if (e.target === this) {
-        $('#settingsOffCanvas').removeClass('show');
+        $('#settingsOffCanvas').removeClass('ranjit-show');
         setTimeout(() => $('#settingsOffCanvas').remove(), 300);
       }
     });
 
     $('#applySettings').on('click', function() {
       applyEditorSettings();
-      $('#settingsOffCanvas').removeClass('show');
+      $('#settingsOffCanvas').removeClass('ranjit-show');
       setTimeout(() => $('#settingsOffCanvas').remove(), 300);
     });
 
@@ -1201,19 +1201,22 @@
 
     let currentVideoData = null;
 
-    // Video upload area click
-    $(document).on('click', '#videoUploadArea', function(e) {
+    // Video upload area click - direct binding
+    $('#videoUploadArea').on('click', function(e) {
       e.preventDefault();
       e.stopPropagation();
       console.log('Video upload area clicked'); // Debug log
       const fileInput = document.getElementById('videoFileInput');
       if (fileInput) {
+        console.log('Triggering video file input click');
         fileInput.click();
+      } else {
+        console.log('Video file input not found');
       }
     });
 
-    // File input change
-    $(document).on('change', '#videoFileInput', function(e) {
+    // File input change - direct binding
+    $('#videoFileInput').on('change', function(e) {
       console.log('Video file input changed'); // Debug log
       const file = e.target.files[0];
       if (file) {

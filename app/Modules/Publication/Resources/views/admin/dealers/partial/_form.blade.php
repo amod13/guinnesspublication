@@ -73,12 +73,12 @@
                         <i class="fas fa-info-circle me-2"></i>
                         <strong>Optional:</strong> Create a user account for this dealer to access the system.
                     </div>
-                    
+
                     @php
                         $hasUser = isset($data['record']->id) && isset($data['user']);
                         $userChecked = old('create_user', $hasUser ? '1' : '');
                     @endphp
-                    
+
                     <div class="form-check mb-3">
                         <input class="form-check-input" type="checkbox" id="create_user" name="create_user" value="1" {{ $userChecked ? 'checked' : '' }}>
                         <label class="form-check-label fw-bold" for="create_user">
@@ -99,7 +99,7 @@
                             @if($hasUser)
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label">New Password (Leave blank to keep current)</label>
-                                    <input type="password" class="form-control @error('password') is-invalid @enderror" 
+                                    <input type="password" class="form-control @error('password') is-invalid @enderror"
                                            name="password" placeholder="Enter new password">
                                     @error('password')
                                         <div class="invalid-feedback">{{ $message }}</div>
@@ -108,7 +108,7 @@
 
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label">Confirm New Password</label>
-                                    <input type="password" class="form-control @error('password_confirmation') is-invalid @enderror" 
+                                    <input type="password" class="form-control @error('password_confirmation') is-invalid @enderror"
                                            name="password_confirmation" placeholder="Confirm new password">
                                     @error('password_confirmation')
                                         <div class="invalid-feedback">{{ $message }}</div>
@@ -117,7 +117,7 @@
                             @else
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label">Password</label>
-                                    <input type="password" class="form-control @error('password') is-invalid @enderror" 
+                                    <input type="password" class="form-control @error('password') is-invalid @enderror"
                                            name="password" placeholder="Enter password">
                                     @error('password')
                                         <div class="invalid-feedback">{{ $message }}</div>
@@ -126,14 +126,14 @@
 
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label">Confirm Password</label>
-                                    <input type="password" class="form-control @error('password_confirmation') is-invalid @enderror" 
+                                    <input type="password" class="form-control @error('password_confirmation') is-invalid @enderror"
                                            name="password_confirmation" placeholder="Confirm password">
                                     @error('password_confirmation')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
                             @endif
-                            
+
                             <div class="col-md-12 mb-3">
                                 <x-form.select-input name="user_status" label="User Status" :options="[
                                     'active' => 'Active',

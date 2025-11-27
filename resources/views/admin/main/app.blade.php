@@ -22,9 +22,7 @@
     <link href="{{ asset('admin/assets/css/main.css') }}" rel="stylesheet" />
     {{-- Custom(from my side) --}}
     <link href="{{ asset('admin/assets/css/custom.css') }}" rel="stylesheet" />
-    <!-- Summernote -->
-    <link href="{{ asset('https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote.min.css') }}"
-        rel="stylesheet">
+
     {{-- font awesome --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
@@ -33,7 +31,7 @@
     <link rel="stylesheet" href="{{ asset('admin/assets/css/flatpicker_material_blue.css') }}">
     {{-- Custom styles for used inline css --}}
 
-        <!-- nepali date picker -->
+    <!-- nepali date picker -->
     <link href="https://nepalidatepicker.sajanmaharjan.com.np/v5/nepali.datepicker/css/nepali.datepicker.v5.0.5.min.css"
         rel="stylesheet" />
 
@@ -46,20 +44,20 @@
 </head>
 
 <body>
-    @include('admin.main.sidebar') {{-- Sidebar include --}}
+    @include('admin.main.sidebar')
     <div id="amdSidebarOverlay" class="amd-sidebar-overlay"></div>
     <div class="amd-main-content">
-        @include('admin.main.header') {{-- Header include --}}
-        @include('alert.top-end') {{-- Alert include --}}
+        @include('admin.main.header')
+        @include('alert.top-end')
         <div class="amd-dashboard-content-area">
             <div class="row p-4">
                 <div class="col-12">
-                    @yield('content') {{-- content extend --}}
+                    @yield('content')
                 </div>
             </div>
         </div>
-        @include('admin.main.footer') {{-- Footer include --}}
-        @stack('scripts') {{-- scripts extend --}}
+        @include('admin.main.footer')
+        @stack('scripts')
 </body>
 
 </html>

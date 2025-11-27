@@ -116,6 +116,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 });
+
 /*
 |------------------------------------------------------------------
 | Global Reset Button
@@ -215,7 +216,6 @@ document.addEventListener("DOMContentLoaded", () => {
 | - Column manage button ko click gareko bhane
 | - URL ko check box ra drag gareko
 */
-
 $(document).ready(function () {
     let currentTableId = null;
     let columnsState = [];
@@ -286,12 +286,12 @@ $(document).ready(function () {
     function generateColumnList() {
         columnList.empty();
         columnsState.forEach((col) => {
-            const li = $(`<li class="amd-table8-column-item" data-column-key="${
+            const li = $(`<li class="amd-manage-column-item" data-column-key="${
                 col.key
             }" draggable="true"
                     style="cursor: move; padding: 8px; border: 1px solid #ddd; margin-bottom: 4px; display: flex; align-items: center; justify-content: space-between;">
                     <div style="flex-grow:1;">
-                        <input type="checkbox" class="amd-table8-column-checkbox" id="col-${
+                        <input type="checkbox" class="amd-manage-column-checkbox" id="col-${
                             col.key
                         }" ${col.visible ? "checked" : ""}>
                         <label for="col-${
@@ -300,7 +300,7 @@ $(document).ready(function () {
                 col.label
             }</label>
                     </div>
-                    <div class="amd-table8-drag-handle" style="cursor: grab; padding-left: 10px;">
+                    <div class="amd-manage-column-drag-handle" style="cursor: grab; padding-left: 10px;">
                         <i class="fas fa-grip-vertical"></i>
                     </div>
                 </li>`);
@@ -384,7 +384,7 @@ $(document).ready(function () {
         const newOrder = [];
         const newVisibility = {};
 
-        columnList.find(".amd-table8-column-item").each(function () {
+        columnList.find(".amd-manage-column-item").each(function () {
             const key = $(this).data("column-key");
             newOrder.push(key);
             newVisibility[key] = $(this)
@@ -437,28 +437,27 @@ $(document).ready(function () {
     };
 
     // Drag and Drop
-    // Drag and Drop
-    columnList.on("dragstart", ".amd-table8-column-item", function () {
+    columnList.on("dragstart", ".amd-manage-column-item", function () {
         draggedItem = this;
         $(this).css("opacity", "0.4").addClass("dragging");
     });
 
-    columnList.on("dragend", ".amd-table8-column-item", function () {
+    columnList.on("dragend", ".amd-manage-column-item", function () {
         $(this).css("opacity", "1");
         updateStateOrderFromUI();
         handleDragEnd(); // ✅ Call cleanup
     });
 
-    columnList.on("dragover", ".amd-table8-column-item", function (e) {
+    columnList.on("dragover", ".amd-manage-column-item", function (e) {
         e.preventDefault();
         $(this).addClass("drag-over");
     });
 
-    columnList.on("dragleave", ".amd-table8-column-item", function () {
+    columnList.on("dragleave", ".amd-manage-column-item", function () {
         $(this).removeClass("drag-over");
     });
 
-    columnList.on("drop", ".amd-table8-column-item", function (e) {
+    columnList.on("drop", ".amd-manage-column-item", function (e) {
         e.preventDefault();
         $(this).removeClass("drag-over");
 
@@ -473,14 +472,14 @@ $(document).ready(function () {
 
     // 👇 This cleans up all leftover dragging classes (called on dragend)
     function handleDragEnd() {
-        document.querySelectorAll(".amd-table8-column-item").forEach((item) => {
+        document.querySelectorAll(".amd-manage-column-item").forEach((item) => {
             item.classList.remove("dragging", "drag-over");
         });
     }
 
     function updateStateOrderFromUI() {
         const newOrder = [];
-        columnList.find(".amd-table8-column-item").each(function () {
+        columnList.find(".amd-manage-column-item").each(function () {
             newOrder.push($(this).data("column-key"));
         });
         columnsState = newOrder.map((key) =>
@@ -503,7 +502,6 @@ $(document).ready(function () {
         );
     });
 });
-
 
 /*
 |------------------------------------------------------------------
@@ -725,25 +723,6 @@ $(function() {
     }
 });
 
-
-
-/*
-|------------------------------------------------------------------
-| 🔍 Global Search Form Visibility Manager
-|------------------------------------------------------------------
-| Purpose:
-| - Controls the show/hide behavior of the global search filter form.
-| - The form remains visible only if the user left it open previously.
-| - State (open/closed) is stored in localStorage to persist across page reloads.
-|
-| How it works:
-| 1️⃣ On page load → check localStorage
-|      - If previously open → show form
-|      - If previously closed → hide form
-| 2️⃣ On Search Button click → show form and save state as "open"
-| 3️⃣ On Close Button click → hide form and save state as "closed"
-|------------------------------------------------------------------
-*/
 /*
 |--------------------------------------------------------------------------
 | 🔍 Global Search Filter Toggle Script

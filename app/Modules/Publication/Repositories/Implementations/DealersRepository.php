@@ -2,9 +2,10 @@
 
 namespace App\Modules\Publication\Repositories\Implementations;
 
+use Illuminate\Support\Facades\DB;
+use App\Modules\Publication\Models\Dealers;
 use App\Core\Repositories\Implementation\BaseRepository;
 use App\Modules\Publication\Repositories\Interfaces\DealersRepositoryInterface;
-use App\Modules\Publication\Models\Dealers;
 
 class DealersRepository extends BaseRepository implements DealersRepositoryInterface
 {
@@ -13,14 +14,13 @@ class DealersRepository extends BaseRepository implements DealersRepositoryInter
         parent::__construct($model);
     }
 
-    public function getPaginatedSearchResults($perPage, $searchTerm)
+    public function dealerHasUser($id)
     {
-        $query = $this->model->query();
+       return DB::table('users')->where('dealer_id', $id)->exists();
+    }
 
-        if ($searchTerm) {
-            $query->where('name', 'LIKE', "%{$searchTerm}%");
-        }
-
-        return $query->orderBy('display_order')->paginate($perPage);
+    public function getUserByDealerId($id)
+    {
+        return DB::table('users')->where('dealer_id', $id)->value('id');
     }
 }

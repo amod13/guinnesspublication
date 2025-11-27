@@ -39,6 +39,7 @@ class User extends Authenticatable
         'profile_image_id',
         'full_name',
         'employee_id',
+        'dealer_id',
     ];
 
     /**

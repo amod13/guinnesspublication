@@ -14,13 +14,13 @@
     /* primary */
 
     /*  Primary */
-    --amd-primary: oklch(50% 0.3 330);
+    /* --amd-primary: oklch(50% 0.3 330); */
     /* base color */
     --amd-primary-light: color-mix(in oklch, var(--amd-primary) 40%, white);
     --amd-fade-primary: color-mix(in oklch, var(--amd-primary) 20%, transparent);
 
     /*  Secondary */
-    --amd-secondary: oklch(50% 0.25 150);
+    /* --amd-secondary: oklch(50% 0.25 150); */
     /* base color */
     --amd-secondary-light: color-mix(in oklch, var(--amd-secondary) 4%, white);
     --amd-fade-secondary: color-mix(in oklch, var(--amd-secondary) 16%, transparent);
@@ -2061,6 +2061,8 @@ a {
 /* about section end********************************** */
 
 
+
+
 /* book section ************************************* */
 .amd-book-section {
     position: relative;
@@ -2382,7 +2384,7 @@ a {
     .amd-category-section {
         padding: 2rem 0;
     }
-  
+
 }
 @media (max-width:768px)
 {
@@ -3334,7 +3336,7 @@ a {
 }
 
 .amd-blog-page-card-title a {
-    
+
     text-decoration: none;
     color: inherit;
 }
@@ -3479,7 +3481,6 @@ a {
 /* --- Main Layout Wrappers --- */
 /* ------------------------------ */
 .amd-blog-detail-container {
-
     margin: 0 auto;
     padding: 40px 24px;
 }
@@ -5939,7 +5940,7 @@ button {
         border-bottom: 2px solid #e0d8c7;
     }
 
-   
+
 
     .amd-book-profile__nav-item {
         text-align: left;

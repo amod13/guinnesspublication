@@ -82,6 +82,7 @@
   <script src="{{ asset('site/assets/js/jquery-3.7.1.min.js') }}"></script>
   <!-- Bootstrap (Needs jQuery) -->
   <script src="{{ asset('site/assets/js/bootstrap.bundle.min.js') }}"></script>
+
   <!-- Swiper.js (Independent) -->
   <script src="{{ asset('site/assets/js/swiper-bundle.min.js') }}"></script>
   <!-- Slick.js (Needs jQuery) -->

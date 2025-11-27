@@ -7,7 +7,8 @@
                     <a href="{{ url('/') }}" class="breadcrumb-link-amd">Home</a>
                 </li>
                 <li class="breadcrumb-item-amd">
-                    <a href="{{ route('site.blog.list', ['locale' => app()->getLocale()]) }}" class="breadcrumb-link-amd">Blog List</a>
+                    <a href="{{ route('site.blog.list', ['locale' => app()->getLocale()]) }}" class="breadcrumb-link-amd">Blog
+                        List</a>
                 </li>
             </ol>
         </nav>
@@ -23,18 +24,21 @@
                         <div class="row g-3 align-items-center">
                             <div class="col-lg-4 col-12">
                                 <!-- Filter dropdown -->
-                                <select class="form-select amd-book-search-page-input" name="category_id" id="amdBookSearchFilter"
-                                    aria-label="Filter books">
+                                <select class="form-select amd-book-search-page-input" name="category_id"
+                                    id="amdBookSearchFilter" aria-label="Filter books">
                                     <option value="" selected>All Categories</option>
                                     @foreach ($data['activeBlogCategories'] as $item)
-                                         <option value="{{ $item->id }}" {{ request('category_id') == $item->id ? 'selected' : '' }}>{{ $item->title  }}</option>
+                                        <option value="{{ $item->id }}"
+                                            {{ request('category_id') == $item->id ? 'selected' : '' }}>{{ $item->title }}
+                                        </option>
                                     @endforeach
                                 </select>
                             </div>
                             <div class="col-lg-6 col-8">
                                 <div class="input-group w-100">
                                     <input type="text" class="form-control amd-book-search-page-input"
-                                        id="amdBookSearchPageInput" name="keywords" placeholder="Search blog..." aria-label="Search"  value="{{ request('keywords') }}">
+                                        id="amdBookSearchPageInput" name="keywords" placeholder="Search blog..."
+                                        aria-label="Search" value="{{ request('keywords') }}">
                                     <a href="{{ route('site.blog.list', ['locale' => app()->getLocale()]) }}"
                                         class="d-none amd-category-search-clear amd-book-search-page-clear-btn "
                                         id="amdBookSearchPageClearBtn" aria-label="Clear search">
@@ -43,7 +47,8 @@
                                 </div>
                             </div>
                             <div class="col-lg-2 col-4 d-flex gap-1 amd-search-action">
-                                  <a href="{{ route('site.blog.list', ['locale' => app()->getLocale()]) }}" class="btn btn-danger">
+                                <a href="{{ route('site.blog.list', ['locale' => app()->getLocale()]) }}"
+                                    class="btn btn-danger">
                                     <i class="bi bi-x-lg"></i>
                                 </a>
                                 <button class="btn btn-primary amd-book-search-page-main-btn" type="submit">
@@ -57,8 +62,9 @@
                     @foreach ($data['blogs'] as $item)
                         <article class="amd-blog-page-card">
                             <a href="{{ route('site.blog.detail', ['locale' => app()->getLocale(), 'slug' => $item->slug ?? ($item->id ?? '')]) }}"
-                                class="amd-blog-page-card-image-link"><img src="{{ $item->getMediaUrl('thumbnail_image') }}"
-                                    alt="{{ $item->title ?? '' }}" class="amd-blog-page-card-image"></a>
+                                class="amd-blog-page-card-image-link"><img
+                                    src="{{ $item->getMediaUrl('thumbnail_image') }}" alt="{{ $item->title ?? '' }}"
+                                    class="amd-blog-page-card-image"></a>
                             <div class="amd-blog-page-card-content">
                                 <div class="amd-blog-page-card-meta"><i class="bi bi-megaphone-fill"></i>
                                     {{ $item->blogCategory->title ?? '' }}
@@ -77,22 +83,10 @@
                     @endforeach
                 </div>
             </div>
-
-            <!-- laod more btn -->
-            <div class="text-center mt-5">
-                <div class="amd-book-view-all">
-                    <button class="button" id="loadMoreBtn">
-                        <span class="btn-text">Load More</span>
-                        <svg class="btn-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 66 43">
-                            <polygon points="39.58,4.46 44.11,0 66,21.5 44.11,43 39.58,38.54 56.94,21.5"></polygon>
-                            <polygon points="19.79,4.46 24.32,0 46.21,21.5 24.32,43 19.79,38.54 37.15,21.5">
-                            </polygon>
-                            <polygon points="0,4.46 4.53,0 26.42,21.5 4.53,43 0,38.54 17.36,21.5"></polygon>
-                        </svg>
-                    </button>
-                </div>
-            </div>
-
         </div>
     </section>
+    <!-- Pagination -->
+    @include('publication::site.page.pagination.pagination', [
+        'paginator' => $data['blogs'],
+    ])
 @endsection

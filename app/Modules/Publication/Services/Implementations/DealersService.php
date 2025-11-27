@@ -92,18 +92,22 @@ class DealersService extends BaseService implements DealersServiceInterface
         }
         // Check if user already exists
         $existingUser =  DB::table('users')->where('email', $data['user_email'] ?? $data['email'])->first();
-        
+
         if ($existingUser) {
             return; // User already exists
         }
 
+
+
         $userData = [
+            'dealer_id' => $dealer->id,
             'name' => $data['username'],
             'email' => $data['user_email'] ?? $data['email'],
             'password' => Hash::make($data['password']),
             'status' => ($data['user_status'] ?? 'active') === 'active' ? 1 : 0,
             'role_id' => 6, // Default role ID for dealers
         ];
+
 
         $this->userRepository->createRecord($userData);
     }
@@ -138,5 +142,21 @@ class DealersService extends BaseService implements DealersServiceInterface
             }
         }
     }
-    
+
+    public function deleteRecord($id)
+    {
+        // Check if dealer has a user
+        $dealerHasUser = $this->repository->dealerHasUser($id);
+
+        if ($dealerHasUser) {
+            // Get the user ID associated with the dealer
+            $userId = $this->repository->getUserByDealerId($id);
+
+            // Delete the user first
+            $this->userRepository->deleteRecord($userId);
+        }
+
+        // Now delete the dealer itself
+      return $this->repository->deleteRecord($id);
+    }
 }

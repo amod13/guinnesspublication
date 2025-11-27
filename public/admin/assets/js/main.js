@@ -52,14 +52,14 @@ closeBtn.addEventListener("click", closeMobileSidebar);
 overlay.addEventListener("click", closeMobileSidebar);
 
 
-  
+
 // On page load: default expand on desktop
 window.addEventListener("DOMContentLoaded", () => {
-   
+
     if (window.innerWidth > 768) {
          sidebar.classList.remove("collapsed");
          sidebar.classList.add("expanded");
-   
+
     }
 
       if (window.innerWidth < 767) {
@@ -69,7 +69,7 @@ window.addEventListener("DOMContentLoaded", () => {
         //sidebar.classList.add("collapsed");
          sidebar.style.visibility = "visible";
                console.log(sidebar);
-      
+
     }
 
 });

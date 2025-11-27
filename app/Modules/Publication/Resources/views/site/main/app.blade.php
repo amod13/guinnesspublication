@@ -49,13 +49,13 @@
 
     @stack('styles')
 
-      {{-- <style>
+      <style>
         :root {
             @foreach (DB::table('theme_settings')->get() as $setting)
                 --{{ str_replace('_', '-', $setting->key_name) }}: {!! $setting->value !!};
             @endforeach
         };
-    </style> --}}
+    </style>
 </head>
 
 <body>

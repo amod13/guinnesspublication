@@ -339,3 +339,242 @@
     box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.05);
     z-index: 100;
 }
+
+/* ================================================================
+   Column Manager Modal
+   ================================================================
+   Handles:
+ |- Column Manager Modal styling
+ |- Column Manager Modal behavior
+ |- Column Manager Modal responsiveness
+ |- Column Manager Modal animation
+ |- Column Manager Modal icon
+ |- Column Manager Modal color
+   ================================================================ */
+.amd-manage-column-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1050;
+}
+
+.amd-manage-column-overlay.show {
+    display: flex;
+}
+
+/* Modal Container */
+.amd-manage-column-modal {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 500px;
+    max-height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Modal Header */
+.amd-manage-column-header {
+    padding: 20px 24px;
+    border-bottom: 1px solid #e5e7eb;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.amd-manage-column-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #111827;
+    margin: 0;
+}
+
+.amd-manage-column-close {
+    background: none;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    color: #6b7280;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+.amd-manage-column-close:hover {
+    background: #f3f4f6;
+    color: #374151;
+}
+
+/* Modal Body */
+.amd-manage-column-body {
+    padding: 20px 24px;
+    max-height: 400px;
+    overflow-y: auto;
+    flex: 1;
+}
+
+/* Column List */
+.amd-manage-column-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.amd-manage-column-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    background: #fff;
+    cursor: move;
+    transition: all 0.2s ease;
+}
+
+.amd-manage-column-item:hover {
+    background: #f9fafb;
+    border-color: #d1d5db;
+}
+
+.amd-manage-column-item.dragging {
+    opacity: 0.5;
+    transform: rotate(5deg);
+}
+
+.amd-manage-column-item.drag-over {
+    border-color: #3b82f6;
+    background: #eff6ff;
+}
+
+.amd-manage-column-checkbox {
+    margin-right: 12px;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.amd-manage-column-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.amd-manage-column-name {
+    font-weight: 500;
+    color: #111827;
+    font-size: 14px;
+}
+
+.amd-manage-column-key {
+    font-size: 12px;
+    color: #6b7280;
+    font-family: Monaco, Menlo, monospace;
+}
+
+.amd-manage-column-drag-handle {
+    color: #9ca3af;
+    cursor: move;
+    padding: 4px;
+}
+
+.amd-manage-column-drag-handle:hover {
+    color: #6b7280;
+}
+
+/* Modal Footer */
+.amd-manage-column-footer {
+    padding: 16px 24px;
+    border-top: 1px solid #e5e7eb;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f9fafb;
+}
+
+.amd-manage-column-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.amd-manage-column-btn {
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.amd-manage-column-btn.secondary {
+    background: #fff;
+    border: 1px solid #d1d5db;
+    color: #374151;
+}
+
+.amd-manage-column-btn.secondary:hover {
+    background: #f3f4f6;
+}
+
+.amd-manage-column-btn.primary {
+    background: #3b82f6;
+    border: 1px solid #3b82f6;
+    color: #fff;
+}
+
+.amd-manage-column-btn.primary:hover {
+    background: #2563eb;
+}
+
+.amd-manage-column-reset-btn {
+    background: none;
+    border: none;
+    color: #6b7280;
+    font-size: 13px;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.amd-manage-column-reset-btn:hover {
+    color: #374151;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .amd-manage-column-modal {
+        width: 95%;
+        margin: 20px;
+    }
+}
+
+/* drag table css*/
+.table-wrapper {
+    display: inline-block;
+    cursor: move;
+}
+
+.sortable-table tr {
+    transition: background-color 0.3s ease;
+    cursor: grab !important;
+}
+
+.sortable-table tr:active {
+    cursor: grabbing !important;
+}
+
+.dragtable-drag-handle {
+    background: rgba(255, 255, 255, 0.25) !important;
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* drag table column css end */
