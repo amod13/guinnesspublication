@@ -11,6 +11,7 @@ class BlogCategoryDto extends BaseDto
     public ?int $id;
     public string $title;
     public ?string $slug;
+    public ?string $content;
     public ?string $thumbnail_image;
     public int $display_order;
     public bool $status;

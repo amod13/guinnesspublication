@@ -14,6 +14,7 @@ class BookCategoriesRequest extends BaseFormRequest
             'display_order' => ['nullable', 'integer', 'min:1'],
             'thumbnail_image_media_id' => ['nullable', 'exists:media_library,id'],
             'parent_id' => ['nullable', 'exists:book_categories,id'],
+            'content' => ['nullable', 'string'],
         ];
     }
 
@@ -24,7 +25,8 @@ class BookCategoriesRequest extends BaseFormRequest
             'status' => ['required', 'in:active,inactive'],
             'display_order' => ['nullable', 'integer', 'min:1'],
             'thumbnail_image_media_id' => ['nullable', 'exists:media_library,id'],
-                  'parent_id' => ['nullable', 'exists:book_categories,id'],
+            'parent_id' => ['nullable', 'exists:book_categories,id'],
+            'content' => ['nullable', 'string'],
         ];
     }
 

@@ -17,10 +17,23 @@ class BookCategories extends BaseModel
         'display_order',
         'language',
         'thumbnail_image',
+        'content',
     ];
 
     public function children()
     {
         return $this->hasMany(self::class, 'parent_id')->orderBy('display_order');
     }
+
+
+public function childrenRecursive()
+{
+    return $this->children()->with('childrenRecursive');
+}
+
+// Accessor: all nested children count
+public function getTotalChildrenCountAttribute()
+{
+    return $this->childrenRecursive->count();
+}
 }

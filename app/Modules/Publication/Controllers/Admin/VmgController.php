@@ -16,7 +16,7 @@ class VmgController extends BaseCrudController
 
     protected $service, $selectOptionMapper;
     protected string $dtoClass = VmgDto::class;
-    
+
     public function __construct(VmgServiceInterface $service)
     {
         $this->service = $service;
@@ -50,7 +50,7 @@ class VmgController extends BaseCrudController
         return $this->dataUpdate($request, $id);
     }
 
-    public function delete($id)
+    public function destroy($id)
     {
         return $this->dataDelete($id);
     }

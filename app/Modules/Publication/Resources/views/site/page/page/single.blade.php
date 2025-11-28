@@ -8,7 +8,7 @@
                     <a href="{{ url('/') }}" class="breadcrumb-link-amd">Home</a>
                 </li>
                 <li class="breadcrumb-item-amd">
-                    <span class="breadcrumb-current-amd" aria-current="page">{{ $data['page']->title ?? '' }}</span>
+                    <a href="{{ url('/') }}" class="breadcrumb-link-amd">{{ $data['page']->title ?? '' }}</a>
                 </li>
             </ol>
         </nav>

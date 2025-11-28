@@ -72,7 +72,8 @@ class HomeController extends Controller
         $data['bestSellingBooks'] = $this->BookService->getPublishBooksByHighLightType($bestSelling)->take(5);
         $bestSelling = HighlightTypeEnum::FlashSale->value;
         $data['flashSaleBooks'] = $this->BookService->getPublishBooksByHighLightType($bestSelling)->take(4);
-        $data['activeBookCategories'] = $this->bookCategoryService->getActiveBookCategories()->take(7);
+        $data['activeBookCategories'] = $this->bookCategoryService->getActiverCategoryNotInParent()->take(7);
+
         $data['activeAuthors'] = $this->authorService->getAuthors()->take(6);
         $data['vmgs'] = $this->vmgService->getActiveVmg();
         $data['blogs'] = $this->blogService->getActiveBlogs()->take(6);
@@ -88,7 +89,6 @@ class HomeController extends Controller
 
         return view($this->viewPrefix . 'page.page.single', ['data' => $data]);
     }
-
 
 
     public function searchCategories($language, Request $request)
@@ -119,6 +119,14 @@ class HomeController extends Controller
         $data['blog'] = $this->blogService->getBlogBySlug($slug);
         $data['activeBlogCategories'] = $this->blogCategoryService->getActiveBlogCategories();
         return view($this->viewPrefix . 'page.blog.detail', ['data' => $data]);
+    }
+
+    public function blogByCategorySlug($language, $slug)
+    {
+        dd($slug);
+        $data['blogs'] = $this->blogService->getBlogsByCategorySlug($slug);
+        $data['activeBlogCategories'] = $this->blogCategoryService->getActiveBlogCategories();
+        return view($this->viewPrefix . 'page.blog.list', ['data' => $data]);   
     }
 
     public function searchBlogs($language, Request $request)

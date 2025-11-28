@@ -52,8 +52,19 @@ class BookCategoriesController extends BaseCrudController
 
     public function update(BookCategoriesRequest $request, $id)
     {
-        return $this->dataUpdate($request, $id);
+        $response = $this->service->updateRecord($request->validated(), $id);
+
+        if ($response['redirect']) {
+            return redirect()
+                ->route($this->routePrefix . 'parent', $response['parent_id'])
+                ->with($response['success'] ? 'success' : 'error', $response['message']);
+        }
+
+        return redirect()
+            ->route($this->routePrefix . 'index')
+            ->with($response['success'] ? 'success' : 'error', $response['message']);
     }
+
 
     public function destroy($id)
     {
@@ -69,5 +80,12 @@ class BookCategoriesController extends BaseCrudController
     public function updateOrder(Request $request)
     {
         return $this->updateOrderInternal($request, 'book_categories', 'id', 'display_order');
+    }
+
+    public function parentCategory($id)
+    {
+        $data['records'] =  $this->service->parentCategory($id);
+
+        return view($this->viewPrefix . 'parent-category', ['data' => $data]);
     }
 }

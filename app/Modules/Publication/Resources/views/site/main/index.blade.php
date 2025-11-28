@@ -107,13 +107,9 @@
                     <div class="amd-MGV-section-grid ">
                         <!-- Left Column: Intro Text -->
                         <div class="amd-MGV-section-intro">
-                            <h2>Our Vision, Mission & Goals</h2>
+                            <h3>Our Vision, Mission & Goals</h3>
                             <p>We are committed to creating a lasting impact through dedication, innovation, and purpose.
-                                Our
-                                direction is
-                                guided by a clear vision, a strong mission, and focused goals that drive continuous growth
-                                and
-                                excellence.</p>
+                            </p>
                         </div>
 
                         <!-- Right Column: Grid of Cards -->
@@ -127,18 +123,11 @@
                                     </div>
                                     <div class="amd-MGV-card-content">
                                         <h3>{{ $vmg->title }}</h3>
-                                        @php
-                                            $features = $vmg->features['features'] ?? [];
-                                        @endphp
-                                        @if (!empty($features))
-                                            <ul class="amd-MGV-card-list">
-                                                @foreach ($features as $feature)
-                                                    <li>
-                                                        <i class="fa-solid fa-square-check"></i> {{ $feature }}
-                                                    </li>
-                                                @endforeach
-                                            </ul>
-                                        @endif
+                                        <ul class="amd-MGV-card-list">
+                                            <li>
+                                                {{ $vmg->subtitle ?? '' }}
+                                            </li>
+                                        </ul>
                                     </div>
                                 </article>
                             @endforeach
@@ -155,7 +144,7 @@
     @if ($data['bestSellingBooks']->count() > 0)
         <section class="amd-book-section">
             <div class="container">
-                <div class="amd-book-section-bg-text">Classics</div>
+
                 <div class="amd-book-section-header">
                     <h2 class="amd-global-title-highlight">Classics</h2>
                     <a href="{{ route('site.book.list', ['locale' => app()->getLocale()]) }}" class="amd-book-view-all">
@@ -215,13 +204,15 @@
                 <div class="row row-cols-2 row-cols-md-4 g-3">
                     @foreach ($data['activeBookCategories'] as $item)
                         <div class="col">
-                            <a href="{{ route('book.list.by.category', ['locale' => app()->getLocale(), 'slug' => $item->slug]) }}"
+                            <a href="{{ route('book.category.detail', ['locale' => app()->getLocale(), 'slug' => $item->slug]) }}"
                                 class="amd-category-card">
                                 <div class="d-flex align-items-center">
-                                    <div class="amd-category-icon me-3">
-                                        <img src="{{ $item->getMediaUrl('thumbnail_image') }}" alt="{{ $item->name }}"
-                                            class="img-fluid">
-                                    </div>
+                                    @if ($item->getMediaUrl('thumbnail_image'))
+                                        <div class="amd-category-icon me-3">
+                                            <img src="{{ $item->getMediaUrl('thumbnail_image') }}"
+                                                alt="{{ $item->name }}" class="img-fluid">
+                                        </div>
+                                    @endif
                                     <div class="amd-category-text">
                                         <p class="mb-0">{{ $item->name }}</p>
                                     </div>

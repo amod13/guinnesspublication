@@ -59,4 +59,84 @@ class BookCategoriesRepository extends BaseRepository implements BookCategoriesR
         $menus = $this->model::with('children')->where('language', session('language', 'en'))->orderBy('display_order')->get();
         return $menus;
     }
+
+    public function getDataForTable()
+    {
+        return $this->model
+            ->whereNull('parent_id') // main category only
+            ->where('language', session('language', 'en'))
+            ->withCount('children'); // children count
+    }
+
+    public function getActiverCategoryNotInParent()
+    {
+        return $this->model
+            ->withCount('children')
+            ->where('status', 'active')
+            ->whereNull('parent_id') // main category only
+            ->where('language', session('language', 'en'))
+            ->select('id', 'name', 'thumbnail_image', 'slug')->orderBy('name', 'asc')
+            ->paginate(20);
+    }
+
+    public function parentCategory($id)
+    {
+        return $this->model
+            ->select('id', 'name', 'status', 'display_order')
+            ->where('parent_id', $id)
+            ->with('childrenRecursive') // load recursive for count
+            ->orderBy('display_order', 'asc')
+            ->paginate(10)
+            ->through(function ($item) {
+                return [
+                    'id'             => $item->id,
+                    'name'           => $item->name,
+                    'status'         => $item->status,
+                    'display_order'  => $item->display_order,
+                    'children_count' => $item->total_children_count, // accessor
+                ];
+            });
+    }
+
+    public function getAllCategoryWithSubCategory($slug)
+    {
+        return $this->model
+            ->with('childrenRecursive')
+            ->where('status', 'active')
+            ->where('slug', $slug)
+            ->where('language', session('language', 'en'))
+            ->first();
+    }
+
+    public function hasParent($id)
+    {
+        return $this->model->where('parent_id', $id)->exists();
+    }
+
+    public function deleteCategoryWithChildren($id)
+    {
+        $category = $this->model->find($id);
+
+        if (!$category) {
+            return false;
+        }
+
+        // delete all children recursively
+        foreach ($category->children as $child) {
+            $this->deleteCategoryWithChildren($child->id);
+        }
+
+        // finally delete this category
+        return $category->delete();
+    }
+
+    public function getCategoriesWithParentAndChild()
+    {
+        return $this->model
+            ->whereNull('parent_id')
+            ->with('childrenRecursive')
+            ->where('status', 'active')
+            ->where('language', session('language', 'en'))
+            ->get();
+    }
 }

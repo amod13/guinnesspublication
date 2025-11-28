@@ -1,4 +1,4 @@
-@extends('publication::site.main.app')
+                 mj@extends('publication::site.main.app')
 
 @section('content')
       <section class="amd-error-section container">

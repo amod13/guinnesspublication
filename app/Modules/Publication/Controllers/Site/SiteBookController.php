@@ -22,17 +22,26 @@ class SiteBookController extends Controller
 
     public function giveMeAllBooks()
     {
-        $data['activeCategories'] = $this->bookCategoryService->getBookCategories();
+        $data['activeCategories'] = $this->bookCategoryService->getCategoriesWithParentAndChild();
+
         $data['booksByCategories'] = $this->BookService->getActiveBooks();
 
-        return view($this->viewPrefix . 'page.book.bookListByCategory', ['data' => $data]);
+        return view($this->viewPrefix . 'page.book.booklist', ['data' => $data]);
     }
 
     public function giveMeBookByCategory($language, $slug)
     {
-        $response = $this->BookService->giveMeBookByCategorySlug($slug);
+        $response = $this->bookCategoryService->getAllCategoryWithSubCategory($slug);
 
-        return view($this->viewPrefix . 'page.book.bookListByCategory', [
+        return view($this->viewPrefix . 'page.book.booklist', [
+            'data' => $response['data']
+        ]);
+    }
+    public function SingleBookCategoryDetail($language, $slug)
+    {
+        $response = $this->bookCategoryService->getAllCategoryWithSubCategory($slug);
+
+        return view($this->viewPrefix . 'page.category.detail', [
             'data' => $response['data']
         ]);
     }
@@ -50,16 +59,16 @@ class SiteBookController extends Controller
         $response = $this->BookService->searchBookByKeyword($request->all());
         $searchCriteria = $request->all();
 
-        return view($this->viewPrefix . 'page.book.bookListByCategory', [
+        return view($this->viewPrefix . 'page.book.booklist', [
             'data' => $response['data']
         ])->with([
             'searchCriteria' => $searchCriteria,
         ]);
     }
 
-        public function giveMeAllBookCategory()
+    public function giveMeAllBookCategory()
     {
-        $data['activeBookCategories'] = $this->bookCategoryService->getBookCategories();
+        $data['activeBookCategories'] = $this->bookCategoryService->getActiverCategoryNotInParent();
 
         return view($this->viewPrefix . 'page.category.list', ['data' => $data]);
     }

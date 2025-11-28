@@ -20,11 +20,13 @@ class BookCategoriesDto extends BaseDto
 
     public function getDataForTable($data): array
     {
+
         return [
             'id' => $this->id,
             'name' => $this->name,
             'status' => $this->status,
-            'display_order' => $this->display_order
+            'display_order' => $this->display_order,
+            'children_count' => $data->children_count
         ];
     }
 

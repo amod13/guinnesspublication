@@ -68,6 +68,7 @@ Route::middleware(['web', 'auth'])->prefix('admin')->group(function () {
         Route::delete('destroy/{id}', 'destroy')->name('destroy');
         Route::delete('bulk-delete', 'bulkDelete')->name('bulk-delete');
         Route::get('update-order', 'updateOrder')->name('order');
+        Route::get('/parent-category/{id}', 'parentCategory')->name('parent');
     });
 
     //---------------------------BOOKS SECTION ROUTE-----------------------------

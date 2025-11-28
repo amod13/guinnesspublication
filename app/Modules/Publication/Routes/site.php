@@ -57,7 +57,8 @@ Route::middleware(['web'])->controller(UserDashboardController::class)->group(fu
 Route::middleware(['web'])->controller(SiteBookController::class)->group(function () {
     Route::post('/s', 'globalSearch')->name('site.books.search'); //search books
     Route::get('/book/{slug}', 'getBookDetailBySlug')->name('single.book.detail');
-    Route::get('/book/category/{slug}', 'giveMeBookByCategory')->name('book.list.by.category');
+    Route::get('/book/category/list/{slug}', 'giveMeBookByCategory')->name('book.list.by.category');
+    Route::get('/book/category/detail/{slug}', 'SingleBookCategoryDetail')->name('book.category.detail');
     Route::get('/book-category-list', 'giveMeAllBookCategory')->name('book.category.list');
     Route::get('/book-list', 'giveMeAllBooks')->name('site.book.list');
     Route::post('/favourite-books', 'favouriteBooks')->name('site.books.favourite.toggle');

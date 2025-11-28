@@ -11,8 +11,8 @@
     </div>
 
     <div class="col-md-6 mb-3">
-        <x-form.select-input :id="'parent_id'" :label="'Parent Category'" :name="'parent_id'" 
-            :options="$data['parentCategories']->pluck('title', 'id')->toArray()" 
+        <x-form.select-input :id="'parent_id'" :label="'Parent Category'" :name="'parent_id'"
+            :options="$data['parentCategories']->pluck('title', 'id')->toArray()"
             :value="old('parent_id', $data['record']->parent_id ?? '')" />
     </div>
 

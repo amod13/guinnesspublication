@@ -43,10 +43,12 @@
                         <a href="{{ route('book.list.by.category', ['locale' => app()->getLocale(), 'slug' => $item->slug]) }}"
                             class="amd-category-card">
                             <div class="d-flex align-items-center">
+                                @if($item->getMediaUrl('thumbnail_image'))
                                 <div class="amd-category-icon me-3">
                                     <img src="{{ $item->getMediaUrl('thumbnail_image') }}" alt="{{ $item->name }}"
                                         class="img-fluid">
                                 </div>
+                                @endif
                                 <div class="amd-category-text">
                                     <p class="mb-0">{{ $item->name }}</p>
                                 </div>

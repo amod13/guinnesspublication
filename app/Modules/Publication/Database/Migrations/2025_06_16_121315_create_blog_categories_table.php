@@ -17,7 +17,8 @@ return new class extends Migration {
             $table->string('thumbnail_image')->nullable();
             $table->integer('display_order')->default(1);
             $table->boolean('status')->default(true);
-                 $table->string('language')->default('en');
+            $table->string('language')->default('en');
+            $table->longText('content')->nullable();
             // Hierarchical structure (optional)
             $table->foreignId('parent_id')->nullable()->constrained('blog_categories')->onDelete('set null');
               // Audit Fields

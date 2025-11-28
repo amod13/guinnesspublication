@@ -85,7 +85,7 @@ class AboutUsService extends BaseService implements AboutUsServiceInterface
     public function aboutUsFormHome()
     {
       $record =  $this->repository->getActiveAboutUs();
-        $record->description = ContentFormatter::limitWords($record->description, 150);
+        $record->description = ContentFormatter::limitWords($record->description, 100);
         
         return $record;
     }

@@ -160,7 +160,7 @@ class BookService extends BaseService implements BookServiceInterface
         $data['booksByCategories'] = $this->repository->searchBookByKeyword($request);
 
         // active categories taneko
-        $data['activeCategories'] = $this->bookCategoryService->getActiveBookCategories();
+        $data['activeCategories'] = $this->bookCategoryService->getCategoriesWithParentAndChild();
 
         return [
             'data' => $data

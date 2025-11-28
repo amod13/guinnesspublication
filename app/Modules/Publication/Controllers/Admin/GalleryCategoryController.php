@@ -16,7 +16,7 @@ class GalleryCategoryController extends BaseCrudController
 
     protected $service, $selectOptionMapper;
     protected string $dtoClass = GalleryCategoryDto::class;
-    
+
     public function __construct(GalleryCategoryServiceInterface $service)
     {
         $this->service = $service;
@@ -24,7 +24,7 @@ class GalleryCategoryController extends BaseCrudController
 
     public function index(Request $request)
     {
-        $perPage = $request->input('length', config('UserManagement.user', 10));
+        $perPage = $request->input('length', 10);
         $serachTerm = $request->input('search');
 
         return $this->dataIndex($perPage, $serachTerm);
@@ -54,7 +54,7 @@ class GalleryCategoryController extends BaseCrudController
     {
         return $this->dataDelete($id);
     }
-    
+
     public function updateOrder(Request $request)
     {
         return $this->updateOrderInternal($request, 'gallery_categories', 'id', 'display_order');
@@ -65,4 +65,6 @@ class GalleryCategoryController extends BaseCrudController
         $ids = $request->input('ids', []);
         return $this->dataDelete($ids);
     }
+
+
 }

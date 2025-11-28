@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Modules\Publication\Services\Interfaces;
+
 use App\Core\Services\Interface\BaseServiceInterface;
 
 interface BookCategoriesServiceInterface extends BaseServiceInterface
@@ -11,4 +12,8 @@ interface BookCategoriesServiceInterface extends BaseServiceInterface
     public function searchCategories($data);
     public function getBookCategories();
     public function getBookCategoryWithChildren();
+    public function parentCategory($id);
+    public function getActiverCategoryNotInParent();
+    public function getAllCategoryWithSubCategory($slug);
+    public function getCategoriesWithParentAndChild();
 }

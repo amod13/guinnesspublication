@@ -67,4 +67,6 @@ class BlogCategoryController extends BaseCrudController
         $ids = $request->input('ids', []);
         return $this->dataDelete($ids);
     }
+
+
 }

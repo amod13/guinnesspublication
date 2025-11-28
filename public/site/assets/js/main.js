@@ -3,95 +3,95 @@ $(document).ready(function () {
   // -------------------------------
   // Navbar menus and hamburger
   // -------------------------------
-$(document).ready(function () {
+  $(document).ready(function () {
 
-  const hamburger = $('#amd-hamburger');
-  const navMenu = $('#amd-nav-menu');
-  const infoToggleBtn = $('#amd-info-toggle');
-  const infoCanvas = $('#amd-info-canvas');
-  const closeCanvasBtn = $('#amd-close-canvas');
-  const overlay = $('#amd-overlay'); // overlay element
+    const hamburger = $('#amd-hamburger');
+    const navMenu = $('#amd-nav-menu');
+    const infoToggleBtn = $('#amd-info-toggle');
+    const infoCanvas = $('#amd-info-canvas');
+    const closeCanvasBtn = $('#amd-close-canvas');
+    const overlay = $('#amd-overlay'); // overlay element
 
-  const closeMobileMenu = () => {
-    hamburger.removeClass('amd-active');
-    navMenu.removeClass('amd-open');
-    overlay.removeClass('amd-show');
-  };
-
-  const closeInfoCanvas = () => {
-    infoCanvas.removeClass('amd-open');
-    overlay.removeClass('amd-show');
-  };
-
-  // Hamburger Menu
-  hamburger.on('click', function (e) {
-    e.stopPropagation();
-    hamburger.toggleClass('amd-active');
-    navMenu.toggleClass('amd-open');
-
-    // show overlay in mobile menu
-    if (navMenu.hasClass('amd-open')) {
-      overlay.addClass('amd-show');
-    } else {
+    const closeMobileMenu = () => {
+      hamburger.removeClass('amd-active');
+      navMenu.removeClass('amd-open');
       overlay.removeClass('amd-show');
-    }
-  });
+    };
 
-  // Mobile dropdown toggle
-  $('.amd-dropdown > a').on('click', function (e) {
-    if ($(window).width() <= 992) {
-      e.preventDefault();
-      const submenu = $(this).next('.amd-dropdown-menu');
-      const parentDropdown = $(this).parent();
+    const closeInfoCanvas = () => {
+      infoCanvas.removeClass('amd-open');
+      overlay.removeClass('amd-show');
+    };
 
-      parentDropdown.siblings().find('.amd-dropdown-menu.amd-open').removeClass('amd-open')
-        .prev('a').removeClass('amd-active');
+    // Hamburger Menu
+    hamburger.on('click', function (e) {
+      e.stopPropagation();
+      hamburger.toggleClass('amd-active');
+      navMenu.toggleClass('amd-open');
 
-      submenu.toggleClass('amd-open');
-      $(this).toggleClass('amd-active');
-    }
-  });
+      // show overlay in mobile menu
+      if (navMenu.hasClass('amd-open')) {
+        overlay.addClass('amd-show');
+      } else {
+        overlay.removeClass('amd-show');
+      }
+    });
 
-  // Close mobile menu when clicking links
-  navMenu.on('click', function (e) {
-    if (e.target.tagName === 'A' && !$(e.target).parent().hasClass('amd-dropdown')) {
-      closeMobileMenu();
-    }
-  });
+    // Mobile dropdown toggle
+    $('.amd-dropdown > a').on('click', function (e) {
+      if ($(window).width() <= 992) {
+        e.preventDefault();
+        const submenu = $(this).next('.amd-dropdown-menu');
+        const parentDropdown = $(this).parent();
 
-  // Open info canvas
-  infoToggleBtn.on('click', function (e) {
-    e.stopPropagation();
-    infoCanvas.addClass('amd-open');
-    overlay.addClass('amd-show'); // show overlay
-  });
+        parentDropdown.siblings().find('.amd-dropdown-menu.amd-open').removeClass('amd-open')
+          .prev('a').removeClass('amd-active');
 
-  // Close info canvas button
-  closeCanvasBtn.on('click', function () {
-    closeInfoCanvas();
-  });
+        submenu.toggleClass('amd-open');
+        $(this).toggleClass('amd-active');
+      }
+    });
 
-  // Close both (mobile menu + info canvas) when clicking outside
-  $(document).on('click', function (event) {
+    // Close mobile menu when clicking links
+    navMenu.on('click', function (e) {
+      if (e.target.tagName === 'A' && !$(e.target).parent().hasClass('amd-dropdown')) {
+        closeMobileMenu();
+      }
+    });
 
-    // Outside mobile nav
-    if (navMenu.hasClass('amd-open') &&
-      !navMenu.is(event.target) &&
-      navMenu.has(event.target).length === 0 &&
-      !hamburger.is(event.target)) {
-      closeMobileMenu();
-    }
+    // Open info canvas
+    infoToggleBtn.on('click', function (e) {
+      e.stopPropagation();
+      infoCanvas.addClass('amd-open');
+      overlay.addClass('amd-show'); // show overlay
+    });
 
-    // Outside info canvas
-    if (infoCanvas.hasClass('amd-open') &&
-      !infoCanvas.is(event.target) &&
-      infoCanvas.has(event.target).length === 0 &&
-      !infoToggleBtn.is(event.target)) {
+    // Close info canvas button
+    closeCanvasBtn.on('click', function () {
       closeInfoCanvas();
-    }
-  });
+    });
 
-});
+    // Close both (mobile menu + info canvas) when clicking outside
+    $(document).on('click', function (event) {
+
+      // Outside mobile nav
+      if (navMenu.hasClass('amd-open') &&
+        !navMenu.is(event.target) &&
+        navMenu.has(event.target).length === 0 &&
+        !hamburger.is(event.target)) {
+        closeMobileMenu();
+      }
+
+      // Outside info canvas
+      if (infoCanvas.hasClass('amd-open') &&
+        !infoCanvas.is(event.target) &&
+        infoCanvas.has(event.target).length === 0 &&
+        !infoToggleBtn.is(event.target)) {
+        closeInfoCanvas();
+      }
+    });
+
+  });
 
 
   // -------------------------------
@@ -577,9 +577,14 @@ $(document).ready(function () {
 
 
 
-
-
 }); // document.ready end
+document.addEventListener("DOMContentLoaded", function () {
+  const sidebar = document.querySelector(".amd-category-detail-sidebar-wrapper");
+  const mobileCanvasBody = document.getElementById("amd-mobile-canvas-content");
 
+  if (sidebar && mobileCanvasBody) {
+    mobileCanvasBody.innerHTML = sidebar.innerHTML;
+  }
+});
 
 

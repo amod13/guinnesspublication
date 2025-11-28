@@ -23,7 +23,6 @@
             @endisset
         </div>
 
-
         @isset($data['record']->id)
             <div class="col-md-12 mb-3">
                 <x-form.select-input name="status" label="Status" :options="[
@@ -32,6 +31,10 @@
                 ]" :value="old('status', $data['record']->status ?? 'active')" required />
             </div>
         @endisset
+
+    <div class="col-md-12 mb-3">
+      <x-form.textarea :id="'content'" :label="'content'" :editor="true" :name="'content'" :value="old('content', $data['record']->content ?? '')" />
+    </div>
 
     </div>
 
